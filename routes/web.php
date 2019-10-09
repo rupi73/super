@@ -14,4 +14,6 @@
 Route::get('/', function () {
     return view('products.list');
 });
+Route::resource('papers','PapersController');
+Route::resource('treatments','TreatmentsController');
 
