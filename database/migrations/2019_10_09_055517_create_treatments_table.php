@@ -17,8 +17,13 @@ class CreateTreatmentsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('slug');
-            $table->json('settings');
+            if ((DB::connection()->getPdo()->getAttribute(PDO::ATTR_DRIVER_NAME) == 'mysql') && version_compare(DB::connection()->getPdo()->getAttribute(PDO::ATTR_SERVER_VERSION), '5.7.8', 'ge')) {
+                $table->json('settings');
             $table->json('quantity_prices');
+            } else {
+        $table->text('settings');
+            $table->text('quantity_prices');
+        }
             $table->timestamps();
         });
     }

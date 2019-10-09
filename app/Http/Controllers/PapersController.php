@@ -25,7 +25,7 @@ class PapersController extends Controller
     public function create()
     {
         //
-        view('papers.create');
+       return view('papers.create');
     }
 
     /**

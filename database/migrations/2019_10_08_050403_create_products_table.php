@@ -19,7 +19,11 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->integer('wp_product_category_id');
             $table->integer('wp_product_id');
-            $table->json('json_calc');
+            if ((DB::connection()->getPdo()->getAttribute(PDO::ATTR_DRIVER_NAME) == 'mysql') && version_compare(DB::connection()->getPdo()->getAttribute(PDO::ATTR_SERVER_VERSION), '5.7.8', 'ge')) {
+                $table->json('json_calc');
+            } else {
+        $table->text('json_calc');
+        }
             $table->integer('order_counts');            
             $table->timestamps();
         });
