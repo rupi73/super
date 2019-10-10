@@ -42,7 +42,12 @@
         @include('partials.aside')
         <div class="app-content">
           @include('partials.nav-top')
+          
+    <div class="main-content">
+    <div class="wrap-content container" id="container">
       @yield('content')
+    </div>
+    </div>
     </div>
         <footer>
             <div class="footer-inner">
