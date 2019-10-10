@@ -9,13 +9,22 @@
               <div role="menu" class="dropdown-menu dropdown-menu-right dropdown-light"><a href="#" class="dropdown-item">Deutsch </a><a href="#" class="dropdown-item">English </a><a href="#" class="dropdown-item">Italiano</a></div>
           </li>
           <li class="dropdown current-user d-none d-md-block d-lg-block d-xl-block">
-              <a href class="dropdown-toggle" data-toggle="dropdown"><img src="assets/images/avatar-1.jpg" alt="Peter"> <span class="username">Peter <i class="ti-angle-down"></i></span></a>
+              <a href class="dropdown-toggle" data-toggle="dropdown"><img src="{{asset('assets/images/avatar-1.jpg')}}" alt="{{ Auth::user()->name }}"> <span class="username">{{ Auth::user()->name }} <i class="ti-angle-down"></i></span></a>
               <ul class="dropdown-menu dropdown-menu-right dropdown-dark">
-                  <li><a href="pages_user_profile.html">My Profile</a></li>
+                  <!--li><a href="pages_user_profile.html">My Profile</a></li>
                   <li><a href="pages_calendar.html">My Calendar</a></li>
                   <li><a hef="pages_messages.html">My Messages (3)</a></li>
                   <li><a href="login_lockscreen.html">Lock Screen</a></li>
-                  <li><a href="login_signin.html">Log Out</a></li>
+                  <li><a href="login_signin.html">Log Out</a></li-->
+                    <li><a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                      document.getElementById('logout-form').submit();">
+                         {{ __('Logout') }}
+                     </a>
+                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </li>
               </ul>
           </li>
       </ul>

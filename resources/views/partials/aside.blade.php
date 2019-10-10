@@ -6,7 +6,7 @@
                     <div class="form-group"><input type="text" class="form-control" placeholder="Search..."> <button class="btn search-button" type="submit"><i class="ti-search"></i></button></div>
                 </form>
             </div>
-            <div class="navbar-title"><span>Main Navigation</span></div>
+            <div class="navbar-title"><span>Control Navigation</span></div>
             <ul class="main-navigation-menu">
                 <li>
                     <a href="index.html">
@@ -24,8 +24,8 @@
                         </div>
                     </a>
                     <ul class="sub-menu">
-                        <li><a href="ui_elements.html"><span class="title">Add</span></a></li>
-                        <li><a href="ui_buttons.html"><span class="title">List</span></a></li>
+                    <li><a href="{{route('orders.create')}}"><span class="title">Add</span></a></li>
+                        <li><a href="{{route('orders.index')}}"><span class="title">List</span></a></li>
                     </ul>
                 </li>
                 <li>
@@ -36,9 +36,8 @@
                         </div>
                     </a>
                     <ul class="sub-menu">
-                        <li><a href="table_basic.html"><span class="title">Basic Tables</span></a></li>
-                        <li><a href="table_responsive.html"><span class="title">Responsive Tables</span></a></li>
-                        <li><a href="table_data.html"><span class="title">Advanced Data Tables</span></a></li>
+                        <li><a href="{{route('products.create')}}"><span class="title">Add</span></a></li>
+                        <li><a href="{{route('products.index')}}"><span class="title">List</span></a></li>
                     </ul>
                 </li>                        
               
@@ -47,23 +46,31 @@
              
           
             </ul>
-            <div class="navbar-title"><span>Franchisee Features</span></div>
+            <div class="navbar-title"><span>Settings</span></div>
             <ul class="folders">
                 <li>
-                    <a href="pages_calendar.html">
+                    <a href="javascript:void(0)">
                         <div class="item-content">
                             <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-terminal fa-stack-1x fa-inverse"></i></span></div>
-                            <div class="item-inner"><span class="title">Calendar</span></div>
+                            <div class="item-inner"><span class="title">Papers</span></div>
                         </div>
                     </a>
+                    <ul class="sub-menu">
+                    <li><a href="{{route('papers.create')}}"><span class="title">Add</span></a></li>
+                        <li><a href="{{route('papers.index')}}"><span class="title">List</span></a></li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="pages_messages.html">
+                    <a href="javascript:void(0)">
                         <div class="item-content">
                             <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i></span></div>
-                            <div class="item-inner"><span class="title">Messages</span></div>
+                            <div class="item-inner"><span class="title">Treatments</span></div>
                         </div>
                     </a>
+                    <ul class="sub-menu">
+                            <li><a href="{{route('treatments.create')}}"><span class="title">Add</span></a></li>
+                                <li><a href="{{route('treatments.index')}}"><span class="title">List</span></a></li>
+                            </ul>
                 </li>
             </ul>
         </nav>

@@ -4,15 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PapersController extends Controller
+class OrdersController extends Controller
 {
-
-
-public function __construct(){
-    $this->middleware('auth');
-}
-
-    
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +14,6 @@ public function __construct(){
     public function index()
     {
         //
-        return view('papers.index');
     }
 
     /**
@@ -32,7 +24,6 @@ public function __construct(){
     public function create()
     {
         //
-       return view('papers.create');
     }
 
     /**
@@ -55,7 +46,6 @@ public function __construct(){
     public function show($id)
     {
         //
-      return  view('papers.show');
     }
 
     /**
@@ -67,7 +57,6 @@ public function __construct(){
     public function edit($id)
     {
         //
-        return view('papers.edit');
     }
 
     /**

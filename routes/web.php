@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('products.list');
-});
+Route::get('/', 'DashboardController@index')->name('dashboard');
 Route::resource('papers','PapersController');
 Route::resource('treatments','TreatmentsController');
+Route::resource('orders','OrdersController');
+Route::resource('products','ProductsController');
+Auth::routes();
 
+/*Route::get('/home', 'HomeController@index')->name('home');*/
