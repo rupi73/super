@@ -16,6 +16,11 @@ Route::resource('papers','PapersController');
 Route::resource('treatments','TreatmentsController');
 Route::resource('orders','OrdersController');
 Route::resource('products','ProductsController');
+Route::resource('quantity','QuantitiesController');
+Route::resource('sizes','SizesController');
+Route::resource('category','CategoriesController');
+Route::resource('gsm','GsmsController');
+
 Auth::routes();
 
 /*Route::get('/home', 'HomeController@index')->name('home');*/

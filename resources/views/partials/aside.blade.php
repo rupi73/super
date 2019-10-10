@@ -72,6 +72,55 @@
                                 <li><a href="{{route('treatments.index')}}"><span class="title">List</span></a></li>
                             </ul>
                 </li>
+                <li>
+                        <a href="javascript:void(0)">
+                            <div class="item-content">
+                                <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i></span></div>
+                                <div class="item-inner"><span class="title">Categories</span></div>
+                            </div>
+                        </a>
+                        <ul class="sub-menu">
+                                <li><a href="{{route('category.create')}}"><span class="title">Add</span></a></li>
+                                    <li><a href="{{route('category.index')}}"><span class="title">List</span></a></li>
+                                </ul>
+                    </li>
+
+                <li>
+                        <a href="javascript:void(0)">
+                            <div class="item-content">
+                                <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i></span></div>
+                                <div class="item-inner"><span class="title">Quantities</span></div>
+                            </div>
+                        </a>
+                        <ul class="sub-menu">
+                                <li><a href="{{route('quantity.create')}}"><span class="title">Add</span></a></li>
+                                    <li><a href="{{route('quantity.index')}}"><span class="title">List</span></a></li>
+                                </ul>
+                    </li>
+                    <li>
+                            <a href="javascript:void(0)">
+                                <div class="item-content">
+                                    <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i></span></div>
+                                    <div class="item-inner"><span class="title">Sizes</span></div>
+                                </div>
+                            </a>
+                            <ul class="sub-menu">
+                                    <li><a href="{{route('sizes.create')}}"><span class="title">Add</span></a></li>
+                                        <li><a href="{{route('sizes.index')}}"><span class="title">List</span></a></li>
+                                    </ul>
+                        </li>
+                        <li>
+                                <a href="javascript:void(0)">
+                                    <div class="item-content">
+                                        <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i></span></div>
+                                        <div class="item-inner"><span class="title">GSM</span></div>
+                                    </div>
+                                </a>
+                                <ul class="sub-menu">
+                                        <li><a href="{{route('gsm.create')}}"><span class="title">Add</span></a></li>
+                                            <li><a href="{{route('gsm.index')}}"><span class="title">List</span></a></li>
+                                        </ul>
+                            </li>
             </ul>
         </nav>
     </div>
