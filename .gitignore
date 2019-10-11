@@ -15,3 +15,4 @@ yarn-error.log
 /public/.htaccess
 .htaccess
 error_log.txt
+/database/temp

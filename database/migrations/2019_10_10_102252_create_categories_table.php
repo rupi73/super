@@ -17,7 +17,6 @@ class CreateCategoriesTable extends Migration
             $table->tinyIncrements('id');
             $table->string('name');
             $table->smallInteger('product_counts')->default(0);
-            $table->integer('paper_id');
             $table->timestamps();
         });
     }

@@ -6,7 +6,7 @@
 <!--<![endif]-->
 
 <head>
-    <title>ClipTwo - Responsive Admin Template</title>
+    <title>Chhapai - Control Panel</title>
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1,maximum-scale=1">
@@ -51,7 +51,7 @@
     </div>
         <footer>
             <div class="footer-inner">
-                <div class="pull-left">&copy; <span class="current-year"></span> <span class="text-bold text-uppercase">ClipTheme</span>. <span>All rights reserved</span></div>
+                <div class="pull-left">&copy; <span class="current-year"></span> <span class="text-bold text-uppercase">Chhapai</span>. <span>All rights reserved</span></div>
                 <div class="pull-right"><span class="go-top"><i class="ti-angle-up"></i></span></div>
             </div>
         </footer>
