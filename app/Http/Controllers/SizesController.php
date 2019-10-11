@@ -14,7 +14,7 @@ class SizesController extends Controller
     public function index()
     {
         //
-        return view('sizes.index');
+        return view('size.index');
     }
 
     /**
@@ -25,7 +25,7 @@ class SizesController extends Controller
     public function create()
     {
         //
-        return view('sizes.create');
+        return view('size.create');
     }
 
     /**
