@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
+use App\Quantity;
 
 class QuantitiesController extends Controller
 {
@@ -13,8 +15,10 @@ class QuantitiesController extends Controller
      */
     public function index()
     {
-        //
-        return view('quantity.index');
+        //fetch quantities
+        $quantities = Quantity::with('category')->orderBy('id','desc')->paginate('5');
+
+        return view('quantity.index')->with('quantities',$quantities);
     }
 
     /**
@@ -24,8 +28,9 @@ class QuantitiesController extends Controller
      */
     public function create()
     {
-        //
-        return view('quantity.create');
+        //fetch categories
+$categories = Category::orderBy('name','asc')->get();
+        return view('quantity.create')->with('categories',$categories);
     }
 
     /**
@@ -36,7 +41,27 @@ class QuantitiesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Validate the data
+        $this->validate($request,[
+        'label'=>'required|max:32',
+        'value'=>'required|max:16',
+        'categories'=>'required|array|min:1'
+        ]);
+        //loop the categories data for each record create
+        $categories = $request->categories;
+        foreach($categories as $category):
+           if(!Quantity::where('category_id',$category)->where('value',$request->value)->first()):
+            print $category;
+        $quantity = new Quantity;
+        $quantity->label = $request->label;
+        $quantity->value = $request->value;
+        $quantity->category_id = $category;
+        $quantity->save();
+           endif;
+        endforeach;
+
+        //redirect the page to listing
+        return redirect()->route('quantity.index');
     }
 
     /**

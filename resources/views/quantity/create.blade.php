@@ -15,148 +15,38 @@
             <div class="panel-body">
                     <div class="row">
                             <div class="col-md-6">
-                <form role="form">
+                            <form role="form" action="{{route('quantity.store')}}" method="POST">
+                                @csrf
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Lable</label>
-                        <input type="email" class="form-control" id="exampleInputEmail11">
+                        <label for="label">Label</label>
+                        <input type="text" class="form-control" id="label" name="label">
                     </div>
                 </div>
                 
                         <div class="col-md-6">
                     <div class="form-group">
-                            <label for="exampleInputEmail1">Value</label>
-                            <input type="email" class="form-control" id="exampleInputEmail11">
+                            <label for="value">Value</label>
+                            <input type="text" class="form-control" id="value" name="value">
                         </div>
                         </div>
                 </div>
-                <h5 class="panel-title">Quantity</h5></div>
+                <h5 class="panel-title">Categories</h5>
+
                     <div class="row">
-                   <div class="col-md-3">  
                         
-                    
-                    
+                      @foreach($categories as $category)  
+                   <div class="col-md-3">            
+                
                             <div class="panel-body">
                                 <div class="checkbox clip-check check-primary">
-                                    <input type="checkbox" id="checkbox1" value="1">
-                                    <label for="checkbox1">Business card</label>
-                                </div>
-                                <div class="checkbox clip-check check-primary">
-                                    <input type="checkbox" id="checkbox2" value="1">
-                                    <label for="checkbox2">Menu cards</label>
-                                </div>
-                                <div class="checkbox clip-check check-primary">
-                                        <input type="checkbox" id="checkbox3" value="1">
-                                        <label for="checkbox3">Tags</label>
-                                    </div>
-                                    <div class="checkbox clip-check check-primary">
-                                            <input type="checkbox" id="checkbox2" value="1">
-                                            <label for="checkbox2">Booklets</label>
-                                        </div>
-                                        <div class="checkbox clip-check check-primary">
-                                                <input type="checkbox" id="checkbox3" value="1">
-                                                <label for="checkbox3">Bookmarks</label>
-                                            </div>
-                                
-                                
-                            </div>
-                   
-
-                        </div>
-
-                        <div class="col-md-3"> 
-                              
-                         
-                                  
-                                <div class="panel-body">
-
-                                    <div class="checkbox clip-check check-primary">
-                                        <input type="checkbox" id="checkbox4" value="1">
-                                        <label for="checkbox4">Presenttation Folders</label>
-                                    </div>
-                                    <div class="checkbox clip-check check-primary">
-                                        <input type="checkbox" id="checkbox5" value="1">
-                                        <label for="checkbox5">Desk calenders</label>
-                                    </div>
-                                    
-                                    <div class="checkbox clip-check check-primary">
-                                            <input type="checkbox" id="checkbox4" value="1">
-                                            <label for="checkbox4">Desk Notepads</label>
-                                        </div>
-                                        <div class="checkbox clip-check check-primary">
-                                            <input type="checkbox" id="checkbox5" value="1">
-                                            <label for="checkbox5">Envelopes</label>
-                                        </div>
-                                        <div class="checkbox clip-check check-primary">
-                                                <input type="checkbox" id="checkbox5" value="1">
-                                                <label for="checkbox5">Coasters</label>
-                                            </div>
-                                    
-                                    
-                                </div>
-                          
-    
-                            </div>
-
-                            <div class="col-md-3">   
+                                <input type="checkbox" id="check-{{$category->name}}" value="{{$category->id}}" name="categories[]">
+                                <label for="check-{{$category->name}}">{{$category->name}}</label>
+                                </div><!--check -->
+                            </div><!--panel body-->
+                        </div><!--col-md-3-->
+                        @endforeach
                             
-                             
-                                    <div class="panel-body">
-                                        <div class="checkbox clip-check check-primary">
-                                            <input type="checkbox" id="checkbox6" value="1">
-                                            <label for="checkbox6">Invitations Cards</label>
-                                        </div>
-                                        <div class="checkbox clip-check check-primary">
-                                            <input type="checkbox" id="checkbox7" value="1">
-                                            <label for="checkbox7">Posters</label>
-                                        </div>
-                                        <div class="checkbox clip-check check-primary">
-                                                <input type="checkbox" id="checkbox6" value="1">
-                                                <label for="checkbox6">Card Holders </label>
-                                            </div>
-                                            <div class="checkbox clip-check check-primary">
-                                                <input type="checkbox" id="checkbox7" value="1">
-                                                <label for="checkbox7">Leafelts</label>
-                                            </div>
-                                            <div class="checkbox clip-check check-primary">
-                                                    <input type="checkbox" id="checkbox7" value="1">
-                                                    <label for="checkbox7">Letterheads</label>
-                                                </div>
-                                        
-                                    </div>
-                           
-        
-                                </div>
-
-                                <div class="col-md-3">   
-                            
-                             
-                                        <div class="panel-body">
-                                            <div class="checkbox clip-check check-primary">
-                                                <input type="checkbox" id="checkbox6" value="1">
-                                                <label for="checkbox6">Stickers</label>
-                                            </div>
-                                            <div class="checkbox clip-check check-primary">
-                                                <input type="checkbox" id="checkbox7" value="1">
-                                                <label for="checkbox7">Tentcards</label>
-                                            </div>
-                                            <div class="checkbox clip-check check-primary">
-                                                    <input type="checkbox" id="checkbox6" value="1">
-                                                    <label for="checkbox6">Wrapping Sheets </label>
-                                                </div>
-                                                <div class="checkbox clip-check check-primary">
-                                                    <input type="checkbox" id="checkbox7" value="1">
-                                                    <label for="checkbox7">Magazines</label>
-                                                </div>
-                                                <div class="checkbox clip-check check-primary">
-                                                        <input type="checkbox" id="checkbox7" value="1">
-                                                        <label for="checkbox7">Wall Hanging Calenders</label>
-                                                    </div>
-                                            
-                                        </div>
-                               
-            
-                                    </div>
-                    </div>
+                    </div><!--row-->
 
                    
                     <button type="submit" class="btn btn-o btn-primary">Submit</button>

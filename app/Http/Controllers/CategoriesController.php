@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
 
 class CategoriesController extends Controller
 {
@@ -13,8 +14,10 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
-        return view('category.index');
+        // go to the model and get a group of records
+        $categories = Category::orderBy('id','desc')->paginate(2);
+
+        return view('category.index')->with('categories',$categories);
     }
 
     /**
@@ -36,7 +39,22 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       // validate the form data
+      $this->validate($request, [
+        'name' => 'required|max:255|unique:categories'
+      ]);
+      // process the data and submit it
+    $category = new Category();
+    $category->name = $request->name;
+    
+        //redirect to category listing
+      // if successful we want to redirect
+      if ($category->save()) {
+        return redirect()->route('category.index');
+      } else {
+        return redirect()->route('category.create');
+      }
+        
     }
 
     /**

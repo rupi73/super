@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Gsm;
 
 class GsmsController extends Controller
 {
@@ -13,8 +14,9 @@ class GsmsController extends Controller
      */
     public function index()
     {
-        //
-        return view('gsm.index');
+        //fetch the data
+        $gsms = Gsm::orderBy('id','desc')->paginate('2');
+        return view('gsm.index')->with('gsms',$gsms);
     }
 
     /**
@@ -36,7 +38,19 @@ class GsmsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate the form data
+        $this->validate($request,[
+        'label'=>'required|max:64|unique:gsms',
+        'value'=>'required|max:16|unique:gsms'
+        ]); 
+        $gsm = new Gsm();
+        $gsm->label = $request->label;
+        $gsm->value = $request->value;
+
+        if($gsm->save())
+            return redirect()->route('gsm.index');
+        
+        return redirect()->route('gsm.create');
     }
 
     /**

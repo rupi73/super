@@ -3,22 +3,24 @@
 
 
 <div class="container">
+        @foreach($quantities as $quantity)
 <div class="row">
     <div class="col-md-8">
-        <h2>Category</h2>
+        
         <div class="card my-4">
                 <div class="card-body">
                 
-                            <h4 class="card-title">Lable</h4>
+                            <h4 class="card-title">{{$quantity->label}}</h4>
                             <div class="row">  
                 <div class="col-md-4">
-                        <p class="card-text">Value</p>
+                        <p class="card-text">{{$quantity->value}}</p>
                 </div>
                 <div class="col-md-4">
-                        <p class="card-text">Category</p>
+                        <p class="card-text">{{$quantity->category->name}}</p>
                 </div>
                 <div class="col-md-4">
-                        <a href="#" class="card-link">Edit</a>
+                <a href="{{route('quantity.edit',$quantity->id)}}" class="card-link">Edit</a>
+                <a href="{{route('quantity.destroy',$quantity->id)}}" class="card-link">Delete</a>
                     </div>
               
                  
@@ -28,88 +30,7 @@
             </div>
 </div>
 <hr>
-<div class="row">
-        <div class="col-md-8">
-                <h2>Gsm</h2>
-                <div class="card my-4">
-                        <div class="card-body">
-                        
-                                    <h4 class="card-title">Lable</h4>
-                                    <div class="row">  
-                        <div class="col-md-4">
-                                <p class="card-text">Value</p>
-                        </div>
-                        <div class="col-md-4">
-                                <p class="card-text">Gsm</p>
-                        </div>
-                        <div class="col-md-4">
-                                <a href="#" class="card-link">Edit</a>
-                            </div>
-                      
-                         
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-md-8">
-                <h2>Quantity</h2>
-                <div class="card my-4">
-                        <div class="card-body">
-                        
-                                    <h4 class="card-title">Lable</h4>
-                                    <div class="row">  
-                        <div class="col-md-4">
-                                <p class="card-text">Value</p>
-                        </div>
-                        <div class="col-md-4">
-                                <p class="card-text">Quantity</p>
-                        </div>
-                        <div class="col-md-4">
-                                <a href="#" class="card-link">Edit</a>
-                            </div>
-                      
-                         
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-    </div>
-           
-<hr>
-
-<div class="row">
-        <div class="col-md-8">
-                <h2>Size</h2>
-                <div class="card my-4">
-                        <div class="card-body">
-                        
-                                    <h4 class="card-title">Lable</h4>
-                                    <div class="row">  
-                        <div class="col-md-4">
-                                <p class="card-text">Value</p>
-                        </div>
-                        <div class="col-md-4">
-                                <p class="card-text">Size</p>
-                        </div>
-                        <div class="col-md-4">
-                                <a href="#" class="card-link">Edit</a>
-                            </div>
-                      
-                         
-                        </div>
-                        </div>
-                      </div>
-                    </div>
-    </div>
-
-
-
-</div>
-
-
+@endforeach
+{{$quantities->links()}}
 
 @endsection
