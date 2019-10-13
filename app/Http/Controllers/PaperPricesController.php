@@ -3,18 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Gsm;
-use App\Category;
-use App\Paper;
-class PapersController extends Controller
+
+class PaperPricesController extends Controller
 {
-
-
-public function __construct(){
-    $this->middleware('auth');
-}
-
-    
     /**
      * Display a listing of the resource.
      *
@@ -22,9 +13,7 @@ public function __construct(){
      */
     public function index()
     {
-        //fetch papers
-        $papers = Paper::with('gsm')->orderBy('name','asc')->paginate('2');
-        return view('papers.index')->with('papers',$papers);
+        //
     }
 
     /**
@@ -34,10 +23,8 @@ public function __construct(){
      */
     public function create()
     {
-        //fetch gsms
-        $gsms = Gsm::orderBy('value','asc')->get();
-        
-       return view('papers.create')->with('gsms',$gsms);
+        //
+        return view('papers.price-create');
     }
 
     /**
@@ -48,27 +35,7 @@ public function __construct(){
      */
     public function store(Request $request)
     {
-        //validate data
-        $this->validate($request,[
-        'name'=>'required|max:191',
-        'gsms'=>'required|array|min:1',
-        'settings'=>'required'
-        ]);
-//loop the gsms data for each record create
-$gsms = $request->gsms;
-        foreach($gsms as $_gsm):
-           if(!Paper::where('gsm_id',$_gsm)->where('name',$request->name)->first()):
-            print $_gsm;
-        $gsm= Gsm::findOrFail($_gsm);
-        $paper = new Paper;
-        $paper->name = $request->name;
-        $paper->slug = str_slug($request->name).'-'.$gsm->value;
-        $paper->gsm_id = $_gsm;
-        $paper->settings = json_encode($request->settings);        
-        $paper->save();
-           endif;
-        endforeach;
-return redirect()->route('papers.index');
+        //
     }
 
     /**
@@ -80,7 +47,6 @@ return redirect()->route('papers.index');
     public function show($id)
     {
         //
-      return  view('papers.show');
     }
 
     /**
@@ -92,7 +58,6 @@ return redirect()->route('papers.index');
     public function edit($id)
     {
         //
-        return view('papers.edit');
     }
 
     /**

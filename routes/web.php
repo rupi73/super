@@ -20,6 +20,7 @@ Route::resource('quantity','QuantitiesController');
 Route::resource('sizes','SizesController');
 Route::resource('category','CategoriesController');
 Route::resource('gsm','GsmsController');
+Route::resource('paper-prices','PaperPricesController');
 
 Auth::routes();
 
