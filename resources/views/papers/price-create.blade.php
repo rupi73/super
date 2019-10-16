@@ -237,7 +237,7 @@ var vm = new Vue({
         console.log(vm.qp);
       },
       saveQpValues:function(){
-        const apiServer = '{{env('App_URL')."japi/save_paper_prices"}}';
+        const apiServer = "{{url('/japi/save_paper_prices')}}";
       console.log(apiServer);
       axios.post(`${apiServer}`, {category:vm.category.id,paper:vm.paper.id,qp:vm.qp}).then((res)=>{
         if(res.data.success){
@@ -255,7 +255,7 @@ var vm = new Vue({
     // When the query value changes, fetch new results from
     // the API - in practice this action should be debounced
     pquery(newQuery) {
-      const apiServer = '{{env('App_URL')."japi/papers"}}';
+      const apiServer ="{{url('/japi/papers/')}}";
       console.log(apiServer);
       axios.get(`${apiServer}?cat=${this.category.id}&& q=${newQuery}`)
         .then((res) => {
@@ -264,7 +264,7 @@ var vm = new Vue({
         })
     },
     cquery(newQuery) {
-      const apiServer = '{{env('App_URL')."japi/categories"}}';
+      const apiServer = "{{url('/japi/categories/')}}";
       console.log(apiServer);
       axios.get(`${apiServer}?q=${newQuery}`)
         .then((res) => {
