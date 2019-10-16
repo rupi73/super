@@ -9,7 +9,7 @@ class Category extends Model
     //quantity
     public function quantities()
     {
-      return $this->hasMany('App\Quanity');
+      return $this->hasMany('App\Quantity');
     }
 
     //size

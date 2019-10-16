@@ -61,7 +61,7 @@ $gsms = $request->gsms;
             print $_gsm;
         $gsm= Gsm::findOrFail($_gsm);
         $paper = new Paper;
-        $paper->name = $request->name;
+        $paper->name = $request->name.' '.$gsm->label;
         $paper->slug = str_slug($request->name).'-'.$gsm->value;
         $paper->gsm_id = $_gsm;
         $paper->settings = json_encode($request->settings);        

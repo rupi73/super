@@ -16,6 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->tinyIncrements('id');
             $table->string('name');
+            $table->boolean('is_size_price')->default(1);
             $table->smallInteger('product_counts')->default(0);
             $table->timestamps();
         });

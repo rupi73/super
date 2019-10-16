@@ -22,6 +22,12 @@
     <div class="error">{{ $errors->first('name') }}</div>
 @endif
                     </div>
+                    <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="1" id="category_size_price" name="is_size_price">
+                            <label class="form-check-label" for="category_size_price">
+                              Size In Pricing
+                            </label>
+                          </div>
                    
                     <button type="submit" class="btn btn-o btn-primary">Submit</button>
                 </form>

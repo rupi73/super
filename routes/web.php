@@ -25,3 +25,9 @@ Route::resource('paper-prices','PaperPricesController');
 Auth::routes();
 
 /*Route::get('/home', 'HomeController@index')->name('home');*/
+
+/*API Calls*/
+Route::get('/japi/papers','JsApiController@papers');
+Route::get('/japi/categories','JsApiController@categories');
+Route::get('/japi/categories/sizes-qnty','JsApiController@sizesQnties');
+Route::post('/japi/save_paper_prices','JsApiController@savePaperPrices');

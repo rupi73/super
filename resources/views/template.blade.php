@@ -6,14 +6,14 @@
 <!--<![endif]-->
 
 <head>
-    <title>Chhapai - Control Panel</title>
+    <title>Chhapai - @yield('title','Control Panel')</title>
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1,maximum-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1,maximum-scale=1,shrink-to-fit=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta content="ClipTwo - Responsive Admin Template build with Bootstrap" name="description">
-    <meta content="ClipTheme" name="author">
+    <meta content="Chhapai - Control Panel" name="description">
+    <meta content="Chhapai Theme" name="author">
     <link rel="apple-touch-icon" sizes="57x57" href="{{asset('assets/images/apple-icon-57x57.png')}}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{asset('assets/images/apple-icon-60x60.png')}}">
     <link rel="apple-touch-icon" sizes="72x72" href="{{asset('assets/images/apple-icon-72x72.png')}}">
@@ -32,7 +32,7 @@
     <meta name="msapplication-TileImage" content="{{asset('assets/images/ms-icon-144x144.png')}}">
     <meta name="theme-color" content="#ffffff">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,400italic,600,700|Raleway:100,300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="{{asset('assets/css/vendors.bundle.min.css')}}">
+    <link rel="stylesheet" href="{{mix('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/theme.bundle.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/themes/theme-1.min.css')}}" id="skin_color">
     
@@ -62,7 +62,7 @@
     <script src="{{asset('vendor/chart.js/dist/Chart.min.js')}}"></script>
     <script src="{{asset('vendor/jquery.sparkline/jquery.sparkline.min.js')}}"></script>
     <script src="{{asset('assets/js/main.min.js')}}"></script>
-    <script src="{{asset('js/app.js')}}"></script>
+    <script src="{{mix('js/app.js')}}"></script>
     @yield('scripts')
     <script>
         NProgress.configure({

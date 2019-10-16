@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
+use App\Paper;
 
 class PaperPricesController extends Controller
 {
@@ -23,8 +25,11 @@ class PaperPricesController extends Controller
      */
     public function create()
     {
-        //
-        return view('papers.price-create');
+        //fetch all papers
+        $papers = Paper::orderBY('name','asc')->get();
+        //fetch all categories
+        $categories = Category::orderBY('name','asc')->get();
+        return view('papers.price-create',['papers'=>json_encode($papers),'categories'=>json_encode($categories),'_papers'=>json_encode(['abc','def','ghi'])]);
     }
 
     /**

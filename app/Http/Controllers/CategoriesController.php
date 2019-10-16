@@ -46,6 +46,7 @@ class CategoriesController extends Controller
       // process the data and submit it
     $category = new Category();
     $category->name = $request->name;
+    $category->is_size_price = $request->is_size_price?1:0;
     
         //redirect to category listing
       // if successful we want to redirect

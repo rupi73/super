@@ -36,9 +36,10 @@ class CreatePapersTable extends Migration
                 $table->json('settings');
                 $table->json('quantity_prices');
             } else {
-            $table->text('settings');   
+            $table->text('settings')->nullable();   
             $table->text('quantity_prices');         
             }
+            $table->unique(['category_id','paper_id']);
             $table->timestamps();
             $table->foreign('paper_id')->references('id')->on('papers')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

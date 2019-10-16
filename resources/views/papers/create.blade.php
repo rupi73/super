@@ -11,11 +11,7 @@
                     <label for="paper-name">Name</label>
                     <input type="text" class="form-control" id="paper-name" placeholder="paper name" name="name">
                 </div>
-
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Slug</label>
-                    <input type="text" class="form-control" id="paper-slug" placeholder="paper slug">
-                </div>
+               
                 <div class="row">
                     <h5>GSM</h5>
                     @foreach($gsms as $gsm)
