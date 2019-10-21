@@ -21,6 +21,8 @@ Route::resource('sizes','SizesController');
 Route::resource('category','CategoriesController');
 Route::resource('gsm','GsmsController');
 Route::resource('paper-prices','PaperPricesController');
+Route::resource('treatments','TreatmentsController');
+Route::resource('treatment-prices','TreatmentPricesController');
 
 Auth::routes();
 
@@ -31,3 +33,6 @@ Route::get('/japi/papers','JsApiController@papers');
 Route::get('/japi/categories','JsApiController@categories');
 Route::get('/japi/categories/sizes-qnty','JsApiController@sizesQnties');
 Route::post('/japi/save_paper_prices','JsApiController@savePaperPrices');
+Route::get('/japi/treatments','JsApiController@treatments');
+Route::get('/japi/cat-qnty','JsApiController@catQnties');
+Route::post('/japi/save_treatment_prices','JsApiController@saveTreatmentPrices');

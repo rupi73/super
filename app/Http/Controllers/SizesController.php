@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Size;
+use App\SizeCategory;
 
 class SizesController extends Controller
 {
@@ -16,7 +17,7 @@ class SizesController extends Controller
     public function index()
     {
         //fetch sizes
-        $sizes = Size::with('category')->orderBy('id','desc')->paginate('5');
+        $sizes = Size::with(['categories'])->orderBy('id','desc')->paginate('5');
 
         return view('size.index')->with('sizes',$sizes);
     }
@@ -45,24 +46,28 @@ return view('size.create')->with('categories',$categories);
         //Validate the data
         $this->validate($request,[
             'label'=>'required|max:32',
-            'value'=>'required|max:16',
+            'value'=>'required|max:16|unique:sizes',
             'categories'=>'required|array|min:1'
             ]);
             //loop the categories data for each record create
-            $categories = $request->categories;
-            foreach($categories as $category):
-               if(!Size::where('category_id',$category)->where('value',$request->value)->first()):
-                print $category;
+           
             $size = new Size;
             $size->label = $request->label;
             $size->value = $request->value;
-            $size->category_id = $category;
-            $size->save();
-               endif;
+            if($size->save()):
+            $categories = $request->categories;
+            foreach($categories as $category):
+               if(!SizeCategory::where('category_id',$category)->where('size_id',$size->id)->first()):
+                $sc = new SizeCategory;
+                $sc->size_id = $size->id;
+                $sc->category_id = $category;
+                $sc->save();
+                endif;
             endforeach;
-    
             //redirect the page to listing
             return redirect()->route('sizes.index');
+            endif;
+            
     }
 
     /**

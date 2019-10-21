@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Size extends Model
 {
 
- //category
- public function category()
+ //size category
+ public function categories()
   {
-    return $this->belongsTo('App\Category');
+    return $this->belongsToMany('App\Category','size_categories');
   }
 }

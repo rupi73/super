@@ -9,12 +9,12 @@ class Category extends Model
     //quantity
     public function quantities()
     {
-      return $this->hasMany('App\Quantity');
+      return $this->belongsToMany('App\Quantity','quantity_categories');
     }
 
     //size
     public function sizes()
     {
-      return $this->hasMany('App\Size');
+      return $this->belongsToMany('App\Size','size_categories');
     }
 }

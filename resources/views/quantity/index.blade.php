@@ -16,7 +16,11 @@
                         <p class="card-text">{{$quantity->value}}</p>
                 </div>
                 <div class="col-md-4">
-                        <p class="card-text">{{$quantity->category->name}}</p>
+                        <p class="card-text">
+                                @foreach($quantity->categories as $qc)
+                                        {{$qc->name. (!$loop->last?',':'')}}
+                                        @endforeach
+                                </p>
                 </div>
                 <div class="col-md-4">
                 <a href="{{route('quantity.edit',$quantity->id)}}" class="card-link">Edit</a>

@@ -59,7 +59,7 @@
                     <li><a href="{{route('papers.create')}}"><span class="title">Add</span></a></li>
                         <li><a href="{{route('papers.index')}}"><span class="title">List</span></a></li>
                         <li><a href="{{route('paper-prices.create')}}"><span class="title">Add Price</span></a></li>
-                        <li><a href="{{route('paper-prices.index')}}"><span class="title">List Prices</span></a></li>
+                       
                     </ul>
                 </li>
                 <li>
@@ -72,6 +72,8 @@
                     <ul class="sub-menu">
                             <li><a href="{{route('treatments.create')}}"><span class="title">Add</span></a></li>
                                 <li><a href="{{route('treatments.index')}}"><span class="title">List</span></a></li>
+                                <li><a href="{{route('treatment-prices.create')}}"><span class="title">Add Price</span></a></li>
+                                
                             </ul>
                 </li>
                 <li>

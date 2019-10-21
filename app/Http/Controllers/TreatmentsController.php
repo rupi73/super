@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Treatment;
 
 class TreatmentsController extends Controller
 {
@@ -13,8 +14,9 @@ class TreatmentsController extends Controller
      */
     public function index()
     {
-        //
-        return view('treatments.index');
+        //fetch treatments
+        $treatments = Treatment::orderBy('name','asc')->paginate(2);
+        return view('treatments.index',compact('treatments'));
     }
 
     /**
@@ -36,7 +38,22 @@ class TreatmentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate the data
+        $this->validate($request,[
+            'name'=>'required|max:191|unique:treatments',
+            'printing'=>'required'
+        ]);
+
+        $treatment = new Treatment;
+        $treatment->name = $request->name;
+        $treatment->slug = str_slug($request->name);
+        $settings = ['sides'=>$request->sides];
+        if(strlen(trim($request->colors)))
+        $settings['colors']=$request->colors;
+        $treatment->settings = json_encode($settings);
+        if($treatment->save())
+        return redirect()->route('treatments.index');
+
     }
 
     /**

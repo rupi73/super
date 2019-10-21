@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Quantity extends Model
 {
     //category
-    public function category()
+    public function categories()
   {
-    return $this->belongsTo('App\Category');
+    return $this->belongsToMany('App\Category','quantity_categories');
   }
 }

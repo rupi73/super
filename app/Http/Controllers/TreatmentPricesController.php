@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
-use App\Quantity;
-use App\QuantityCategory;
 
-class QuantitiesController extends Controller
+class TreatmentPricesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +14,7 @@ class QuantitiesController extends Controller
      */
     public function index()
     {
-        //fetch quantities
-        $quantities = Quantity::with('categories')->orderBy('id','desc')->paginate('5');
-
-        return view('quantity.index')->with('quantities',$quantities);
+        //
     }
 
     /**
@@ -31,7 +26,8 @@ class QuantitiesController extends Controller
     {
         //fetch categories
 $categories = Category::orderBy('name','asc')->get();
-        return view('quantity.create')->with('categories',$categories);
+return view('treatments.price-create')->with('categories',$categories);
+
     }
 
     /**
@@ -42,32 +38,7 @@ $categories = Category::orderBy('name','asc')->get();
      */
     public function store(Request $request)
     {
-        //Validate the data
-        $this->validate($request,[
-        'label'=>'required|max:32',
-        'value'=>'required|max:16|unique:quantities',
-        'categories'=>'required|array|min:1'
-        ]);
-        //loop the categories data for each record create
-        $categories = $request->categories;
-        
-        $quantity = new Quantity;
-        $quantity->label = $request->label;
-        $quantity->value = $request->value;
-        if($quantity->save()):
-        foreach($categories as $category):
-           if(!QuantityCategory::where('category_id',$category)->where('quantity_id',$quantity->id)->first()):
-            $qc= new QuantityCategory;
-            $qc->quantity_id = $quantity->id;
-            $qc->category_id = $category;
-            $qc->save();
-           endif;
-        endforeach;
-        //redirect the page to listing
-        return redirect()->route('quantity.index');
-    endif;
-    return redirect()->route('quantity.create');
-        
+        //
     }
 
     /**

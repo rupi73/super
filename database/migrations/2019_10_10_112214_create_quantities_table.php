@@ -17,8 +17,15 @@ class CreateQuantitiesTable extends Migration
             $table->tinyIncrements('id');
             $table->string('label');
             $table->string('value');
+            $table->timestamps();
+        });
+
+        Schema::create('quantity_categories', function (Blueprint $table) {
+            $table->increments('id');
             $table->tinyInteger('category_id')->unsigned();
-            $table->foreign("category_id")->references('id')->on("categories")->onDelete('cascade');
+            $table->tinyInteger('quantity_id')->unsigned();
+            $table->foreign("quantity_id")->references('id')->on("quantities")->onDelete('cascade');
+            $table->foreign("category_id")->references('id')->on("categories")->onDelete('cascade')->onUpdate('cascade');
 
             $table->timestamps();
         });
@@ -31,9 +38,11 @@ class CreateQuantitiesTable extends Migration
      */
     public function down()
     {
-        Schema::table('quantities', function (Blueprint $table) {
-            $table->dropForeign('quantities_category_id_foreign');
-          });
+        Schema::table('quantity_categories', function (Blueprint $table) {
+            $table->dropForeign(['category_id']);
+            $table->dropForeign(['quantity_id']);
+          });          
+        Schema::dropIfExists('quantity_categories');
         Schema::dropIfExists('quantities');
     }
 }

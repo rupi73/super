@@ -8,6 +8,8 @@ use App\Category;
 use App\Quantity;
 use App\Size;
 use App\PaperPrice;
+use App\Treatment;
+use App\TreatmentPrice;
 class JsApiController extends Controller
 {
     //
@@ -51,5 +53,40 @@ $pp->quantity_prices = json_encode($request->qp);
     else
     print json_encode(['success'=>false]);    
 
- }
+ }//function
+
+ public function treatments(Request $request){
+    $treatments = Treatment::with(['treatmentPrices'=>function($query) use ($request){
+        $query->where('treatment_prices.category_id', $request->cat);
+    }])->where('name', 'like', '%' . $request->q . '%')->orderBy('name','asc')->get();
+    return $treatments;
+ }//function
+
+ public function catQnties(Request $request){
+    $category = Category::with(['quantities'])->where('id', $request->cat )->first();
+    return $category->quantities;
+ }//function
+
+ public function saveTreatmentPrices(REQUEST $request){
+    //print json_encode(['success'=>true]);die();
+    $pp = TreatmentPrice::where('category_id',$request->category)->where('treatment_id',$request->treatment)->first();
+    if(!$pp){
+         $tp = new TreatmentPrice;
+        $tp->category_id=$request->category;
+        $tp->treatment_id=$request->treatment;
+        $tp->quantity_prices=json_encode($request->qp);
+        $tp->settings=json_encode(['nosettings'=>1]);      
+
+    }
+    else
+    {
+$tp->quantity_prices = json_encode($request->qp);
+
+    }
+    if($tp->save())
+    print json_encode(['success'=>true]);
+    else
+    print json_encode(['success'=>false]);    
+
+ }//function
 }//class

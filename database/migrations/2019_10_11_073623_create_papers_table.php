@@ -15,8 +15,8 @@ class CreatePapersTable extends Migration
     {
         Schema::create('papers', function (Blueprint $table) {
             $table->tinyIncrements('id');
-            $table->string('name');
-            $table->string('slug');
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->tinyInteger('gsm_id')->unsigned();
             if ((DB::connection()->getPdo()->getAttribute(PDO::ATTR_DRIVER_NAME) == 'mysql') && version_compare(DB::connection()->getPdo()->getAttribute(PDO::ATTR_SERVER_VERSION), '5.7.8', 'ge')) {
                 $table->json('settings');
@@ -41,8 +41,8 @@ class CreatePapersTable extends Migration
             }
             $table->unique(['category_id','paper_id']);
             $table->timestamps();
-            $table->foreign('paper_id')->references('id')->on('papers')->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('paper_id')->references('id')->on('papers')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -53,12 +53,13 @@ class CreatePapersTable extends Migration
      */
     public function down()
     {
+        Schema::table('paper_prices', function (Blueprint $table) {
+            $table->dropForeign(['paper_id']);
+          });
         Schema::table('papers', function (Blueprint $table) {
-            $table->dropForeign('papers_gsm_id_foreign');
+            $table->dropForeign(['gsm_id']);
           });
-          Schema::table('paper_prices', function (Blueprint $table) {
-            $table->dropForeign('paper_prices_gsm_id_foreign');
-          });
+
         Schema::dropIfExists('paper_prices');
         Schema::dropIfExists('papers');
     }
