@@ -41,7 +41,7 @@ class TreatmentsController extends Controller
         //validate the data
         $this->validate($request,[
             'name'=>'required|max:191|unique:treatments',
-            'printing'=>'required'
+            'sides'=>'required'
         ]);
 
         $treatment = new Treatment;
