@@ -2,7 +2,7 @@
 @section('content')
 
 
-<div class="container">
+<div class="container" id="vapp">
               
  @foreach($categories as $category)
 <div class="row">
@@ -20,6 +20,11 @@
                 </div>
                 <div class="col-md-4">
                         <a href="{{route('category.edit',$category->id)}}" class="card-link btn btn-success">Edit</a>
+                        <a href="javascript:void(0);" class="card-link btn btn-success" @click="deleteRecord({{$category->id}})">Delete</a>
+                <form action="{{route('category.destroy',$category->id)}}" id="form-delete-{{$category->id}}" method="POST">
+                @method('delete')
+                @csrf
+                </form>
                     </div>
               
                  
@@ -34,4 +39,8 @@
 {{$categories->links()}}
 
 </div>
+@endsection
+
+@section('scripts')
+@include('partials.delete');
 @endsection

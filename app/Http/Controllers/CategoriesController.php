@@ -64,9 +64,10 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
         //
+        return view('category.show',compact('category'));
     }
 
     /**
@@ -75,9 +76,10 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
         //
+        return view('category.edit',compact('category'));
     }
 
     /**
@@ -87,9 +89,11 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $category->update(['name'=>$request->name,'is_size_price'=>isset($request->is_size_price)?1:0]);
+        return redirect()->route('category.index');
+        
     }
 
     /**
@@ -98,8 +102,10 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
         //
+        //$category->delete();
+        return redirect()->route('category.index');
     }
 }

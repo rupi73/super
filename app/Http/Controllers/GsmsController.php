@@ -59,9 +59,10 @@ class GsmsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Gsm $gsm)
     {
         //
+        return view('gsm.show',compact('gsm'));
     }
 
     /**
@@ -70,9 +71,10 @@ class GsmsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Gsm $gsm)
     {
         //
+        return view('gsm.edit',compact('gsm'));
     }
 
     /**
@@ -82,9 +84,11 @@ class GsmsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Gsm $gsm)
     {
         //
+        $gsm->update(request(['value','label']));
+        return redirect()->route('gsm.index');
     }
 
     /**
@@ -93,8 +97,10 @@ class GsmsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Gsm $gsm)
     {
         //
+//$gsm->delete();
+return redirect()->route('gsm.index');
     }
 }

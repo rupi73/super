@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Gsm extends Model
 {
+  protected $fillable=['label','value'];
     //paper
     public function papers()
     {

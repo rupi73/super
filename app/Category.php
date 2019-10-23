@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+  protected $fillable=['name','is_size_price'];
     //quantity
     public function quantities()
     {

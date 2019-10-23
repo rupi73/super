@@ -24,51 +24,40 @@
 
                     </div><!--col-md-4-->
                 
-
-                <div class="col-md-4">
-                      
-                    <div class="form-group">
-                        <select class="form-control" id="sel1">
-                          <option>Quantities</option>
-                          <option v-for="quantity in category.quantities">@{{ quantity.label }}</option>
-                        </select>
-                      </div> 
-
-
-                </div><!--col-md-4-->
-
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <select class="form-control" id="sel1">
-                          <option>Sizes</option>
-                          <option v-for="size in category.sizes">@{{ size.label }}</option>
-                        </select>
-                      </div> 
+                    <div class="col-md-4" v-if="category.name">
+   
+                      <div>                       
+                          <vue-bootstrap-typeahead
+                            class="mb-4"
+                            v-model="pquery"
+                            :data="papers"
+                            :serializer="item => item.name"
+                            @hit="onPaperSelected"
+                            placeholder="Select Paper"
+                          />
                         
+                         <h3>Selected Paper JSON</h3>
+                         <pre>@{{ paper | stringify }}</pre>
+                        </div>
+                  </div>
+                
 
 
-              </div><!--col-md-4-->
           
 
  
       </div><!--row-->
-      <div class="row" v-if="category.name">
-        <div class="col-md-4">
-   
-            <div>                       
-                <vue-bootstrap-typeahead
-                  class="mb-4"
-                  v-model="pquery"
-                  :data="papers"
-                  :serializer="item => item.name"
-                  @hit="onPaperSelected"
-                  placeholder="Select Paper"
-                />
-              
-               <h3>Selected Paper JSON</h3>
-               <pre>@{{ paper | stringify }}</pre>
-              </div>
-        </div>
+      <div class="row" >
+        
+           
+          <b-form-group label="Select Paper Treatments:">
+            <b-form-checkbox-group id="checkbox-group-category" v-model="settings.treatments" name="treatments[]">
+                @foreach($treatments as $treatment)
+              <b-form-checkbox value="{{$treatment->id}}">{{$treatment->name}}</b-form-checkbox>
+              @endforeach
+            </b-form-checkbox-group>
+        </b-form-group>
+         
       </div><!--row-->
       <div class="clear"></div>
         <b-container class="bv-example-row" v-for="size in category.sizes" v-if="category.is_size_price && paper.name">
@@ -194,26 +183,37 @@ var vm = new Vue({
       quantities:[],
       sizes:[],
       qp:{single:{},both:{}},
+      settings:{treatments:[]},
+      resetData:function(){
+        vm.pquery='';
+        vm.papers = [];       
+        vm.paper={};
+        vm.qp={single:{},both:{}};
+        vm.settings={treatments:[]};
+      },
       onCategorySelected:function($event){
-        console.log(vm.category);
         vm.category = $event;
+        vm.resetData();        
+        console.log(vm.category);
 
       },
       onPaperSelected:function($event){
-        console.log(vm.paper);
+        vm.resetData();
         vm.paper = $event;
+        if(vm.paper.paper_prices.length){
+          vm.qp = JSON.parse(vm.paper.paper_prices[0].quantity_prices);
+          vm.settings = JSON.parse(vm.paper.paper_prices[0].settings);
+          }
+          
       },
       createSizeDynamicModel:function(side,size,qty){
         if(typeof this.qp[side]==='undefined')
         this.qp[side]={};
         if(typeof this.qp[side][size]==='undefined')
         this.qp[side][size]={};
-        if(typeof this.qp[side][size][qty]==='undefined'){
-          if(this.paper.paper_prices.length)
-          console.log('paper prices');
-        this.qp[side][size][qty]=0;
-
-        }
+        if(typeof this.qp[side][size][qty]==='undefined')         
+          this.qp[side][size][qty]=0;
+     
 
         
 
@@ -221,16 +221,8 @@ var vm = new Vue({
       createDynamicModel:function(side,qty){
         if(typeof this.qp[side]==='undefined')
         this.qp[side]={};
-        if(typeof this.qp[side][qty]==='undefined'){
-          if(this.paper.paper_prices.length){
-          this.qp = JSON.parse(this.paper.paper_prices[0].quantity_prices);
-          }
-          else
+        if(typeof this.qp[side][qty]==='undefined')
         this.qp[side][qty]=0;
-
-        }
-
-        
 
       },
       showQpValues:function(){
@@ -239,10 +231,11 @@ var vm = new Vue({
       saveQpValues:function(){
         const apiServer = "{{url('/japi/save_paper_prices')}}";
       console.log(apiServer);
-      axios.post(`${apiServer}`, {category:vm.category.id,paper:vm.paper.id,qp:vm.qp}).then((res)=>{
+      axios.post(`${apiServer}`, {category:vm.category.id,paper:vm.paper.id,qp:vm.qp,settings:vm.settings}).then((res)=>{
         if(res.data.success){
           vm.paper = {};
           vm.qp={};
+          vm.settings={treatments:[]};
           vm.pquery='';
         }
         console.log(res);

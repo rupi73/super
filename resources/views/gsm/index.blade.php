@@ -17,6 +17,7 @@
 
                 <div class="col-md-4">
                 <a href="{{route('gsm.edit',$gsm->id)}}" class="card-link btn btn-success">Edit</a>
+                <a href="{{route('gsm.destroy',$gsm->id)}}" class="card-link btn btn-success">Delete</a>
                     </div>
               
                  

@@ -34,19 +34,19 @@ public function categories(){
  public function savePaperPrices(REQUEST $request){
     //print json_encode(['success'=>true]);die();
     $pp = PaperPrice::where('category_id',$request->category)->where('paper_id',$request->paper)->first();
-    if(!$pp){
+     if(!$pp){
          $pp = new PaperPrice;
         $pp->category_id=$request->category;
         $pp->paper_id=$request->paper;
         $pp->quantity_prices=json_encode($request->qp);
-        $pp->settings=json_encode(['nosettings'=>1]);
+        $pp->settings=json_encode($request->settings);
        
 
     }
     else
     {
 $pp->quantity_prices = json_encode($request->qp);
-
+$pp->settings=json_encode($request->settings);
     }
     if($pp->save())
     print json_encode(['success'=>true]);
