@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Size extends Model
 {
-
+protected $fillable = ['label','value'];
  //size category
  public function categories()
   {

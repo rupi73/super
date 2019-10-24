@@ -42,5 +42,5 @@
 @endsection
 
 @section('scripts')
-@include('partials.delete');
+@include('partials.delete')
 @endsection

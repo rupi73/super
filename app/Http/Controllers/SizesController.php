@@ -87,9 +87,14 @@ return view('size.create')->with('categories',$categories);
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Size $size)
     {
-        //
+        $categories = Category::orderBy('name','asc')->get();
+        $current_categories = [];
+        foreach($size->categories as $category)
+        $current_categories[]=$category->id;
+        return view('size.edit',compact('categories','current_categories','size'));
+
     }
 
     /**
@@ -99,9 +104,12 @@ return view('size.create')->with('categories',$categories);
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Size $size)
     {
-        //
+        $size->update(request(['label','value']));
+        $size->categories()->detach();
+        $size->categories()->attach(request('categories'));
+        return back();
     }
 
     /**
@@ -110,8 +118,9 @@ return view('size.create')->with('categories',$categories);
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Size $size)
     {
-        //
+        //$size->delete();
+        return back();
     }
 }

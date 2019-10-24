@@ -1,6 +1,6 @@
 @extends('template')
 @section('content')
-<div class="container">
+<div class="container" id="vapp">
     
   <div class="row">
       <h2>Treatments Index</h2>
@@ -29,6 +29,11 @@
   
 
 <a href="{{route('treatments.edit',$treatment->id)}}" class="card-link btn btn-success">Edit</a>
+<a href="javascript:void(0);" class="card-link btn btn-success" @click="deleteRecord({{$treatment->id}})">Delete</a>
+<form action="{{route('treatments.destroy',$treatment->id)}}" id="form-delete-{{$treatment->id}}" method="POST">
+        @method('delete')
+        @csrf
+        </form>
   
 </div>
 </div>
@@ -40,4 +45,8 @@
     </div>
   </div>
 </div>
+@endsection
+
+@section('scripts')
+@include('partials.delete')
 @endsection

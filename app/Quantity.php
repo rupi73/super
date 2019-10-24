@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Quantity extends Model
 {
+  protected $fillable = ['label','value'];
     //category
     public function categories()
   {

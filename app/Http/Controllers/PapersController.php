@@ -77,10 +77,10 @@ return redirect()->route('papers.index');
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Paper $paper)
     {
         //
-      return  view('papers.show');
+      return  view('papers.show',compact('paper'));
     }
 
     /**
@@ -89,10 +89,14 @@ return redirect()->route('papers.index');
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Paper $paper)
     {
+        //fetch gsms
+        $gsms = Gsm::orderBy('value','asc')->get();
         //
-        return view('papers.edit');
+        $paper->settings = json_decode($paper->settings);
+      
+        return view('papers.edit',compact('gsms','paper'));
     }
 
     /**
@@ -102,9 +106,15 @@ return redirect()->route('papers.index');
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Paper $paper)
     {
-        //
+        $_paper = Paper::where(request(['name','gsm_id']))->where('id','<>',$paper->id)->first();
+        $request = request(['name','gsm_id','settings']);
+        $request['settings'] = json_encode($request['settings']);       
+        if(!$_paper){            
+            $paper->update($request);
+        }
+        return back();
     }
 
     /**
@@ -113,8 +123,10 @@ return redirect()->route('papers.index');
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Paper $paper)
     {
-        //
+        dd($paper);
+        //$paper->delete();
+        return back();
     }
 }

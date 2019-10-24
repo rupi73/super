@@ -87,9 +87,15 @@ $categories = Category::orderBy('name','asc')->get();
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Quantity $quantity)
     {
-        //
+        $categories = Category::orderBy('name','asc')->get();
+        $current_categories =[];        
+        foreach($quantity->categories as $scat)
+        $current_categories[] = $scat->id;
+        
+        return view('quantity.edit',compact('categories','current_categories','quantity'));
+        
     }
 
     /**
@@ -99,9 +105,14 @@ $categories = Category::orderBy('name','asc')->get();
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Quantity $quantity)
     {
-        //
+        
+        //quantity record update
+        $quantity->update(request(['label','value']));
+        $quantity->categories()->detach();
+        $quantity->categories()->attach(request('categories'));
+        return back();
     }
 
     /**
@@ -110,8 +121,9 @@ $categories = Category::orderBy('name','asc')->get();
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Quantity $quantity)
     {
-        //
+        //$quantity->delete();
+        return back();
     }
 }

@@ -74,10 +74,11 @@ class TreatmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Treatment $treatment)
     {
         //
-        return view('treatments.edit');
+        $treatment->settings = json_decode($treatment->settings);
+        return view('treatments.edit',compact('treatment'));
     }
 
     /**
@@ -87,9 +88,16 @@ class TreatmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Treatment $treatment)
     {
-        //
+        $request=['name'=>request('name')];
+        $settings = ['sides'=>request('sides')];
+        if(strlen(trim(request('colors'))))
+        $settings['colors']=request('colors');
+        $request['settings'] = json_encode($settings);
+        $treatment->update($request);
+        return back();
+
     }
 
     /**
@@ -98,8 +106,9 @@ class TreatmentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Treatment $treatment)
     {
-        //
+        //$treatment->delete();
+        return back();
     }
 }
