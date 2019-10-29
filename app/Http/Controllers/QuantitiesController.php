@@ -76,9 +76,10 @@ $categories = Category::orderBy('name','asc')->get();
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Quantity $quantity)
     {
         //
+        return view('quantity.show',compact('quantity'));
     }
 
     /**

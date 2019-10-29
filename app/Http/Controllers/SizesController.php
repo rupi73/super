@@ -76,9 +76,10 @@ return view('size.create')->with('categories',$categories);
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(size $size)
     {
         //
+        return view('size.show',compact('size'));
     }
 
     /**

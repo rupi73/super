@@ -1,4 +1,8 @@
 @extends('template') @section('content')
+
+
+
+
 <div class="container-fluid container-fullw bg-white">
     <h2>Paper Create</h2><br>
     <div class="row margin-top-30">
@@ -57,5 +61,8 @@
         </div>
 
     </div>
+    <!--form-->
+
+        
 
 @endsection
