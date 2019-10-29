@@ -13,7 +13,7 @@
     
 <p><b>GSM :</b>	
 {{$paper->gsm->label}}
-
+  
 </p>
 <p><b>Settings :</b>{{$paper->settings}}
 </p>
