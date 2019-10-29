@@ -80,7 +80,8 @@ return redirect()->route('papers.index');
     public function show(Paper $paper)
     {
         //
-      return  view('papers.show',compact('paper'));
+        //$paper->settings = json_decode($paper->settings);
+      return  view('papers.show');
     }
 
     /**

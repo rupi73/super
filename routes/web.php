@@ -23,7 +23,7 @@ Route::resource('gsm','GsmsController');
 Route::resource('paper-prices','PaperPricesController');
 Route::resource('treatments','TreatmentsController');
 Route::resource('treatment-prices','TreatmentPricesController');
-
+Route::resource('products','ProductsController');
 Auth::routes();
 
 /*Route::get('/home', 'HomeController@index')->name('home');*/

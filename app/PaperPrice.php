@@ -10,4 +10,8 @@ class PaperPrice extends Model
     public function paper(){
         return $this->belongsTo('App\Paper');
     }
+    //category
+    public function category(){
+        return $this->belongsTo('App\Category');
+    }
 }

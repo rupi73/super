@@ -18,4 +18,10 @@ class Category extends Model
     {
       return $this->belongsToMany('App\Size','size_categories');
     }
+
+        //papers
+    public function papers()
+    {
+      return $this->hasMany('App\PaperPrice');
+    }
 }

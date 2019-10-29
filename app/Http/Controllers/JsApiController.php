@@ -24,13 +24,17 @@ public function categories(){
         return $categories;
  }
  public function sizesQnties(REQUEST $request){
-    print $request->q;
-     //fetch quantities
+      //fetch quantities
      $category = Category::with(['quantities','sizes'])->find($request->q);
      return $category;
 
  }
+ public function sizesPapers(REQUEST $request){
+    //fetch sizes
+     $category = Category::with(['quantities','sizes'])->find($request->q);
+     return $category;
 
+ }
  public function savePaperPrices(REQUEST $request){
     //print json_encode(['success'=>true]);die();
     $pp = PaperPrice::where('category_id',$request->category)->where('paper_id',$request->paper)->first();
