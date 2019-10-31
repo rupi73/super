@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Category;
-
+use Illuminate\Validation\Rule;
 class ProductsController extends Controller
 {
     /**
@@ -16,6 +16,8 @@ class ProductsController extends Controller
     public function index()
     {
         //
+        $products = Product::orderBy('name')->paginate('10');
+        return view('products.index',compact('products'));
     }
 
     /**
@@ -42,6 +44,7 @@ class ProductsController extends Controller
         //
         $this->validate($request,[
         'name'=>'required|min:10|unique:products',
+        'wp_product_id'=>'required|unique:products',
         'category_id'=>'required',
         'sizes'=>'required',
         'quantities'=>'required',
@@ -51,6 +54,7 @@ class ProductsController extends Controller
         //dd(request()->all());
         $product= new Product;
         $product->name = request('name');
+        $product->wp_product_id = request('wp_product_id');
         $product->category_id = request('category_id');
         $product->save();
         $product->quantities()->attach(explode(',',request('quantities')));
@@ -81,7 +85,8 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::with('sizes','quantities','papers','papers.paper:id,name')->orderBy('name','asc')->get();
+        return view('products.edit',compact('categories','product'));
     }
 
     /**
@@ -91,9 +96,24 @@ class ProductsController extends Controller
      * @param  \App\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Product $product)
     {
         //
+        $request = request();
+        $this->validate($request,[
+'name'=>['required', Rule::unique('products')->ignore($product->id)],
+'wp_product_id'=>['required', Rule::unique('products')->ignore($product->id)],
+'category_id'=>['required']
+        ]);
+        $product->update(request(['name','wp_product_id','category_id']));
+        $product->papers()->detach();
+        $product->papers()->attach(explode(',',request('papers')));
+        $product->quantities()->detach();
+        $product->quantities()->attach(explode(',',request('quantities')));
+        $product->sizes()->detach();       
+        $product->sizes()->attach(explode(',',request('sizes')));
+        return back();
+
     }
 
     /**
@@ -104,6 +124,7 @@ class ProductsController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        //$product->delete();
+        return back();
     }
 }

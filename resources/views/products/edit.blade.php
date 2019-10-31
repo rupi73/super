@@ -7,15 +7,16 @@
 <div class="row">
 <div class="col-md-4"><template>
     
-    <vue-bootstrap-typeahead
-                                class="mb-4"
-                                v-model="pquery"
-                                :data="products"
-                                :serializer="item => item.post_title"
-                                @hit="onProductSelected"
-                                placeholder="Select Product"
-                              />
-  </template>
+  <vue-bootstrap-typeahead
+                              class="mb-4"
+                              v-model="pquery"
+                              :data="products"
+                              :serializer="item => item.post_title"
+                              @hit="onProductSelected" 
+                              placeholder="Select Product"
+                              ref="typeahead"
+                            />
+</template>
 </div>
 <div class="col-md-4">
   <template>
@@ -102,10 +103,11 @@
   </div><!--row-->
 
 </div><!--container-fluid-->
-<form action="{{route('products.store')}}" method="post" id="product-create">
+<form action="{{route('products.update',$product->id)}}" method="post" id="product-create">
   @csrf
+  @method('PATCH')
 <input type="hidden" name="name" id="product-name" value="">
-<input type="hidden" name="wp_product_id" id="product-wp" value="">
+<input type="hidden" name="wp_product_id" id="product-wp" value="{{$product->wp_product_id}}">
 <input type="hidden" name="category_id" id="category-id" value="">
 <input type="hidden" name="price" id="product-price" value="">
 <input type="hidden" name="papers" id="product-papers" value="">
@@ -116,23 +118,23 @@
 
 @section('scripts')
 <script>
-  console.log({!!$categories!!});
 var vm=new Vue({
 el:'#vapp',
 data() {
     return {
 pquery:'',
 products:[],
-product:{},
+product:{ID:{{$product->wp_product_id}},post_title:'{{$product->name}}'},
 categories:{!!$categories!!},
-categoryId:'',
+productName:'{{$product->name}}',
+categoryId:{{$product->category_id}},
 cSizes:[],
 cQuantities:[],
 cPapers:[],
 productPapers:[],
 productSizes:[],
 productQuantities:[],
-productPrice:0,
+productPrice:{{$product->price}},
 debug:false,
 fetchPapersAndSizes:function(){
 console.log(vm.categoryId);
@@ -154,6 +156,17 @@ axios.get(`${apiServer}?cat=${this.category.id}&& q=${newQuery}`)
           this.papers = res.data;
         }) */
 },
+setValuePaperQntySizes:function(){
+  let papers = {!!$product->papers!!};
+  let quantities = {!!$product->quantities!!};
+  let sizes = {!!$product->sizes!!};
+  for(paper of papers)
+  vm.productPapers.push(paper.id);
+  for(size of sizes)
+  vm.productSizes.push(size.id);
+  for(quantity of quantities)
+  vm.productQuantities.push(quantity.id);
+},
 temp:function(){
   console.log(vm.productPapers);
 },
@@ -170,14 +183,7 @@ onSubmit:function() {
       },
       onProductSelected:function($event){
         vm.product = $event;
-     /*   const apiServer ="{{url('/japi/product/')}}";
-      console.log(apiServer);
-      axios.get(`${apiServer}?cat=${vm.product.id}&& q=${newQuery}`)
-        .then((res) => {
-          //console.log(res)
-          this.papers = res.data;
-        })*/
-        console.log(vm.product);
+
       }
     }
   },
@@ -198,6 +204,14 @@ onSubmit:function() {
       return JSON.stringify(value, null, 2)
     }
   },
+  mounted: function () {
+  this.$nextTick(function () {
+    console.log(vm.productPapers);
+    vm.fetchPapersAndSizes();
+    vm.setValuePaperQntySizes();
+    this.$refs.typeahead.inputValue = '{{$product->name}}';
+  })
+}
 });
 </script>
 @endsection
