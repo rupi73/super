@@ -54,7 +54,7 @@
            </b-container>
     </template>
     <template v-if="treatment.name && checkedCategory && quantities.length && !colors.length">
-        <b-container class="bv-example-row" v-for="color in colors">
+        <b-container class="bv-example-row">
             <h4>Single Side</h4>
             <b-row >             
               
@@ -64,6 +64,7 @@
             <small>@{{quantity.label}}</small></b-col>
             
           </b-row>
+          <template v-if="setting.sides=='both'">
           <h6>Both Sides</h6>
           <b-row>              
             <b-col md="1" v-for="quantity in quantities">
@@ -71,6 +72,7 @@
               <input type="text" class="form-control" v-model="qp.both[quantity['value']]">
               <small>@{{quantity.label}}</small></b-col>            
           </b-row>
+        </template>
          </b-container>
         
   </template>
@@ -105,6 +107,7 @@ var vm = new Vue({
         vm.setting = JSON.parse(vm.treatment.settings);
         vm.colors = typeof vm.setting.colors !== 'undefined'?vm.setting.colors.split(','):[];
         console.log(vm.setting);
+        console.log(vm.colors);
       },
       checkCategory:function($event){
         let ele = $event.target;
