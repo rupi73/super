@@ -73,8 +73,8 @@ $pp->settings=json_encode($request->settings);
 
  public function saveTreatmentPrices(REQUEST $request){
     //print json_encode(['success'=>true]);die();
-    $pp = TreatmentPrice::where('category_id',$request->category)->where('treatment_id',$request->treatment)->first();
-    if(!$pp){
+    $tp = TreatmentPrice::where('category_id',$request->category)->where('treatment_id',$request->treatment)->first();
+    if(!$tp){
          $tp = new TreatmentPrice;
         $tp->category_id=$request->category;
         $tp->treatment_id=$request->treatment;
