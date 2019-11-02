@@ -15,7 +15,7 @@ class TreatmentsController extends Controller
     public function index()
     {
         //fetch treatments
-        $treatments = Treatment::orderBy('name','asc')->paginate(2);
+        $treatments = Treatment::orderBy('name','asc')->paginate(10);
         return view('treatments.index',compact('treatments'));
     }
 

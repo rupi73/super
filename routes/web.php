@@ -25,7 +25,8 @@ Route::resource('treatments','TreatmentsController');
 Route::resource('treatment-prices','TreatmentPricesController');
 Route::resource('products','ProductsController');
 Auth::routes();
-
+Route::resource('roles','RolesController');
+Route::resource('users','UsersController');
 /*Route::get('/home', 'HomeController@index')->name('home');*/
 
 /*API Calls*/

@@ -17,7 +17,7 @@ class QuantitiesController extends Controller
     public function index()
     {
         //fetch quantities
-        $quantities = Quantity::with('categories')->orderBy('id','desc')->paginate('5');
+        $quantities = Quantity::with('categories')->orderBy('id','desc')->paginate('10');
 
         return view('quantity.index')->with('quantities',$quantities);
     }

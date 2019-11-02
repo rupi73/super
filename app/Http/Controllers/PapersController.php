@@ -23,7 +23,7 @@ public function __construct(){
     public function index()
     {
         //fetch papers
-        $papers = Paper::with('gsm')->orderBy('name','asc')->paginate('2');
+        $papers = Paper::with('gsm')->orderBy('name','asc')->paginate('10');
         return view('papers.index')->with('papers',$papers);
     }
 

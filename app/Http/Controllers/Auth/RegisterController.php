@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-
+use App\Role;
 class RegisterController extends Controller
 {
     /*
@@ -37,9 +37,14 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
+    public function showRegistrationForm()
+    {
+        $roles = Role::orderBy('name','asc')->get();
+        return view('auth.register',compact('roles'));
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -52,6 +57,8 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'role_id'=>'required|array|min:1',
+            'role_id.*'=>'required|min:1'
         ]);
     }
 
@@ -63,10 +70,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        $user->roles()->attach($data['role_id']);
+        return $user;
     }
 }

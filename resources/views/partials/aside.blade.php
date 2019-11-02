@@ -28,18 +28,7 @@
                         <li><a href="{{route('orders.index')}}"><span class="title">List</span></a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="javascript:void(0)">
-                        <div class="item-content">
-                            <div class="item-media"><i class="ti-layout-grid2"></i></div>
-                            <div class="item-inner"><span class="title">Products </span><i class="icon-arrow"></i></div>
-                        </div>
-                    </a>
-                    <ul class="sub-menu">
-                        <li><a href="{{route('products.create')}}"><span class="title">Add</span></a></li>
-                        <li><a href="{{route('products.index')}}"><span class="title">List</span></a></li>
-                    </ul>
-                </li>                        
+                                
               
              
              
@@ -48,6 +37,34 @@
             </ul>
             <div class="navbar-title"><span>Settings</span></div>
             <ul class="folders">
+                    <li>
+                            <a href="javascript:void(0)">
+                                <div class="item-content">
+                                    <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i></span></div>
+                                    <div class="item-inner"><span class="title">Products </span><i class="icon-arrow"></i></div>
+                                </div>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="{{route('products.create')}}"><span class="title">Add</span></a></li>
+                                <li><a href="{{route('products.index')}}"><span class="title">List</span></a></li>
+                            </ul>
+                        </li>  
+                        
+                        <li>
+                                <a href="javascript:void(0)">
+                                    <div class="item-content">
+                                        <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i></span></div>
+                                        <div class="item-inner"><span class="title">Users 'N' Roles </span><i class="icon-arrow"></i></div>
+                                    </div>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li><a href="{{route('register')}}"><span class="title">Add User</span></a></li>
+                                    <li><a href="{{route('users.index')}}"><span class="title">List Users</span></a></li>
+                                    <li><a href="{{route('roles.create')}}"><span class="title">Add Role</span></a></li>
+                                    <li><a href="{{route('roles.index')}}"><span class="title">List Roles</span></a></li>
+                                </ul>
+                            </li>       
+
                 <li>
                     <a href="javascript:void(0)">
                         <div class="item-content">

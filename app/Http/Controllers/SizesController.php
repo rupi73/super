@@ -17,7 +17,7 @@ class SizesController extends Controller
     public function index()
     {
         //fetch sizes
-        $sizes = Size::with(['categories'])->orderBy('id','desc')->paginate('5');
+        $sizes = Size::with(['categories'])->orderBy('id','desc')->paginate('10');
 
         return view('size.index')->with('sizes',$sizes);
     }
