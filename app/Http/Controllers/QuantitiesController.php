@@ -111,8 +111,9 @@ $categories = Category::orderBy('name','asc')->get();
         
         //quantity record update
         $quantity->update(request(['label','value']));
-        $quantity->categories()->detach();
-        $quantity->categories()->attach(request('categories'));
+        /*$quantity->categories()->detach();
+        $quantity->categories()->attach(request('categories'));*/
+        $quantity->categories()->sync(request('categories'));
         return back();
     }
 

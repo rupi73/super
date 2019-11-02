@@ -106,12 +106,15 @@ class ProductsController extends Controller
 'category_id'=>['required']
         ]);
         $product->update(request(['name','wp_product_id','category_id']));
-        $product->papers()->detach();
-        $product->papers()->attach(explode(',',request('papers')));
-        $product->quantities()->detach();
-        $product->quantities()->attach(explode(',',request('quantities')));
-        $product->sizes()->detach();       
-        $product->sizes()->attach(explode(',',request('sizes')));
+        /* $product->papers()->detach();
+        $product->papers()->attach(explode(',',request('papers'))); */
+        $product->papers()->sync(explode(',',request('papers')));
+       /* $product->quantities()->detach();
+        $product->quantities()->attach(explode(',',request('quantities'))); */
+        $product->quantities()->sync(explode(',',request('quantities')));
+        /* $product->sizes()->detach();       
+        $product->sizes()->attach(explode(',',request('sizes'))); */
+        $product->sizes()->sync(explode(',',request('sizes')));
         return back();
 
     }

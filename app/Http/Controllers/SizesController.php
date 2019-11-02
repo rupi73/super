@@ -108,8 +108,9 @@ return view('size.create')->with('categories',$categories);
     public function update(Size $size)
     {
         $size->update(request(['label','value']));
-        $size->categories()->detach();
-        $size->categories()->attach(request('categories'));
+       /*  $size->categories()->detach();
+        $size->categories()->attach(request('categories')); */
+        $size->categories()->sync(request('categories'));
         return back();
     }
 
