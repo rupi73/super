@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\User;
 use App\Role;
 class UsersController extends Controller
@@ -75,9 +76,20 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(User $user)
     {
         //
+        $request = request();
+        $user->update($this->validate(
+            $request,[
+             'name'=>'required|string|max:255',
+             'email'=>['required',Rule::unique('users')->ignore($user->id)],
+             'role_id'=>'required|array|min:1',
+             'role_id.*'=>'required|min:1'   
+            ]
+        ));
+        $user->roles()->sync($request->role_id);
+        return back();
     }
 
     /**

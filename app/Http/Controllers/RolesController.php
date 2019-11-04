@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Role;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class RolesController extends Controller
 {
@@ -83,9 +84,16 @@ class RolesController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Role $role)
     {
         //
+        $request = request();    
+$role->update($this->validate($request,[
+    
+    'name'=>['required',Rule::unique('roles')->ignore($role->id)],
+    'description'=>'required'
+]));
+       return back(); 
     }
 
     /**
