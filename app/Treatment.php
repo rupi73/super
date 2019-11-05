@@ -20,6 +20,6 @@ class Treatment extends Model
 
             //papers
     public function papers(){
-        return $this->belongsToMany('App\paper');
+        return $this->belongsToMany('App\Paper');
         }
 }
