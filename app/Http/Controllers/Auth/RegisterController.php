@@ -39,7 +39,11 @@ class RegisterController extends Controller
     {
         $this->middleware('auth');
     }
-
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function showRegistrationForm()
     {
         abort_if(\Gate::denies('super',User::class),403);
@@ -79,5 +83,23 @@ class RegisterController extends Controller
         ]);
         $user->roles()->attach($data['role_id']);
         return $user;
+    }
+
+      /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        //$this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
     }
 }

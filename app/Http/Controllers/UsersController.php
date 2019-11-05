@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Role;
 class UsersController extends Controller
@@ -94,6 +95,16 @@ class UsersController extends Controller
             ]
         ));
         $user->roles()->sync($request->role_id);
+        if(strlen($request->password)){
+            $this->validate(
+                $request,[
+                    'password' => 'required|string|min:6|confirmed'  
+                ]
+                ); 
+                $user->update([
+                    'password' => Hash::make($request->password)   
+                ]);     
+        }
         return back();
     }
 
