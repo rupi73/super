@@ -52,8 +52,12 @@ public function categories(){
 $pp->quantity_prices = json_encode($request->qp);
 $pp->settings=json_encode($request->settings);
     }
-    if($pp->save())
+    if($pp->save()){
+        $paper = Paper::findOrFail($pp->paper_id);
+        $paper->treatments()->sync($request->settings['treatments']);
     print json_encode(['success'=>true]);
+
+    }
     else
     print json_encode(['success'=>false]);    
 
