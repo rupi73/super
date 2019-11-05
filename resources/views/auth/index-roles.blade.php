@@ -18,6 +18,7 @@
                 <div class="col-md-4">
                 <p class="card-text">{{$role->description}}</p>
                 </div>
+                @can('super',\App\Role::class)
                 <div class="col-md-4">
                         <a href="{{route('roles.edit',$role->id)}}" class="card-link btn btn-success">Edit</a>
                         <a href="javascript:void(0);" class="card-link btn btn-success" @click="deleteRecord({{$role->id}})">Delete</a>
@@ -26,7 +27,7 @@
                 @csrf
                 </form>
                     </div>
-              
+              @endcan
                  
                 </div>
                 </div>

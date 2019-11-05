@@ -7,6 +7,10 @@ use App\Gsm;
 
 class GsmsController extends Controller
 {
+    
+    public function __construct(){
+        
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,6 +30,7 @@ class GsmsController extends Controller
      */
     public function create()
     {
+        $this->authorize('super',\App\Gsm::class);
         //
         return view('gsm.create');
     }
@@ -38,6 +43,7 @@ class GsmsController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('super',\App\Gsm::class);
         //validate the form data
         $this->validate($request,[
         'label'=>'required|max:64|unique:gsms',
@@ -73,7 +79,12 @@ class GsmsController extends Controller
      */
     public function edit(Gsm $gsm)
     {
-        //
+        /*
+        abort(403);abort_if($project->owner_id!==auth()->id(),403)
+        abort_unless(auth()->user->owns($project),403)
+        */
+        //$this->authorize('super',$gsm);
+      abort_if(\Gate::denies('super',$gsm),403);
         return view('gsm.edit',compact('gsm'));
     }
 
@@ -86,6 +97,7 @@ class GsmsController extends Controller
      */
     public function update(Request $request, Gsm $gsm)
     {
+        $this->authorize('super',$gsm);
         //
         $gsm->update(request(['value','label']));
         return redirect()->route('gsm.index');
@@ -99,8 +111,9 @@ class GsmsController extends Controller
      */
     public function destroy(Gsm $gsm)
     {
+        $this->authorize('super',$gsm);
         //
-//$gsm->delete();
-return redirect()->route('gsm.index');
+        //$gsm->delete();
+        return redirect()->route('gsm.index');
     }
 }

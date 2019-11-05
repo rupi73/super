@@ -26,6 +26,7 @@
 
             <h4><b>Price : {{$product->price}}</b>
             </h4>
+            @can('super',\App\Product::class)
             <a href="{{route('products.edit',$product->id)}}" class="card-link btn btn-success">Edit</a>
             <a href="javascript:void(0);" class="card-link btn btn-success"
               @click="deleteRecord({{$product->id}})">Delete</a>
@@ -33,7 +34,7 @@
               @method('delete')
               @csrf
             </form>
-
+            @endcan
 
           </div>
           <!--card title-->

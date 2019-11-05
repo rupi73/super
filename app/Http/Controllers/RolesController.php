@@ -28,6 +28,7 @@ class RolesController extends Controller
     public function create()
     {
         //
+        abort_if(\Gate::denies('super',Role::class),403);
         return view('auth.create-role');
     }
 
@@ -40,6 +41,7 @@ class RolesController extends Controller
     public function store(Request $request)
     {
         //
+        abort_if(\Gate::denies('super',Role::class),403);
         Role::Create($this->validate($request,[
         'name'=>'required|unique:roles',
         'description'=>'required'  
@@ -74,6 +76,7 @@ class RolesController extends Controller
     public function edit(Role $role)
     {
         //
+        abort_if(\Gate::denies('super',$role),403);
         return view('auth.edit-roles',compact('role'));
     }
 
@@ -87,6 +90,7 @@ class RolesController extends Controller
     public function update(Role $role)
     {
         //
+        abort_if(\Gate::denies('super',$role),403);
         $request = request();    
 $role->update($this->validate($request,[
     
@@ -104,6 +108,7 @@ $role->update($this->validate($request,[
      */
     public function destroy(Role $role)
     {
+        abort_if(\Gate::denies('super',$role),403);
         //$role->delete();
 
         return back();

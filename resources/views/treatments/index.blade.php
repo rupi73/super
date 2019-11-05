@@ -27,7 +27,7 @@
 
 
 
-
+          @can('super',\App\Treatment::class)
           <a href="{{route('treatments.edit',$treatment->id)}}" class="card-link btn btn-success">Edit</a>
           <a href="javascript:void(0);" class="card-link btn btn-success"
             @click="deleteRecord({{$treatment->id}})">Delete</a>
@@ -36,7 +36,7 @@
             @method('delete')
             @csrf
           </form>
-
+        @endcan
         </div>
       </div>
 

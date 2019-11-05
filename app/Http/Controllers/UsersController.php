@@ -29,6 +29,7 @@ class UsersController extends Controller
      */
     public function create()
     {
+        abort_if(\Gate::denies('super',User::class),403);
         //
     }
 
@@ -40,6 +41,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        abort_if(\Gate::denies('super',User::class),403);
         //
     }
 
@@ -49,9 +51,10 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
         //
+        abort_if(\Gate::denies('super',User::class),403);
     }
 
     /**
@@ -62,6 +65,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+        abort_if(\Gate::denies('super',$user),403);
         $roles = Role::orderBy('name','asc')->get();
         $uRoles = [];
         foreach($user->roles as $role)
@@ -79,6 +83,7 @@ class UsersController extends Controller
     public function update(User $user)
     {
         //
+        abort_if(\Gate::denies('super',$user),403);
         $request = request();
         $user->update($this->validate(
             $request,[
@@ -98,8 +103,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
         //
+        abort_if(\Gate::denies('super',$user),403);
     }
 }

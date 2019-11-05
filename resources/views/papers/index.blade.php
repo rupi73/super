@@ -17,12 +17,14 @@
 </p>
 <p><b>Settings :</b>{{$paper->settings}}
 </p>
+@can('super',\App\Paper::class)
 <a href="{{route('papers.edit',$paper->id)}}" class="card-link btn btn-success">Edit</a>
 <a href="javascript:void(0);" class="card-link btn btn-success" @click="deleteRecord({{$paper->id}})">Delete</a>
 <form action="{{route('papers.destroy',$paper->id)}}" id="form-delete-{{$paper->id}}" method="POST">
         @method('delete')
         @csrf
         </form>
+@endcan
   </div>
 </div>
 

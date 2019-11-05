@@ -28,6 +28,7 @@ class CategoriesController extends Controller
     public function create()
     {
         //
+        abort_if(\Gate::denies('super',Category::class),403);
         return view('category.create');
     }
 
@@ -39,6 +40,7 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
+      abort_if(\Gate::denies('super',Category::class),403);
        // validate the form data
       $this->validate($request, [
         'name' => 'required|max:255|unique:categories'
@@ -79,6 +81,7 @@ class CategoriesController extends Controller
     public function edit(Category $category)
     {
         //
+        abort_if(\Gate::denies('super',$category),403);
         return view('category.edit',compact('category'));
     }
 
@@ -91,6 +94,7 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+      abort_if(\Gate::denies('super',$category),403);
         $category->update(['name'=>$request->name,'is_size_price'=>isset($request->is_size_price)?1:0]);
         return redirect()->route('category.index');
         
@@ -104,6 +108,7 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
+      abort_if(\Gate::denies('super',$category),403);
         //
         //$category->delete();
         return redirect()->route('category.index');

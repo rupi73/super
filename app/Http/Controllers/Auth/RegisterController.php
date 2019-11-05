@@ -42,6 +42,7 @@ class RegisterController extends Controller
 
     public function showRegistrationForm()
     {
+        abort_if(\Gate::denies('super',User::class),403);
         $roles = Role::orderBy('name','asc')->get();
         return view('auth.register',compact('roles'));
     }
@@ -70,6 +71,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        abort_if(\Gate::denies('super',User::class),403);
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],

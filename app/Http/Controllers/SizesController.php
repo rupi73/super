@@ -29,6 +29,7 @@ class SizesController extends Controller
      */
     public function create()
     {
+        abort_if(\Gate::denies('super',Size::class),403);
        //fetch categories
 $categories = Category::orderBy('name','asc')->get();
 return view('size.create')->with('categories',$categories);
@@ -43,6 +44,7 @@ return view('size.create')->with('categories',$categories);
      */
     public function store(Request $request)
     {
+        abort_if(\Gate::denies('super',Size::class),403);
         //Validate the data
         $this->validate($request,[
             'label'=>'required|max:32',
@@ -90,6 +92,7 @@ return view('size.create')->with('categories',$categories);
      */
     public function edit(Size $size)
     {
+        abort_if(\Gate::denies('super',$size),403);
         $categories = Category::orderBy('name','asc')->get();
         $current_categories = [];
         foreach($size->categories as $category)
@@ -107,6 +110,7 @@ return view('size.create')->with('categories',$categories);
      */
     public function update(Size $size)
     {
+        abort_if(\Gate::denies('super',$size),403);
         $size->update(request(['label','value']));
        /*  $size->categories()->detach();
         $size->categories()->attach(request('categories')); */
@@ -122,6 +126,7 @@ return view('size.create')->with('categories',$categories);
      */
     public function destroy(Size $size)
     {
+        abort_if(\Gate::denies('super',$size),403);
         //$size->delete();
         return back();
     }

@@ -34,7 +34,8 @@ public function __construct(){
      */
     public function create()
     {
-        //fetch gsms
+        $this->authorize('super',Paper::class);
+        //fetch papers
         $gsms = Gsm::orderBy('value','asc')->get();
         
        return view('papers.create')->with('gsms',$gsms);
@@ -48,6 +49,7 @@ public function __construct(){
      */
     public function store(Request $request)
     {
+        $this->authorize('super',Paper::class);
         //validate data
         $this->validate($request,[
         'name'=>'required|max:191',
@@ -92,6 +94,7 @@ return redirect()->route('papers.index');
      */
     public function edit(Paper $paper)
     {
+        $this->authorize('super',$paper);
         //fetch gsms
         $gsms = Gsm::orderBy('value','asc')->get();
         //
@@ -109,6 +112,7 @@ return redirect()->route('papers.index');
      */
     public function update(Paper $paper)
     {
+        $this->authorize('super',$paper);
         $_paper = Paper::where(request(['name','gsm_id']))->where('id','<>',$paper->id)->first();
         $request = request(['name','gsm_id','settings']);
         $request['settings'] = json_encode($request['settings']);       
@@ -126,7 +130,7 @@ return redirect()->route('papers.index');
      */
     public function destroy(Paper $paper)
     {
-        dd($paper);
+        $this->authorize('super',$paper);
         //$paper->delete();
         return back();
     }

@@ -14,7 +14,7 @@
                 <div class="col-md-4">
                         <p class="card-text">{{$gsm->value}}</p>
                 </div>
-
+@can('super',$gsm)
                 <div class="col-md-4">
                 <a href="{{route('gsm.edit',$gsm->id)}}" class="card-link btn btn-success">Edit</a>
                <a href="javascript:void(0);" class="card-link btn btn-success" @click="deleteRecord({{$gsm->id}})">Delete</a>
@@ -23,7 +23,7 @@
                 @csrf
                 </form>
                     </div>
-              
+  @endcan            
                  
                 </div>
                 </div>

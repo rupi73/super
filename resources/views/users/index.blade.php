@@ -23,6 +23,7 @@
 
                   </ul></p>
                 </div>
+                @can('super',\App\User::class)
                 <div class="col-md-4">
                         <a href="{{route('users.edit',$user->id)}}" class="card-link btn btn-success">Edit</a>
                         <a href="javascript:void(0);" class="card-link btn btn-success" @click="deleteRecord({{$user->id}})">Delete</a>
@@ -31,7 +32,7 @@
                 @csrf
                 </form>
                     </div>
-              
+              @endcan
                  
                 </div>
                 </div>

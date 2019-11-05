@@ -29,6 +29,7 @@ class QuantitiesController extends Controller
      */
     public function create()
     {
+        $this->authorize('super',\App\Quantity::class);
         //fetch categories
 $categories = Category::orderBy('name','asc')->get();
         return view('quantity.create')->with('categories',$categories);
@@ -42,6 +43,7 @@ $categories = Category::orderBy('name','asc')->get();
      */
     public function store(Request $request)
     {
+        $this->authorize('super',\App\Quantity::class);
         //Validate the data
         $this->validate($request,[
         'label'=>'required|max:32',
@@ -90,6 +92,7 @@ $categories = Category::orderBy('name','asc')->get();
      */
     public function edit(Quantity $quantity)
     {
+        $this->authorize('super',$quantity);
         $categories = Category::orderBy('name','asc')->get();
         $current_categories =[];        
         foreach($quantity->categories as $scat)
@@ -108,7 +111,7 @@ $categories = Category::orderBy('name','asc')->get();
      */
     public function update(Quantity $quantity)
     {
-        
+        $this->authorize('super',$quantity);
         //quantity record update
         $quantity->update(request(['label','value']));
         /*$quantity->categories()->detach();
@@ -125,6 +128,7 @@ $categories = Category::orderBy('name','asc')->get();
      */
     public function destroy(Quantity $quantity)
     {
+        $this->authorize('super',$quantity);
         //$quantity->delete();
         return back();
     }

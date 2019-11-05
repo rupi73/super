@@ -27,6 +27,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
+        abort_if(\Gate::denies('super',Product::class),403);
        // $categories = Category::orderBy('name','asc')->pluck('name','id');
         $categories = Category::with('sizes','quantities','papers','papers.paper:id,name')->orderBy('name','asc')->get();
         //dd($categories);
@@ -42,6 +43,7 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         //
+        abort_if(\Gate::denies('super',Product::class),403);
         $this->validate($request,[
         'name'=>'required|min:10|unique:products',
         'wp_product_id'=>'required|unique:products',
@@ -85,6 +87,7 @@ class ProductsController extends Controller
      */
     public function edit(Product $product)
     {
+        abort_if(\Gate::denies('super',$product),403);
         $categories = Category::with('sizes','quantities','papers','papers.paper:id,name')->orderBy('name','asc')->get();
         return view('products.edit',compact('categories','product'));
     }
@@ -99,6 +102,7 @@ class ProductsController extends Controller
     public function update(Product $product)
     {
         //
+        abort_if(\Gate::denies('super',$product),403);
         $request = request();
         $this->validate($request,[
 'name'=>['required', Rule::unique('products')->ignore($product->id)],
@@ -127,6 +131,7 @@ class ProductsController extends Controller
      */
     public function destroy(Product $product)
     {
+        abort_if(\Gate::denies('super',$product),403);
         //$product->delete();
         return back();
     }

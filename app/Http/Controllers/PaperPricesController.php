@@ -26,6 +26,7 @@ class PaperPricesController extends Controller
      */
     public function create()
     {
+        abort_if(\Gate::denies('super',Paper::class),403);
         //fetch all treatments
         $treatments = Treatment::orderBY('name','asc')->get();
         return view('papers.price-create',['treatments'=>$treatments]);

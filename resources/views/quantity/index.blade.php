@@ -22,6 +22,7 @@
                                                                 @endforeach
                                                         </p>
                                                 </div>
+                                                @can('super',\App\Quantity::class)
                                                 <div class="col-md-4">
                                                         <a href="{{route('quantity.edit',$quantity->id)}}"
                                                                 class="card-link">Edit</a>
@@ -33,7 +34,7 @@
                                                                 @csrf
                                                         </form>
                                                 </div>
-
+@endcan
 
                                         </div>
                                 </div>

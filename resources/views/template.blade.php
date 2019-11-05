@@ -75,10 +75,10 @@
             NProgress.done(), clearInterval(interval), Main.init()
         })
     </script>
-    <script src="assets/js/index.min.js"></script>
+    <!--script src="{{asset('assets/js/index.min.js')}}"></script-->
     <script>
         jQuery(document).ready(function() {
-            //Index.init()
+            //Index.init();
         })
     </script>
 
