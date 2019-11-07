@@ -17,4 +17,9 @@ class Treatment extends Model
         {
             return $this->hasMany('App\TreatmentPrice');
         }
+
+            //papers
+    public function papers(){
+        return $this->belongsToMany('App\Paper');
+        }
 }

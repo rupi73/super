@@ -45,7 +45,7 @@ class ProductsController extends Controller
         //
         abort_if(\Gate::denies('super',Product::class),403);
         $this->validate($request,[
-        'name'=>'required|min:10|unique:products',
+        'name'=>'required|min:3|unique:products',
         'wp_product_id'=>'required|unique:products',
         'category_id'=>'required',
         'sizes'=>'required',
@@ -63,7 +63,7 @@ class ProductsController extends Controller
         $product->sizes()->attach(explode(',',request('sizes')));
         $product->papers()->attach(explode(',',request('papers')));
         //Product::Create(request('name','category_id','price'));
-
+      $this->createProductJson($product);
       return  redirect()->route('products.index');
         
     }
@@ -134,5 +134,14 @@ class ProductsController extends Controller
         abort_if(\Gate::denies('super',$product),403);
         //$product->delete();
         return back();
+    }
+
+        /**
+     * Create a Json Cache for Product.
+     * * @param  \App\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function createProductJson($product){
+
     }
 }

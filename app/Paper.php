@@ -18,4 +18,8 @@ class Paper extends Model
     {
         return $this->belongsTo('App\Gsm');
     }
+    //treatments
+    public function treatments(){
+    return $this->belongsToMany('App\Treatment');
+    }
 }
