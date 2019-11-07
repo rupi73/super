@@ -29,7 +29,7 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label for="label">Colors</label>
-                <input type="text" class="form-control" id="label" name="colors" value="{{$treatment->settings->colors}}">
+                <input type="text" class="form-control" id="label" name="colors" value="{{isset($treatment->settings->colors)?$treatment->settings->colors:''}}">
                 <small>input colors separating by commas or leave blank if there are no colors</small>
             </div><!--form-group-->
             </div><!--col-md-3-->
