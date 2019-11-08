@@ -1,3 +1,5 @@
+@extends('template')
+@section('content')
 <div class="container">
     <div class="row">
         
@@ -417,3 +419,4 @@
 
 </div><!--close row-->
 </div> <!--close container-->
+@endsection

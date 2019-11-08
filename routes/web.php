@@ -37,3 +37,4 @@ Route::post('/japi/save_paper_prices','JsApiController@savePaperPrices');
 Route::get('/japi/treatments','JsApiController@treatments');
 Route::get('/japi/cat-qnty','JsApiController@catQnties');
 Route::post('/japi/save_treatment_prices','JsApiController@saveTreatmentPrices');
+Route::get('/quotes/create','OrdersController@create')->name('quotes.create');
