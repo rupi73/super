@@ -3,120 +3,169 @@
 @section('content')
 <div class="container-fluid container-fullw bg-white" id="vapp">
   <h2>Product Create</h2><br>
-  
-<div class="row">
-<div class="col-md-4"><template>
-    
-    <vue-bootstrap-typeahead
-                                class="mb-4"
-                                v-model="pquery"
-                                :data="products"
-                                :serializer="item => item.post_title"
-                                @hit="onProductSelected"
-                                placeholder="Select Product"
-                              />
-  </template>
-</div>
-<div class="col-md-4">
-  <template>
-    <div>
-      <b-form-select v-model="categoryId" :options="categories" class="mb-3" @change="fetchPapersAndSizes" value-field="id"
-      text-field="name" value="">
-        <!-- This slot appears above the options from 'options' prop -->
-        <template v-slot:first>
-          <option :value="null" disabled>-- Please select Categories --</option>
-        </template>
-  
 
-      </b-form-select>
-  
-      <div class="mt-3" v-if="debug">Selected: <strong>@{{ categoryId }}</strong></div>
+  <div class="row">
+    <div class="col-md-4"><template>
+
+        <vue-bootstrap-typeahead class="mb-4" v-model="pquery" :data="products" :serializer="item => item.post_title"
+          @hit="onProductSelected" placeholder="Select Product" />
+      </template>
     </div>
-  </template>
-</div>
-<div class="col-md-4" v-if="categoryId && cPapers.length">
-    <template>
+    <div class="col-md-4">
+      <template>
+        <div>
+          <b-form-select v-model="categoryId" :options="categories" class="mb-3" @change="fetchPapersAndSizes"
+            value-field="id" text-field="name" value="">
+            <!-- This slot appears above the options from 'options' prop -->
+            <template v-slot:first>
+              <option :value="null" disabled>-- Please select Categories --</option>
+            </template>
+
+
+          </b-form-select>
+
+          <div class="mt-3" v-if="debug">Selected: <strong>@{{ categoryId }}</strong></div>
+        </div>
+      </template>
+    </div>
+    <div class="col-md-4" v-if="categoryId && cPapers.length">
+      <template>
         <div>
           <b-form-select v-model="productPapers" :options="cPapers" class="mb-3" value-field="paper_id"
-          text-field="paperName" @change="temp" multiple>
+            text-field="paperName" @input="onPaperSelected" multiple>
             <!-- This slot appears above the options from 'options' prop -->
             <template v-slot:first>
               <option :value="null" disabled>-- Please select Papers --</option>
             </template>
-      
+
 
           </b-form-select>
-      
-          <div class="mt-3" v-if="debug">Selected: <strong>@{{ cPapers }}</strong></div>
+          <div class="mt-3">
+            <b-form-select v-model="productPaper" :options="lspapers" class="mb-3" value-field="paper_id" text-field="paperName">
+              <!-- This slot appears above the options from 'options' prop -->
+              <template v-slot:first>
+                <option :value="null" disabled>-- Default Selected Paper --</option>
+              </template>
+
+
+            </b-form-select>
+          </div>
+          <div class="mt-3" v-if="debug">Selected: <strong>@{{ productPapers }}</strong></div>
+          <div class="mt-3" v-if="debug">Selected: <strong>@{{ lspapers }}</strong></div>
         </div>
       </template>
-</div>
-</div><!--row-->
-<div class="row mt-2" v-if="categoryId && cPapers.length">
-    <div class="col-md-4" >
-        <template>
-            <div>
-              <b-form-select v-model="productQuantities" :options="cQuantities" class="mb-3" value-field="id"
-              text-field="label" multiple>
-                <!-- This slot appears above the options from 'options' prop -->
-                <template v-slot:first>
-                  <option :value="null" disabled>-- Please select Quantities --</option>
-                </template>
-          
-
-              </b-form-select>
-          
-              <div class="mt-3" v-if="debug">Selected: <strong>@{{ cQuantities }}</strong></div>
-            </div>
-          </template>
     </div>
-    <div class="col-md-4">
-        <template>
-            <div>
-              <b-form-select v-model="productSizes" :options="cSizes" class="mb-3" value-field="id"
-              text-field="label" multiple>
-                <!-- This slot appears above the options from 'options' prop -->
-                <template v-slot:first>
-                  <option :value="null" disabled>-- Please select Sizes --</option>
-                </template>
-          
+  </div>
+  <!--row-->
+  <div class="row mt-2" v-if="categoryId && cPapers.length">
+    <div class="col-md-3">
+      <template>
+        <div>
+          <b-form-select v-model="productQuantities" :options="cQuantities" class="mb-3" value-field="id"
+            text-field="label" @input="onQuantitySelected" multiple>
+            <!-- This slot appears above the options from 'options' prop -->
+            <template v-slot:first>
+              <option :value="null" disabled>-- Please select Quantities --</option>
+            </template>
 
-              </b-form-select>
-          
-              <div class="mt-3" v-if="debug">Selected: <strong>@{{ cSizes }}</strong></div>
-            </div>
-          </template>
+
+          </b-form-select>
+          <div class="mt-3">
+            <b-form-select v-model="productQuantity" :options="lsquantities" class="mb-3" value-field="id"
+              text-field="label">
+              <!-- This slot appears above the options from 'options' prop -->
+              <template v-slot:first>
+                <option :value="null" disabled>-- Default Selected Quantity --</option>
+              </template>
+
+
+            </b-form-select>
+          </div>
+
+          <div class="mt-3" v-if="debug">Selected: <strong>@{{ productQuantity }}</strong></div>
+        </div>
+      </template>
     </div>
+    <div class="col-md-3">
+      <template>
+        <div>
+          <b-form-select v-model="productSizes" :options="cSizes" class="mb-3" value-field="id" text-field="label"
+            @input="onSizeSelected" multiple>
+            <!-- This slot appears above the options from 'options' prop -->
+            <template v-slot:first>
+              <option :value="null" disabled>-- Please select Sizes --</option>
+            </template>
 
-    <div class="col-md-4">
+
+          </b-form-select>
+          <div class="mt-3">
+            <b-form-select v-model="productSize" :options="lssizes" class="mb-3" value-field="id" text-field="label">
+              <!-- This slot appears above the options from 'options' prop -->
+              <template v-slot:first>
+                <option :value="null" disabled>-- Default Selected Size --</option>
+              </template>
+
+
+            </b-form-select>
+          </div>
+          <div class="mt-3" v-if="debug">Selected: <strong>@{{ cSizes }}</strong></div>
+        </div>
+      </template>
+    </div>
+    <div class="col-md-3">
+      <template>
+        <div>
+          <b-form-select v-model="productPrinting" :options="pPrinting" class="mb-3">
+            <!-- This slot appears above the options from 'options' prop -->
+            <template v-slot:first>
+              <option :value="null" disabled>-- Please select printing --</option>
+            </template>
+
+
+          </b-form-select>
+          <div class="mt-2" v-if="debug">Selected: <strong>@{{ productPrinting }}</strong></div>
+        </div>
+      </template>
+    </div>
+    <div class="col-md-3">
       <template>
         <div>
           <b-form-input v-model="productPrice" placeholder="product price" value=0></b-form-input>
           <div class="mt-2" v-if="debug"></div>
         </div>
       </template>
+    </div>
   </div>
-  </div><!--row-->
+  <!--row-->
   <div class="row" v-if="categoryId && cPapers.length">
-    <div class="col-md-4 offset-md-4"><b-button @click="onSubmit">Save</b-button></div>
-  </div><!--row-->
+    <div class="col-md-4 offset-md-4">
+      <b-button @click="onSubmit">Save</b-button>
+    </div>
+  </div>
+  <!--row-->
 
-</div><!--container-fluid-->
+</div>
+<!--container-fluid-->
 <form action="{{route('products.store')}}" method="post" id="product-create">
   @csrf
-<input type="hidden" name="name" id="product-name" value="">
-<input type="hidden" name="wp_product_id" id="product-wp" value="">
-<input type="hidden" name="category_id" id="category-id" value="">
-<input type="hidden" name="price" id="product-price" value="">
-<input type="hidden" name="papers" id="product-papers" value="">
-<input type="hidden" name="quantities" id="product-quantities" value="">
-<input type="hidden" name="sizes" id="product-sizes" value="">
+  <input type="hidden" name="name" id="product-name" value="">
+  <input type="hidden" name="wp_product_id" id="product-wp" value="">
+  <input type="hidden" name="category_id" id="category-id" value="">
+  <input type="hidden" name="price" id="product-price" value="">
+  <input type="hidden" name="papers" id="product-papers" value="">
+  <input type="hidden" name="quantities" id="product-quantities" value="">
+  <input type="hidden" name="sizes" id="product-sizes" value="">
+  <input type="hidden" name="attributes[selected][paper]" id="product-attributes-paper" value="">
+  <input type="hidden" name="attributes[selected][size]" id="product-attributes-size" value="">
+  <input type="hidden" name="attributes[selected][quantity]" id="product-attributes-quantity" value="">
+  <input type="hidden" name="attributes[selected][printing]" id="product-attributes-printing" value="">
 </form>
 @endsection
 
 @section('scripts')
 <script>
   console.log({!!$categories!!});
+  console.log({!!$errors!!});
 var vm=new Vue({
 el:'#vapp',
 data() {
@@ -129,10 +178,19 @@ categoryId:'',
 cSizes:[],
 cQuantities:[],
 cPapers:[],
+pPrinting:['None','Single Side','Both Sides','Single And Both'],
 productPapers:[],
 productSizes:[],
 productQuantities:[],
+productPrinting:'',
 productPrice:0,
+lsquantities:[],
+productQuantity:'',
+lssizes:[],
+productSize:'',
+lspapers:[],
+productPaper:'',
+productTreatments:[],
 debug:false,
 fetchPapersAndSizes:function(){
 console.log(vm.categoryId);
@@ -154,9 +212,6 @@ axios.get(`${apiServer}?cat=${this.category.id}&& q=${newQuery}`)
           this.papers = res.data;
         }) */
 },
-temp:function(){
-  console.log(vm.productPapers);
-},
 onSubmit:function() {
         document.getElementById('product-name').value = vm.product.post_title;
         document.getElementById('product-wp').value = vm.product.ID;
@@ -165,8 +220,19 @@ onSubmit:function() {
         document.getElementById('product-papers').value = vm.productPapers;
         document.getElementById('product-quantities').value = vm.productQuantities;
         document.getElementById('product-sizes').value = vm.productSizes;
+              
+        if(vm.productPaper && vm.productQuantity && vm.productSize && vm.productPrinting){
+        let attributes = [];
+        document.getElementById('product-attributes-paper').value = vm.productPaper;
+        document.getElementById('product-attributes-quantity').value=vm.productQuantity;
+        document.getElementById('product-attributes-size').value=vm.productSize;
+        document.getElementById('product-attributes-printing').value=vm.productPrinting;
         let form = document.getElementById('product-create');
         form.submit();
+        }
+        else
+        alert('All fields are mandatory');
+        
       },
       onProductSelected:function($event){
         vm.product = $event;
@@ -178,6 +244,33 @@ onSubmit:function() {
           this.papers = res.data;
         })*/
         console.log(vm.product);
+      },
+      onQuantitySelected:function(e){        
+        vm.lsquantities=[];
+        for(q of vm.cQuantities){
+              if(e.indexOf(q.id)!==-1)
+              vm.lsquantities.push(q);
+        }
+        
+        
+      },
+      onSizeSelected:function(e){        
+        vm.lssizes=[];
+        for(q of vm.cSizes){
+              if(e.indexOf(q.id)!==-1)
+              vm.lssizes.push(q);
+        }
+        
+        
+      },
+      onPaperSelected:function(e){        
+        vm.lspapers=[];
+        for(q of vm.cPapers){
+              if(e.indexOf(q.paper_id)!==-1)
+              vm.lspapers.push(q);
+        }
+        
+        
       }
     }
   },
@@ -192,6 +285,7 @@ onSubmit:function() {
           console.log(this.products);
         })
     }
+    
   },
   filters: {
     stringify(value) {

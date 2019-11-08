@@ -11,8 +11,8 @@
   <div class="card-body">
   <h4 class="card-title">{{$paper->name}}</h4>
     
-<p><b>GSM :</b>	
-{{$paper->gsm->label}}
+  <p><b>GSM :</b>	
+  {{$paper->gsm->label}}
   
 </p>
 <p><b>Settings :</b>{{$paper->settings}}

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = ['name','category_id'];
+    protected $fillable = ['name','category_id','wp_product_id','attributes'];
 
     //Category
     public function category(){
