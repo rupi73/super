@@ -30,4 +30,10 @@ class Category extends Model
     {
       return $this->hasMany('App\Product');
     }
+
+    //treatments
+    public function treatments()
+    {
+      return $this->hasMany('App\TreatmentPrice');
+    }
 }

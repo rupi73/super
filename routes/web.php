@@ -38,3 +38,5 @@ Route::get('/japi/treatments','JsApiController@treatments');
 Route::get('/japi/cat-qnty','JsApiController@catQnties');
 Route::post('/japi/save_treatment_prices','JsApiController@saveTreatmentPrices');
 Route::get('/quotes/create','QuotesController@create')->name('quotes.create');
+
+Route::get('/catjson/{category}','CategoriesController@createJson');

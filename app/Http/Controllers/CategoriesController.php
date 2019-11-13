@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class CategoriesController extends Controller
 {
@@ -112,5 +114,101 @@ class CategoriesController extends Controller
         //
         //$category->delete();
         return redirect()->route('category.index');
-    }
-}
+    }//function
+
+    public function createJson(Category $category){
+      abort_if(\Gate::denies('super',$category),403);
+      $json = Cache::get('category-'.$category->id.'-json',[]);
+      if (!empty($json))
+      $json = json_decode($json,True);
+      //create papers json
+      if(!isset($json['paper']))
+      $json['paper']=[];
+      if(!isset($json['paper']['opts']))
+      $json['paper']['opts']=[];
+      foreach($category->papers as $pp)
+      {
+        $json['paper']['opts'][$pp->paper->name] = $pp->paper->name;
+        $json['paper'][$pp->paper->name]=[];
+        $qps = json_decode($pp->quantity_prices,true);
+        if(!$pp->category->price_frontback_printing)
+        $json['paper'][$pp->paper->name]['single']=$qps['single'];
+        else
+        $json['paper'][$pp->paper->name]=$qps;
+        foreach($pp->paper->treatments as $treatment)
+        $json['paper'][$pp->paper->name]['treatments'][] = $treatment->name;
+
+      }
+
+      //create treatments Json
+      if(!isset($json['treatments']))
+      $json['treatments']=[];
+      foreach($category->treatments as $tp)
+      {
+        if(!isset($json['treatments'][$tp->treatment->name]))
+        $json['treatments'][$tp->treatment->name]=[];
+        if(!isset($json['treatments'][$tp->treatment->name]['opts']))
+        $json['treatments'][$tp->treatment->name]['opts']=[];
+        $settings = json_decode($tp->treatment->settings,true);
+        if(isset($settings['colors'])){
+          $colors = explode(',',$settings['colors']); 
+          foreach($colors as $color){
+           $json['treatments'][$tp->treatment->name]['opts']['colors'][$color]=$color; 
+          }
+          $json['treatments'][$tp->treatment->name]['opts']['sides'] = $settings['sides'];
+   
+       }
+       elseif($settings['sides']=='single')
+       $json['treatments'][$tp->treatment->name]['opts']['single']='Single Side';
+       elseif($settings['sides']=='both'){
+           $json['treatments'][$tp->treatment->name]['opts']['single']='Single Side';
+           $json['treatments'][$tp->treatment->name]['opts']['both']='Both Sides';
+       }
+       $qps = json_decode($tp->quantity_prices,true);
+       $json['treatments'][$tp->treatment->name]=array_merge($json['treatments'][$tp->treatment->name],$qps);
+
+      }
+      //create products json
+      if(!isset($json['products']))
+      $json['products']=[];
+      foreach($category->products as $product){
+        $attributes = json_decode($product->attributes);
+        $json['products'][$product->id]=[
+          'wp_id'=>$product->wp_product_id,
+          'name'=>$product->name,
+          'quantities'=>['opts'=>$this->mapQuantities($product->quantities),'selected'=>$attributes->selected->quantity??''],
+          'papers'=>['opts'=>$product->papers->map(function($paper){return $paper->name;}),'selected'=>$attributes->selected->paper??''],
+          'sizes'=>['opts'=>$this->mapSizes($product->sizes),'selected'=>$attributes->selected->size??''],
+          'printing'=>$attributes->selected->printing??''
+          
+      ];
+      }
+      if(!empty($json)){
+        Cache::forever('category-'.$category->id.'-json',json_encode($json));
+        Storage::disk('local')->put('category-'.$category->id.'.json', json_encode($json));
+        
+        }
+
+    }//function
+    public function mapQuantities($quantities){
+      $array=[];
+      foreach($quantities as $qty){
+          $array[$qty->value]=$qty->label;
+      }
+      return $array;
+      }//function
+      public function mapSizes($sizes){
+          $array=[];
+          foreach($sizes as $size){
+              $array[$size->value]=$size->label;
+          }
+          return $array;
+          }//function
+      public function mapPapers($papers){
+              $array=[];
+              foreach($papers as $paper){
+                  $array[$paper->name]=$paper->name;
+              }
+              return $array;
+          }//function
+}//class
