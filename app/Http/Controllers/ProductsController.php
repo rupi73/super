@@ -93,6 +93,7 @@ class ProductsController extends Controller
     {
         abort_if(\Gate::denies('super',$product),403);
         $categories = Category::with('sizes','quantities','papers','papers.paper:id,name')->orderBy('name','asc')->get();
+        $product->attributes=str_replace('\u0022','\\\\"',$product->attributes);
         return view('products.edit',compact('categories','product'));
     }
 

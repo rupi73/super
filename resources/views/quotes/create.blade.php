@@ -699,7 +699,7 @@ else if(vm.printing=='Single Side'){
 }
 else if(vm.printing=='Both Sides')
 vm.printingOptions={both:'Both Sides'};
-else if(vm.printing=='Single and Both')
+else if(vm.printing=='Single And Both')
 vm.printingOptions={single:'Single Side',both:'Both Sides'};
 console.log('quantity');
 console.log(vm.quantities);
