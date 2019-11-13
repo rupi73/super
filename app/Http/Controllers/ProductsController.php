@@ -114,7 +114,10 @@ class ProductsController extends Controller
 'category_id'=>['required'],
 'attributes'=>'required|array'
         ]);
-        $product->update(request(['name','wp_product_id','category_id'])+['attributes'=>json_encode(request('attributes'))]);
+        $attributes = json_encode(request('attributes'),JSON_HEX_QUOT|JSON_HEX_APOS);
+        //$attributes = str_replace("\u0022", "\\\"", $attributes );
+//$attributes = str_replace("\u0027", "\\'",  $attributes );
+        $product->update(request(['name','wp_product_id','category_id'])+['attributes'=>$attributes]);
         /* $product->papers()->detach();
         $product->papers()->attach(explode(',',request('papers'))); */
         $product->papers()->sync(explode(',',request('papers')));

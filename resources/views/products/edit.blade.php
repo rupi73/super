@@ -216,7 +216,10 @@ setValuePaperQntySizes:function(){
   let papers = {!!$product->papers!!};
   let quantities = {!!$product->quantities!!};
   let sizes = {!!$product->sizes!!};
-  let attributes = '{!! !is_null($product->attributes)?$product->attributes:''!!}';
+  let attributes = '{!! !is_null($product->attributes)?$product->attributes:'' !!}';
+  attributes = attributes.replace(/\\"/g,'');
+  console.log(attributes);
+  
   for(paper of papers)
   vm.productPapers.push(paper.id);
   for(size of sizes)
@@ -228,6 +231,7 @@ setValuePaperQntySizes:function(){
   vm.onPaperSelected(vm.productPapers);
   if(attributes.length){
     attributes = JSON.parse(attributes);
+    console.log(attributes);
     vm.productQuantity=attributes.selected.quantity;
     vm.productPaper=attributes.selected.paper;
     vm.productSize=attributes.selected.size;

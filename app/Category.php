@@ -24,4 +24,10 @@ class Category extends Model
     {
       return $this->hasMany('App\PaperPrice');
     }
+
+            //products
+    public function products()
+    {
+      return $this->hasMany('App\Product');
+    }
 }

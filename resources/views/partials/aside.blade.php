@@ -26,7 +26,7 @@
                     <ul class="sub-menu">
                     <li><a href="{{route('orders.create')}}"><span class="title">Add</span></a></li>
                         <li><a href="{{route('orders.index')}}"><span class="title">List</span></a></li>
-                        <li><a href="{{route('quotes.create')}}"><span class="title">Estimate</span></a></li>
+                        <li><a href="{{route('quotes.create')}}"><span class="title">Quotes</span></a></li>
                     </ul>
                 </li>
                                 

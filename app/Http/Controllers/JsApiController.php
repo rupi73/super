@@ -119,9 +119,10 @@ $json['paper']=[];
 if(!isset($json['paper']['opts']))
 $json['paper']['opts']=[];
 $json['paper']['opts'][$pp->paper->name] = $pp->paper->name;
+$json['paper'][$pp->paper->name]=[];
 $qps = json_decode($pp->quantity_prices,true);
 if(!$pp->category->price_frontback_printing)
-$json['paper'][$pp->paper->name]=$qps['single'];
+$json['paper'][$pp->paper->name]['single']=$qps['single'];
 else
 $json['paper'][$pp->paper->name]=$qps;
 foreach($pp->paper->treatments as $treatment)
