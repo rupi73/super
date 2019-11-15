@@ -834,6 +834,8 @@ console.log(vm.prices);
 vm.calcQntiesCardPrice();
 },//function
 validateProduct:function(){
+if(vm.data.prices.length)
+return true;
 
 },
 arrayToString:function(arr){

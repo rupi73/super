@@ -141,7 +141,7 @@ var vm = new Vue({
         if(typeof this.qp[side]==='undefined')
         this.qp[side]={};
         if(typeof this.qp[side][qty]==='undefined'){
-          if(this.treatment.treatment_prices.length){
+          if(this.treatment.treatment_prices.length && this.treatment.treatment_prices[0].quantity_prices.length){
           this.qp = JSON.parse(this.treatment.treatment_prices[0].quantity_prices);
           }
           else
