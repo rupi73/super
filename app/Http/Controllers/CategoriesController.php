@@ -118,7 +118,7 @@ class CategoriesController extends Controller
 
     public function createJson(Category $category){
       abort_if(\Gate::denies('super',$category),403);
-      $json = Cache::get('category-'.$category->id.'-json',[]);
+      $json = [];//Cache::get('category-'.$category->id.'-json',[]);
       if (!empty($json))
       $json = json_decode($json,True);
       //create papers json
@@ -135,16 +135,18 @@ class CategoriesController extends Controller
         $json['paper'][$pp->paper->name]['single']=$qps['single'];
         else
         $json['paper'][$pp->paper->name]=$qps;
-        foreach($pp->paper->treatments as $treatment)
-        $json['paper'][$pp->paper->name]['treatments'][] = $treatment->name;
+        foreach($pp->paper->treatments as $treatment){
+        $json['paper'][$pp->paper->name]['treatments'][] = str_slug($treatment->name,'_');
+
+        }
 
       }
-
       //create treatments Json
       if(!isset($json['treatments']))
       $json['treatments']=[];
       foreach($category->treatments as $tp)
       {
+        $tp->treatment->name=str_slug($tp->treatment->name,'_');        
         if(!isset($json['treatments'][$tp->treatment->name]))
         $json['treatments'][$tp->treatment->name]=[];
         if(!isset($json['treatments'][$tp->treatment->name]['opts']))
@@ -211,4 +213,10 @@ class CategoriesController extends Controller
               }
               return $array;
           }//function
+
+      public function jsonTreatmentName($treat){
+        $treat=strtolower($treat);
+        $treat=str_replace(' ','',$treat);
+        return $treat;
+      }
 }//class

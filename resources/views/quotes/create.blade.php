@@ -125,7 +125,7 @@
           @{{treatments}}
           <div class="row my-3">
 
-            <div class="col col-sm-12" v-if="treatments.indexOf('Foiling')!=-1">
+            <div class="col col-sm-12" v-if="treatments.indexOf('foiling')!=-1">
 
               <h3>Foiling</h3>
 
@@ -136,7 +136,7 @@
                     <div>
                       <b-form-group label="Front Side:">
                         <b-form-checkbox-group id="checkbox-group-foiling-front" v-model="myTreatments.foiling.front"
-                          :options="catJson.treatments.Foiling.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
+                          :options="catJson.treatments.foiling.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
                       </b-form-group>
 
 
@@ -152,7 +152,7 @@
                     <div>
                       <b-form-group label="Back Side:">
                         <b-form-checkbox-group id="checkbox-group-foiling-back" v-model="myTreatments.foiling.back"
-                          :options="catJson.treatments.Foiling.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
+                          :options="catJson.treatments.foiling.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
                       </b-form-group>
 
 
@@ -166,7 +166,7 @@
 
             </div>
             <!--close--col-md-4-->
-            <div class="col col-sm-12" v-if="treatments.indexOf('Electroplating')!=-1">
+            <div class="col col-sm-12" v-if="treatments.indexOf('electroplating')!=-1">
 
               <h3>Electroplating</h3>
 
@@ -177,7 +177,7 @@
                     <div>
                       <b-form-group label="Front Side:">
                         <b-form-checkbox-group id="checkbox-group-electroplating-front" v-model="myTreatments.electroplating.front"
-                          :options="catJson.treatments.Electroplating.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
+                          :options="catJson.treatments.electroplating.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
                       </b-form-group>
 
 
@@ -193,7 +193,7 @@
                     <div>
                       <b-form-group label="Back Side:">
                         <b-form-checkbox-group id="checkbox-group-electroplating-back" v-model="myTreatments.electroplating.back"
-                          :options="catJson.treatments.Electroplating.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
+                          :options="catJson.treatments.electroplating.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
                       </b-form-group>
 
 
@@ -208,7 +208,7 @@
             </div>
             <!--close--electroplating col-md-3-->
             
-            <div class="col col-sm-12" v-if="treatments.indexOf('LETTERPRESS')!=-1">
+            <div class="col col-sm-12" v-if="treatments.indexOf('letterpress')!=-1">
               <h3>Letterpress</h3>
               <div class="row">
                 <div class="col">
@@ -216,7 +216,7 @@
                     <div>
                       <b-form-group label="Front Side:">
                         <b-form-checkbox-group id="checkbox-group-letterpress-front" v-model="myTreatments.letterpress.front"
-                          :options="catJson.treatments.LETTERPRESS.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
+                          :options="catJson.treatments.letterpress.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
                       </b-form-group>
 
 
@@ -231,7 +231,7 @@
                     <div>
                       <b-form-group label="Back Side:">
                         <b-form-checkbox-group id="checkbox-group-letterpress-back" v-model="myTreatments.letterpress.back"
-                          :options="catJson.treatments.LETTERPRESS.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
+                          :options="catJson.treatments.letterpress.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
                       </b-form-group>
 
 
@@ -261,15 +261,15 @@
 
           <div class="row my-3">
 
-            <div class="col col-sm-12" v-if="treatments.indexOf('RAISED SPOT GLOSS')!=-1">
+            <div class="col col-sm-12" v-if="treatments.indexOf('raised_spot_gloss')!=-1">
               <h3>Raisespot</h3>
 
 
               <template>
                 <div>
                   <b-form-group>
-                    <b-form-radio-group id="radio-group-raisedspotgloss-front" v-model="myTreatments.raisedspotgloss"
-                      :options="catJson.treatments['RAISED SPOT GLOSS'].opts" @input="myTreatmentSelected">
+                    <b-form-radio-group id="radio-group-raised_spot_gloss-front" v-model="myTreatments.raised_spot_gloss"
+                      :options="catJson.treatments['raised_spot_gloss'].opts" @input="myTreatmentSelected">
                       <template v-slot:first>
                         <b-form-radio value="">None</b-form-radio>
                       </template>
@@ -278,13 +278,13 @@
 
 
 
-                  <div>Selected: <strong>@{{ myTreatments.raisedspotgloss }}</strong></div>
+                  <div>Selected: <strong>@{{ myTreatments.raised_spot_gloss }}</strong></div>
                 </div>
               </template>
 
             </div>
             <!--close raisespot column-->
-            <div class="col col-sm-12" v-if="treatments.indexOf('SPOTGLOSS')!=-1">
+            <div class="col col-sm-12" v-if="treatments.indexOf('spotgloss')!=-1">
               <h3>Spotgloss</h3>
 
 
@@ -292,7 +292,7 @@
                 <div>
                   <b-form-group>
                     <b-form-radio-group id="radio-group-spotgloss-front" v-model="myTreatments.spotgloss"
-                      :options="catJson.treatments.SPOTGLOSS.opts" @input="myTreatmentSelected">
+                      :options="catJson.treatments.spotgloss.opts" @input="myTreatmentSelected">
                       <template v-slot:first>
                         <b-form-radio value="">None</b-form-radio>
                       </template>
@@ -306,13 +306,13 @@
               </template>
 
             </div><!-- Spot Gloss Column-->
-            <div class="col col-sm-12" v-if="treatments.indexOf('ROUND CORNERS')!=-1">
+            <div class="col col-sm-12" v-if="treatments.indexOf('round_corners')!=-1">
               <h3>Roundcorner</h3>
               <template>
                 <div>
                   <b-form-group>
-                    <b-form-radio-group id="radio-group-roundcorner-front" v-model="myTreatments.roundcorners.side"
-                      :options="catJson.treatments['ROUND CORNERS'].opts" @input="myTreatmentSelected">
+                    <b-form-radio-group id="radio-group-round_corners-front" v-model="myTreatments.round_corners.side"
+                      :options="catJson.treatments['round_corners'].opts" @input="myTreatmentSelected">
                       <template v-slot:first>
                         <b-form-radio value="">None</b-form-radio>
                       </template>
@@ -321,7 +321,7 @@
 
 
 
-                  <div>Selected: <strong>@{{ myTreatments.roundcorners.side }}</strong></div>
+                  <div>Selected: <strong>@{{ myTreatments.round_corners.side }}</strong></div>
                 </div>
               </template>
 
@@ -329,13 +329,13 @@
             </div>
             <!--close roundcorner-->
 
-            <div class="col col-sm-12" v-if="treatments.indexOf('EDGEPAINT')!=-1">
+            <div class="col col-sm-12" v-if="treatments.indexOf('edgepaint')!=-1">
               <h3>Edgepaint</h3>
               <template>
                 <div>
                   <b-form-group>
                     <b-form-radio-group id="radio-group-edgepaint-front" v-model="myTreatments.edgepaint.color"
-                      :options="catJson.treatments.EDGEPAINT.opts" @input="myTreatmentSelected">
+                      :options="catJson.treatments.edgepaint.opts" @input="myTreatmentSelected">
                       <template v-slot:first>
                         <b-form-radio value="">None</b-form-radio>
                       </template>
@@ -361,7 +361,7 @@
 
           <div class="row my-3">
 
-            <div class="col col-md-12" v-if="treatments.indexOf('LASER CUT')!=-1">
+            <div class="col col-md-12" v-if="treatments.indexOf('laser_cut')!=-1">
 
               <h3>Lasercut</h3>
 
@@ -370,8 +370,8 @@
               <template>
                 <div>
                   <b-form-group>
-                    <b-form-radio-group id="radio-group-roundcorner-front" v-model="myTreatments.lasercut.side"
-                      :options="catJson.treatments['LASER CUT'].opts" @input="myTreatmentSelected">
+                    <b-form-radio-group id="radio-group-laser_cut-front" v-model="myTreatments.laser_cut.side"
+                      :options="catJson.treatments['laser_cut'].opts" @input="myTreatmentSelected">
                       <template v-slot:first>
                         <b-form-radio value="">None</b-form-radio>
                       </template>
@@ -380,7 +380,7 @@
 
 
 
-                  <div>Selected: <strong>@{{ myTreatments.lasercut }}</strong></div>
+                  <div>Selected: <strong>@{{ myTreatments.laser_cut }}</strong></div>
                 </div>
               </template>
 
@@ -390,7 +390,7 @@
             <!--close lasercut--col-md-3-->
 
 
-            <div class="col-md-4" v-if="treatments.indexOf('LASER ENGRAVE')!=-1">
+            <div class="col-md-4" v-if="treatments.indexOf('laser_engrave')!=-1">
 
               <h3>Laserengrave</h3>
 
@@ -399,8 +399,8 @@
               <template>
                 <div>
                   <b-form-group>
-                    <b-form-radio-group id="radio-group-laserengrave-front" v-model="myTreatments.laserengrave.side"
-                      :options="catJson.treatments['LASER ENGRAVE'].opts" @input="myTreatmentSelected">
+                    <b-form-radio-group id="radio-group-laser_engrave-front" v-model="myTreatments.laser_engrave.side"
+                      :options="catJson.treatments['laser_engrave'].opts" @input="myTreatmentSelected">
                       <template v-slot:first>
                         <b-form-radio value="">None</b-form-radio>
                       </template>
@@ -409,7 +409,7 @@
 
 
 
-                  <div>Selected: <strong>@{{ myTreatments.laserengrave }}</strong></div>
+                  <div>Selected: <strong>@{{ myTreatments.laser_engrave }}</strong></div>
                 </div>
               </template>
 
@@ -419,7 +419,7 @@
             <!--close laserengrave --col-md-3-->
 
 
-            <div class="col-md-4" v-if="treatments.indexOf('EMBOSSING')!=-1">
+            <div class="col-md-4" v-if="treatments.indexOf('embossing')!=-1">
 
               <h3>Embossing</h3>
 
@@ -429,7 +429,7 @@
                 <div>
                   <b-form-group>
                     <b-form-radio-group id="radio-group-embossing-front" v-model="myTreatments.embossing.side"
-                      :options="catJson.treatments.EMBOSSING.opts" @input="myTreatmentSelected">
+                      :options="catJson.treatments.embossing.opts" @input="myTreatmentSelected">
                       <template v-slot:first>
                         <b-form-radio value="">None</b-form-radio>
                       </template>
@@ -455,15 +455,15 @@
 
           <div class="row my-3">
 
-            <div class="col col-md-12" v-if="treatments.indexOf('SILK SCREEN')!=-1">
+            <div class="col col-md-12" v-if="treatments.indexOf('silk_screen')!=-1">
               <h3>Silk Screen</h3>
 
 
               <template>
                 <div>
                   <b-form-group>
-                    <b-form-radio-group id="radio-group-silkscreen-front" v-model="myTreatments.silkscreen.side"
-                      :options="catJson.treatments['SILK SCREEN'].opts" @input="myTreatmentSelected">
+                    <b-form-radio-group id="radio-group-silk_screen-front" v-model="myTreatments.silk_screen.side"
+                      :options="catJson.treatments['silk_screen'].opts" @input="myTreatmentSelected">
                       <template v-slot:first>
                         <b-form-radio value="">None</b-form-radio>
                       </template>
@@ -472,7 +472,7 @@
 
 
 
-                  <div>Selected: <strong>@{{ myTreatments.silkscreen }}</strong></div>
+                  <div>Selected: <strong>@{{ myTreatments.silk_screen }}</strong></div>
                 </div>
               </template>
 
@@ -565,16 +565,16 @@
                   <td>
                     <div class="form-check">
                       <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input" :value="key">@{{qty}}
+                      <input type="checkbox" class="form-check-input" :value="key" v-model="data.prices[key]">@{{qty}}
                       </label>
                     </div>
                   </td>
-                  <td>
-                    ₹ @{{calcPerCardPrice(qty)}}
+                  <td v-if="perCardPrices[qty]">
+                    ₹ @{{perCardPrices[qty]}}
                   </td>
 
-                  <td>
-                    ₹ @{{calcQtyCardPrice(qty)}}
+                  <td v-if="prices[qty]">
+                    ₹ @{{prices[qty] }}
                   </td>
 
                 </tr>
@@ -614,12 +614,14 @@
                   <td colspan="2">Treatments</td>
                   </tr>
                   <tr v-for="(treat,key,index) of data.treatments">
-                  <td>@{{key}}</td>
-                  <td> <p v-for="(arr,k,index) of treat"><b>@{{k}}:-</b>@{{arrayToString(arr)}}</p> </td>
+                  <td>@{{key.toUpperCase()}}</td>
+                  <td v-if="key=='foiling' || key=='electroplating' || key=='letterpress' || key=='laser_engrave' || key=='raised_spot_gloss' || key=='silk_screen' "> <p v-for="(arr,k,index) of treat"><b>@{{k.charAt(0).toUpperCase()+ k.slice(1)}}:-</b>@{{arrayToString(arr)}}</p> </td>
+                  <td v-if="key=='round_corners' || key=='laser_cut' || key=='embossing'">Yes</td>
+                  <td v-if="key=='edgepaint'">@{{treat.color}}</td>
                   </tr>
 
                   <tr>
-                    <td colspan="2"><button type="button" class="btn btn-primary btn-lg">ADD</button> </td>
+                    <td colspan="2"><button type="button" class="btn btn-primary btn-lg" :click="addProduct()">ADD</button> </td>
                   </tr>
 
 
@@ -651,22 +653,23 @@
 el:'#vestimate',
 data(){
   return{
-    categories:{!!$categories!!},
-    products:[],
-    papers:[],
-    quantities:[],
-    sizes:[],
+    categories:{!!$categories!!},//used in select input
+    products:[],//used in categories products select input
+    papers:[],//used in selected product papers
+    quantities:[],//used in products quantities
+    sizes:[],//used in products sizes
     debug:false,
-    catJsons:{!!$catJsons!!},
-    catJson:[],
-    treatments:[],
-    printingOptions:[],
-    printing:{},    
-    prices:{},
-    data:{paper:{},treatments:{},quantity:{},size:{},printing:'',category:{id:'',name:''},product:{id:'',name:''}},
+    catJsons:{!!$catJsons!!},//Categories JSONs
+    catJson:[],//selected category json
+    treatments:[],//used in selected paper treatments
+    printingOptions:[],//used to show printing options
+    printing:{},  //product printing  
+    prices:{},//product quantities prices
+    perCardPrices:{},//product quantities percard prices
+    data:{paper:{},treatments:{},prices:{},size:{},printing:'',category:{id:'',name:''},product:{id:'',name:''}},
     settings:{price:{printing:0,size:0}},
-    myTreatments:{foiling:{front:[],back:[]},electroplating:{front:[],back:[]},letterpress:{front:[],back:[]},embossing:{side:''},spotgloss:{side:''},raisedSpotgloss:{side:''},roundcorners:{side:''},edgepaint:{color:''},lasercut:{side:''},laserengrave:{side:''},silkscreen:{side:''}},
-    onCategorySelected:function(e){
+    myTreatments:{foiling:{front:[],back:[]},electroplating:{front:[],back:[]},letterpress:{front:[],back:[]},embossing:{side:''},spotgloss:{side:''},raised_spot_gloss:{side:''},round_corners:{side:''},edgepaint:{color:''},laser_cut:{side:''},laser_engrave:{side:''},silk_screen:{side:''}},
+  onCategorySelected:function(e){
       for(cat of vm.categories){
    if(cat.id==vm.data.category.id){
      vm.data.category.name = cat.name;
@@ -703,21 +706,54 @@ else if(vm.printing=='Single And Both')
 vm.printingOptions={single:'Single Side',both:'Both Sides'};
 console.log('quantity');
 console.log(vm.quantities);
+vm.calcQntiesCardPrice();
   },
 onPaperSelected:function(e){
 console.log(vm.catJson.products[vm.data.product.id].papers);
 vm.paper = vm.catJson.products[vm.data.product.id].papers.opts[e];
   }, 
 calcPerCardPrice:function(qty){
-return (vm.calcQtyCardPrice(qty)/qty).toFixed(2);
+vm.perCardPrices[qty] = (vm.calcQtyCardPrice(qty)/qty).toFixed(2);
   },
 calcQtyCardPrice:function(qty){
 let price = 0;
 if(vm.settings.price.printing==0)
-price = vm.catJson.paper[vm.data.paper]['single'][qty];
+price = Number(vm.catJson.paper[vm.data.paper]['single'][qty]);
 console.log(vm.catJson.paper[vm.data.paper]);
+for(treat in vm.data.treatments){
+  switch(treat){
+case 'foiling':
+case 'electroplating':
+case 'letterpress':
+let colors = vm.data.treatments[treat].front.concat(vm.data.treatments[treat].back);
+for(color of colors){
+  console.log(vm.catJson.treatments[treat]);
+  price += Number(vm.catJson.treatments[treat][color][qty]);
+}
+break;
+case 'round_corners':
+case 'embossing':
+case 'laser_cut':
+case 'laser_engrave':
+case 'spotgloss':
+case 'raised_spot_gloss':
+case 'silk_screen':
+let side = vm.data.treatments[treat].side;
+price += Number(vm.catJson.treatments[treat][side][qty]);
+break;
+case 'edgepaint':
+
+break;
+  }//switch
+}
 vm.prices[qty]=price;
 return price;
+  },
+calcQntiesCardPrice:function(){
+for(qty in vm.quantities){
+  vm.calcQtyCardPrice(qty);
+  vm.calcPerCardPrice(qty);
+}
   },
 myTreatmentSelected:function(e){
   console.log('wwwww');
@@ -734,15 +770,15 @@ for(treat of vm.treatments){
 if(vm.myTreatments[treat].front.length || vm.myTreatments[treat].back.length){
 vm.data.treatments[treat]={};
 vm.data.treatments[treat] = vm.myTreatments[treat];
-vm.prices['treatments'][treat]=0;
 let colors = vm.data.treatments[treat].front.concat(vm.data.treatments[treat].back);
+console.log(vm.prices);
 //for(color in colors){
 //vm.catJson
 //}
 
 }
     break;
-    case 'roundcorners':
+    case 'round_corners':
     console.log(treat);
     if(vm.myTreatments[treat].side.length){
       vm.data.treatments[treat]={};
@@ -795,15 +831,18 @@ let colors = vm.data.treatments[treat].front.concat(vm.data.treatments[treat].ba
 
   }
 }
-for(treat in vm.data.treatments){
-  console.log('loop'+treat);
-}
-console.log(vm.data.treatments);
+vm.calcQntiesCardPrice();
 },//function
+validateProduct:function(){
+
+},
 arrayToString:function(arr){
   if(!Array.isArray(arr))
   return arr;
  return arr.join();
+},
+addProduct:function(){
+  
 }
 }//return
 }//data
