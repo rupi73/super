@@ -679,18 +679,23 @@ data(){
    if(cat.id==vm.data.category.id){
      vm.data.category.name = cat.name;
      vm.products = cat.products;
+     break;
    }
-   vm.papers=[];
-   vm.quantities = [];
-   vm.sizes = [];
-   vm.catJson = vm.catJsons[e];
+
     }
+   
+   vm.catJson = vm.catJsons[e];
   },//function
 resetProductSelected:function(){
-vm.data = {paper:{},treatments:{},prices:{},size:{},printing:'',category:{id:'',name:''},product:{id:'',name:''},quantities:[]};
+vm.data = {paper:{},treatments:{},prices:{},size:{},printing:'',category:{id:vm.data.category.id,name:vm.data.category.name},product:{id:'',name:''},quantities:[]};
+vm.myTreatments={foiling:{front:[],back:[]},electroplating:{front:[],back:[]},letterpress:{front:[],back:[]},embossing:{side:''},spotgloss:{side:''},raised_spot_gloss:{side:''},round_corners:{side:''},edgepaint:{color:''},laser_cut:{side:''},laser_engrave:{side:''},silk_screen:{side:''}};
+vm.treatments=[];
 vm.settings= {price:{printing:0,size:0}};
 vm.prices = {};
 vm.perCardPrices={};
+vm.papers=[];
+vm.quantities = [];
+vm.sizes = [];
   },
 onProductSelected:function(e){
   console.log(vm.catJson); 
@@ -856,7 +861,8 @@ arrayToString:function(arr){
 },
 addProduct:function(){
   vm.data.prices=vm.prices;
-  vm.quotes.push(vm.data)
+  vm.quotes.push(vm.data);
+  vm.resetProductSelected();
 }
 }//return
 },//data
