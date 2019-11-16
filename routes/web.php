@@ -13,6 +13,7 @@
 
 Route::get('/', 'DashboardController@index')->name('dashboard');
 Route::resource('papers','PapersController');
+Route::resource('clients','ClientsController');
 Route::resource('treatments','TreatmentsController');
 Route::resource('orders','OrdersController');
 Route::resource('products','ProductsController');

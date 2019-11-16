@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Client;
 
 class ClientsController extends Controller
 {
@@ -14,6 +15,10 @@ class ClientsController extends Controller
     public function index()
     {
         //
+       $data=Client::latest()->paginate(5);
+
+        return view('clients.index',compact('data'))
+        ->with('i',(request()->input('page',1) -1) *5);
     }
 
     /**
@@ -24,6 +29,7 @@ class ClientsController extends Controller
     public function create()
     {
         //
+       return view('clients.create');
     }
 
     /**
@@ -34,7 +40,25 @@ class ClientsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+    $data = [
+    'franchise_id' => $request->franchise_id,
+    'name' => $request->name,
+    'email' => $request->email,
+    'mobile' => $request->mobile,
+    'city' => $request->city,
+    'state' => $request->state,
+    'country' => $request->country,
+
+   
+    
+    ];
+
+
+
+Client::create($data);
+return redirect()->route('clients.index');
+
     }
 
     /**
@@ -46,6 +70,8 @@ class ClientsController extends Controller
     public function show($id)
     {
         //
+        $clients=client::findorfail($id);
+        return view('clients.show',compact('clients'));
     }
 
     /**
@@ -57,6 +83,8 @@ class ClientsController extends Controller
     public function edit($id)
     {
         //
+        $clients=Client::findorfail($id);
+        return view('clients.edit',compact('clients'));
     }
 
     /**
@@ -69,6 +97,20 @@ class ClientsController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        $clients=Client::find($id);
+        $clients->name = request('name');
+        $clients->email = request('email');
+
+        $clients->mobile = request('mobile');
+        $clients->franchise_id = request('franchise_id');
+        $clients->city = request('city');
+        $clients->state = request('state');
+        $clients->country = request('country');
+
+        $clients->save();
+
+        return redirect()->route('clients.index');
     }
 
     /**
