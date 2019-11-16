@@ -501,13 +501,13 @@
             </thead>
             <tbody>
 
-              <tr>
-                <td>Matt finish</td>
-                <td>Business card</td>
-                <td>5</td>
-                <td>12mm</td>
-                <td>Foiling</td>
-                <td>NUll</td>
+              <tr v-for="(quote,key,index) of quotes">
+              <td>@{{quote.category.name}}</td>
+                <td>@{{quote.product.name}}</td>
+                <td><p v-for="(qty,k,index) of quote.quantities"><b>@{{qty}}:-</b>@{{quote.prices[qty]}}</p></td>
+                <td>@{{quote.size}}</td>
+                <td>@{{quote.paper}}</td>
+                <td><p v-for="(treat,key,index) of quote.treatments"><b>@{{key}}</b></p></td>
 
               </tr>
 
@@ -565,7 +565,7 @@
                   <td>
                     <div class="form-check">
                       <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input" :value="key" v-model="data.prices[key]">@{{qty}}
+                      <input type="checkbox" class="form-check-input" :value="key" v-model="data.quantities">@{{qty}}
                       </label>
                     </div>
                   </td>
@@ -621,7 +621,7 @@
                   </tr>
 
                   <tr>
-                    <td colspan="2"><button type="button" class="btn btn-primary btn-lg" :click="addProduct()">ADD</button> </td>
+                    <td colspan="2"><button type="button" class="btn btn-primary btn-lg" :disabled="validateProduct" @click="addProduct()">ADD</button> </td>
                   </tr>
 
 
@@ -640,7 +640,7 @@
       </div>
     </div>
     <!--close col-md-4-->
-
+@{{data}}
   </div>
   <!--close row-->
 </div>
@@ -666,9 +666,14 @@ data(){
     printing:{},  //product printing  
     prices:{},//product quantities prices
     perCardPrices:{},//product quantities percard prices
-    data:{paper:{},treatments:{},prices:{},size:{},printing:'',category:{id:'',name:''},product:{id:'',name:''}},
+    data:{paper:{},treatments:{},prices:{},size:{},printing:'',category:{id:'',name:''},product:{id:'',name:''},quantities:[]},
     settings:{price:{printing:0,size:0}},
+    quotes:[],
     myTreatments:{foiling:{front:[],back:[]},electroplating:{front:[],back:[]},letterpress:{front:[],back:[]},embossing:{side:''},spotgloss:{side:''},raised_spot_gloss:{side:''},round_corners:{side:''},edgepaint:{color:''},laser_cut:{side:''},laser_engrave:{side:''},silk_screen:{side:''}},
+  resetCategorySelected:function(){
+//vm.products = [];
+//vm.resetProductSelected();
+  },
   onCategorySelected:function(e){
       for(cat of vm.categories){
    if(cat.id==vm.data.category.id){
@@ -681,6 +686,12 @@ data(){
    vm.catJson = vm.catJsons[e];
     }
   },//function
+resetProductSelected:function(){
+vm.data = {paper:{},treatments:{},prices:{},size:{},printing:'',category:{id:'',name:''},product:{id:'',name:''},quantities:[]};
+vm.settings= {price:{printing:0,size:0}};
+vm.prices = {};
+vm.perCardPrices={};
+  },
 onProductSelected:function(e){
   console.log(vm.catJson); 
   console.log(e);
@@ -691,6 +702,7 @@ vm.quantities = vm.catJson.products[e].quantities.opts;
 vm.data.size = vm.catJson.products[e].sizes.selected;
 vm.papers = vm.catJson.products[e].papers.opts;
 vm.data.paper = vm.catJson.products[e].papers.selected;
+vm.data.quantities.push(vm.catJson.products[e].quantities.selected);
 vm.printing = vm.catJson.products[e].printing;
 vm.treatments = vm.catJson.paper[vm.data.paper].treatments;
 if(vm.printing=='None'){
@@ -700,10 +712,14 @@ else if(vm.printing=='Single Side'){
   vm.printingOptions={single:'Single Side'};
   vm.data.printing='single';
 }
-else if(vm.printing=='Both Sides')
+else if(vm.printing=='Both Sides'){
 vm.printingOptions={both:'Both Sides'};
-else if(vm.printing=='Single And Both')
+vm.data.printing='both';
+}
+else if(vm.printing=='Single And Both'){
 vm.printingOptions={single:'Single Side',both:'Both Sides'};
+vm.data.printing='single';
+}
 console.log('quantity');
 console.log(vm.quantities);
 vm.calcQntiesCardPrice();
@@ -833,21 +849,31 @@ console.log(vm.prices);
 }
 vm.calcQntiesCardPrice();
 },//function
-validateProduct:function(){
-if(vm.data.prices.length)
-return true;
-
-},
 arrayToString:function(arr){
   if(!Array.isArray(arr))
   return arr;
  return arr.join();
 },
 addProduct:function(){
-  
+  vm.data.prices=vm.prices;
+  vm.quotes.push(vm.data)
 }
 }//return
-}//data
+},//data
+computed:{
+validateProduct:function(){
+  return this.data.quantities.length === 0;
+
+}
+},
+mounted: function () {
+  this.$nextTick(function () {
+    
+    vm.resetCategorySelected();
+
+
+  })
+}
 });
 </script>
 @endsection
