@@ -37,8 +37,8 @@
             <div class="col-md-6">
               <template>
                 <div>
-                  <b-form-select v-model="data.product.id" :options="products" class="mb-3" value-field="id" text-field="name"
-                    value="" @input="onProductSelected">
+                  <b-form-select v-model="data.product.id" :options="products" class="mb-3" value-field="id"
+                    text-field="name" value="" @input="onProductSelected">
                     <!-- This slot appears above the options from 'options' prop -->
                     <template v-slot:first>
                       <option :value="null" disabled>-- Please select Product --</option>
@@ -82,7 +82,8 @@
             <div class="col">
               <template>
                 <div>
-                  <b-form-select v-model="data.printing" :options="printingOptions" class="mb-3" value="" @input="onPrintingSelected">
+                  <b-form-select v-model="data.printing" :options="printingOptions" class="mb-3" value=""
+                    @input="onPrintingSelected">
                     <!-- This slot appears above the options from 'options' prop -->
                     <template v-slot:first>
                       <option :value="null" disabled>-- Please select Printing --</option>
@@ -136,7 +137,8 @@
                     <div>
                       <b-form-group label="Front Side:">
                         <b-form-checkbox-group id="checkbox-group-foiling-front" v-model="myTreatments.foiling.front"
-                          :options="catJson.treatments.foiling.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
+                          :options="catJson.treatments.foiling.opts.colors" @input="myTreatmentSelected">
+                        </b-form-checkbox-group>
                       </b-form-group>
 
 
@@ -152,7 +154,8 @@
                     <div>
                       <b-form-group label="Back Side:">
                         <b-form-checkbox-group id="checkbox-group-foiling-back" v-model="myTreatments.foiling.back"
-                          :options="catJson.treatments.foiling.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
+                          :options="catJson.treatments.foiling.opts.colors" @input="myTreatmentSelected">
+                        </b-form-checkbox-group>
                       </b-form-group>
 
 
@@ -176,8 +179,10 @@
                   <template>
                     <div>
                       <b-form-group label="Front Side:">
-                        <b-form-checkbox-group id="checkbox-group-electroplating-front" v-model="myTreatments.electroplating.front"
-                          :options="catJson.treatments.electroplating.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
+                        <b-form-checkbox-group id="checkbox-group-electroplating-front"
+                          v-model="myTreatments.electroplating.front"
+                          :options="catJson.treatments.electroplating.opts.colors" @input="myTreatmentSelected">
+                        </b-form-checkbox-group>
                       </b-form-group>
 
 
@@ -192,8 +197,10 @@
                   <template>
                     <div>
                       <b-form-group label="Back Side:">
-                        <b-form-checkbox-group id="checkbox-group-electroplating-back" v-model="myTreatments.electroplating.back"
-                          :options="catJson.treatments.electroplating.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
+                        <b-form-checkbox-group id="checkbox-group-electroplating-back"
+                          v-model="myTreatments.electroplating.back"
+                          :options="catJson.treatments.electroplating.opts.colors" @input="myTreatmentSelected">
+                        </b-form-checkbox-group>
                       </b-form-group>
 
 
@@ -207,7 +214,7 @@
 
             </div>
             <!--close--electroplating col-md-3-->
-            
+
             <div class="col col-sm-12" v-if="treatments.indexOf('letterpress')!=-1">
               <h3>Letterpress</h3>
               <div class="row">
@@ -215,8 +222,9 @@
                   <template>
                     <div>
                       <b-form-group label="Front Side:">
-                        <b-form-checkbox-group id="checkbox-group-letterpress-front" v-model="myTreatments.letterpress.front"
-                          :options="catJson.treatments.letterpress.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
+                        <b-form-checkbox-group id="checkbox-group-letterpress-front"
+                          v-model="myTreatments.letterpress.front" :options="catJson.treatments.letterpress.opts.colors"
+                          @input="myTreatmentSelected"></b-form-checkbox-group>
                       </b-form-group>
 
 
@@ -230,8 +238,9 @@
                   <template>
                     <div>
                       <b-form-group label="Back Side:">
-                        <b-form-checkbox-group id="checkbox-group-letterpress-back" v-model="myTreatments.letterpress.back"
-                          :options="catJson.treatments.letterpress.opts.colors" @input="myTreatmentSelected"></b-form-checkbox-group>
+                        <b-form-checkbox-group id="checkbox-group-letterpress-back"
+                          v-model="myTreatments.letterpress.back" :options="catJson.treatments.letterpress.opts.colors"
+                          @input="myTreatmentSelected"></b-form-checkbox-group>
                       </b-form-group>
 
 
@@ -268,7 +277,8 @@
               <template>
                 <div>
                   <b-form-group>
-                    <b-form-radio-group id="radio-group-raised_spot_gloss-front" v-model="myTreatments.raised_spot_gloss"
+                    <b-form-radio-group id="radio-group-raised_spot_gloss-front"
+                      v-model="myTreatments.raised_spot_gloss.side"
                       :options="catJson.treatments['raised_spot_gloss'].opts" @input="myTreatmentSelected">
                       <template v-slot:first>
                         <b-form-radio value="">None</b-form-radio>
@@ -291,7 +301,7 @@
               <template>
                 <div>
                   <b-form-group>
-                    <b-form-radio-group id="radio-group-spotgloss-front" v-model="myTreatments.spotgloss"
+                    <b-form-radio-group id="radio-group-spotgloss-front" v-model="myTreatments.spotgloss.side"
                       :options="catJson.treatments.spotgloss.opts" @input="myTreatmentSelected">
                       <template v-slot:first>
                         <b-form-radio value="">None</b-form-radio>
@@ -502,12 +512,16 @@
             <tbody>
 
               <tr v-for="(quote,key,index) of quotes">
-              <td>@{{quote.category.name}}</td>
+                <td>@{{quote.category.name}}</td>
                 <td>@{{quote.product.name}}</td>
-                <td><p v-for="(qty,k,index) of quote.quantities"><b>@{{qty}}:-</b>@{{quote.prices[qty]}}</p></td>
+                <td>
+                  <p v-for="(qty,k,index) of quote.quantities"><b>@{{qty}}:-</b>@{{quote.prices[qty]}}</p>
+                </td>
                 <td>@{{quote.size}}</td>
                 <td>@{{quote.paper}}</td>
-                <td><p v-for="(treat,key,index) of quote.treatments"><b>@{{key}}</b></p></td>
+                <td>
+                  <p v-for="(treat,key,index) of quote.treatments"><b>@{{key}}</b></p>
+                </td>
 
               </tr>
 
@@ -515,12 +529,58 @@
             </tbody>
           </table>
           <!--table close-->
+          <div class="row">
+            @can('super',\App\Product::class)
+            <div class="col">
+              <template>
+                <div>
+                  <b-form-select v-model="franchise_id" class="mb-3" id="input-franchise" @input="onFranchiseSelected">
+                    @foreach($franchises as $franchise)
+                    <optgroup label="{{$franchise->name}}">
+                      @foreach($franchise->users as $user)
+                      <option value="{{$user->id}}">{{$user->name}}</option>
+                      @endforeach
+                    </optgroup>
+                    @endforeach
+                  </b-form-select>
 
-          <div class="text-right">
-            <button type="button" class="btn btn-primary">Save To Quote</button>
+                  <div class="mt-3">Selected: <strong>@{{ client }}</strong></div>
+                </div>
+              </template>
+            </div>
+            <!--close--col-->
+            @endcan
+            <div class="col">
+              <template>
+                <div>
+                  <b-form-select v-model="client" :options="clients" size="sm" class="mt-3" value-field="id"
+                    text-field="name">
+                    <template v-slot:first>
+                      <option :value="null" disabled>-- Please Select Client --</option>
+                    </template>
 
-            <button type="button" class="btn btn-primary">Add To Order</button>
+                  </b-form-select>
+
+                  <div class="mt-3">Selected: <strong>@{{ client }}</strong></div>
+                </div>
+              </template>
+            </div>
+            <!--close--col-->
+            <div class="col">
+
+              <button type="button" class="btn btn-primary" :disabled="validateSaveQuote" @click="saveQuote">Save To
+                Quote</button>
+
+            </div>
+            <!--close--col-->
+
+            <div class="col ">
+              <button type="button" class="btn btn-primary">Add To Order</button>
+            </div>
+            <!--close--col-->
           </div>
+          <!--row close-->
+
           <!--text-right-->
 
 
@@ -565,7 +625,7 @@
                   <td>
                     <div class="form-check">
                       <label class="form-check-label">
-                      <input type="checkbox" class="form-check-input" :value="key" v-model="data.quantities">@{{qty}}
+                        <input type="checkbox" class="form-check-input" :value="key" v-model="data.quantities">@{{qty}}
                       </label>
                     </div>
                   </td>
@@ -611,17 +671,22 @@
                     <td> @{{data.paper}} </td>
                   </tr>
                   <tr>
-                  <td colspan="2">Treatments</td>
+                    <td colspan="2">Treatments</td>
                   </tr>
                   <tr v-for="(treat,key,index) of data.treatments">
-                  <td>@{{key.toUpperCase()}}</td>
-                  <td v-if="key=='foiling' || key=='electroplating' || key=='letterpress' || key=='laser_engrave' || key=='raised_spot_gloss' || key=='silk_screen' "> <p v-for="(arr,k,index) of treat"><b>@{{k.charAt(0).toUpperCase()+ k.slice(1)}}:-</b>@{{arrayToString(arr)}}</p> </td>
-                  <td v-if="key=='round_corners' || key=='laser_cut' || key=='embossing'">Yes</td>
-                  <td v-if="key=='edgepaint'">@{{treat.color}}</td>
+                    <td>@{{key.toUpperCase()}}</td>
+                    <td
+                      v-if="key=='foiling' || key=='electroplating' || key=='letterpress' || key=='laser_engrave' || key=='raised_spot_gloss' || key=='silk_screen' || key=='spotgloss'">
+                      <p v-for="(arr,k,index) of treat">
+                        <b>@{{k.charAt(0).toUpperCase()+ k.slice(1)}}:-</b>@{{arrayToString(arr)}}</p>
+                    </td>
+                    <td v-if="key=='round_corners' || key=='laser_cut' || key=='embossing'">Yes</td>
+                    <td v-if="key=='edgepaint'">@{{treat.color}}</td>
                   </tr>
 
                   <tr>
-                    <td colspan="2"><button type="button" class="btn btn-primary btn-lg" :disabled="validateProduct" @click="addProduct()">ADD</button> </td>
+                    <td colspan="2"><button type="button" class="btn btn-primary btn-lg" :disabled="validateProduct"
+                        @click="addProduct()">ADD</button> </td>
                   </tr>
 
 
@@ -640,7 +705,7 @@
       </div>
     </div>
     <!--close col-md-4-->
-@{{data}}
+    @{{data}}
   </div>
   <!--close row-->
 </div>
@@ -670,6 +735,10 @@ data(){
     settings:{price:{printing:0,size:0}},
     quotes:[],
     myTreatments:{foiling:{front:[],back:[]},electroplating:{front:[],back:[]},letterpress:{front:[],back:[]},embossing:{side:''},spotgloss:{side:''},raised_spot_gloss:{side:''},round_corners:{side:''},edgepaint:{color:''},laser_cut:{side:''},laser_engrave:{side:''},silk_screen:{side:''}},
+    clients:{!! $clients?$clients:'{}' !!},//used in quote saving input,
+    client:'',
+    franchises:{!! $franchises?$franchises:'[]' !!},
+    franchise_id:'{!! $franchise_id?$franchise_id:'' !!}',
   resetCategorySelected:function(){
 //vm.products = [];
 //vm.resetProductSelected();
@@ -831,19 +900,19 @@ console.log(vm.prices);
       vm.data.treatments[treat] = vm.myTreatments[treat];
     }
     break;
-    case 'silkscreen':
+    case 'silk_screen':
     if(vm.myTreatments[treat].side.length){
       vm.data.treatments[treat]={};
       vm.data.treatments[treat] = vm.myTreatments[treat];
     }
     break;
-    case 'lasercut':
+    case 'laser_cut':
     if(vm.myTreatments[treat].side.length){
       vm.data.treatments[treat]={};
       vm.data.treatments[treat] = vm.myTreatments[treat];
     }
     break;
-    case 'laserengrave':
+    case 'laser_engrave':
     if(vm.myTreatments[treat].side.length){
       vm.data.treatments[treat]={};
       vm.data.treatments[treat] = vm.myTreatments[treat];
@@ -863,12 +932,47 @@ addProduct:function(){
   vm.data.prices=vm.prices;
   vm.quotes.push(vm.data);
   vm.resetProductSelected();
+},
+onFranchiseSelected:function(e){
+console.log('franchisee');
+console.log(e);
+for(franchise of vm.franchises){
+  for(user of franchise.users){
+   if(user.id==vm.franchise_id){
+     vm.clients = user.clients;
+     break;
+   }
+  }
+}
+},
+saveQuote:function(){
+  let data = {
+    client_id:vm.client,
+    franchise_id:vm.franchise_id,
+    estimate:vm.quotes
+  
+  }
+console.log('save quotes');
+console.log(data);
+const apiServer = "{{route('quotes.store')}}";
+      console.log(apiServer);
+      axios.post(`${apiServer}`, data).then((res)=>{
+        if(res.data.success){
+         resetProductSelected();
+        }
+        console.log(res);
+      });
+
 }
 }//return
 },//data
 computed:{
 validateProduct:function(){
   return this.data.quantities.length === 0;
+
+},
+validateSaveQuote:function(){
+  return !(this.quotes.length && this.client!=='');
 
 }
 },

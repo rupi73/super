@@ -6,6 +6,8 @@ use App\Quote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use App\Category;
+use App\Client;
+use App\Role;
 class QuotesController extends Controller
 {
     /**
@@ -16,6 +18,8 @@ class QuotesController extends Controller
     public function index()
     {
         //
+        $quotes = Quote::latest()->paginate(5);
+        return view('quotes.index',compact('quotes'));
     }
 
     /**
@@ -27,6 +31,16 @@ class QuotesController extends Controller
     {
         //
 $categories = Category::with('products')->orderBy('name')->get();
+if(\Gate::allows('super',Category::class)){
+$clients = '';
+$franchises = Role::with('users.clients')->whereIn('id',[3,4,5])->get();
+$franchise_id='';
+}
+else{
+$clients=Client::orderBy('name')->get();
+$franchises=[];
+$franchise_id=3;
+}
 $catJsons = [];
 foreach($categories as $category){
 $cache =Cache::get('category-'.$category->id.'-json',[]); 
@@ -36,7 +50,7 @@ else
 $catJsons[$category->id]=[];
 }
 $catJsons = json_encode($catJsons);
- return view('quotes.create',compact('categories','catJsons'));
+ return view('quotes.create',compact('categories','catJsons','clients','franchises','franchise_id'));
     }
 
     /**
@@ -48,6 +62,15 @@ $catJsons = json_encode($catJsons);
     public function store(Request $request)
     {
         //
+        $data = $this->validate($request,[
+'franchise_id'=>'required|numeric',
+'client_id'=>'required|numeric',
+'estimate'=>'required'
+        ]);
+        $data['estimate'] = json_encode($request->estimate);
+        Quote::create($data);
+    return redirect()->route('quotes.index');
+        
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Client;
+use App\Role;
 
 class ClientsController extends Controller
 {
@@ -15,9 +16,9 @@ class ClientsController extends Controller
     public function index()
     {
         //
-       $data=Client::latest()->paginate(5);
+       $clients=Client::latest()->paginate(10);
 
-        return view('clients.index',compact('data'))
+        return view('clients.index',compact('clients'))
         ->with('i',(request()->input('page',1) -1) *5);
     }
 
@@ -29,7 +30,10 @@ class ClientsController extends Controller
     public function create()
     {
         //
-       return view('clients.create');
+$franchises = Role::with('users')->whereIn('id',[3,4,5])->get();
+
+
+       return view('clients.create',compact('franchises'));
     }
 
     /**
@@ -40,23 +44,16 @@ class ClientsController extends Controller
      */
     public function store(Request $request)
     {
-        
-    $data = [
-    'franchise_id' => $request->franchise_id,
-    'name' => $request->name,
-    'email' => $request->email,
-    'mobile' => $request->mobile,
-    'city' => $request->city,
-    'state' => $request->state,
-    'country' => $request->country,
-
-   
-    
-    ];
-
-
-
-Client::create($data);
+      $data =  $this->validate($request,[
+        'franchise_id' =>'required|numeric',
+        'name'=>'required|min:3',
+        'email'=>'required|unique:clients,email',
+        'mobile'=>'required|numeric|min:10',
+        'city'=>'required|min:3',
+        'state'=>'required|min:3',
+        'country'=>'required|min:3'
+        ]);
+    Client::create($data);
 return redirect()->route('clients.index');
 
     }

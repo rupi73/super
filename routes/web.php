@@ -28,6 +28,7 @@ Route::resource('products','ProductsController');
 Auth::routes();
 Route::resource('roles','RolesController');
 Route::resource('users','UsersController');
+Route::resource('quotes','QuotesController');
 /*Route::get('/home', 'HomeController@index')->name('home');*/
 
 /*API Calls*/

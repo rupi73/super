@@ -10,4 +10,8 @@ class Client extends Model
     protected $fillable=[
         'name','email','mobile','city','state','country','franchise_id'
     ];
+
+    public function users(){
+        return $this->belongsTo('App\User','franchise_id');
+    }
 }

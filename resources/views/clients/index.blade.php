@@ -23,26 +23,26 @@
                         <th>Country</th>
                         <th>Action</th>
                     </tr>
-
+                </thead>
                     <tbody>
-                            @foreach($data as $clients)
+                            @foreach($clients as $client)
                         <tr>
                      <ul>
-                        <td>{{$clients->name}}</td>
-                            <td>{{$clients->email}}</td>
-                            <td>{{$clients->mobile}}</td>
-                            <td>{{$clients->franchise_id}}</td>
-                            <td>{{$clients->city}}</td>
-                            <td>{{$clients->state}}</td>
-                            <td>{{$clients->country}}</td>
+                        <td>{{$client->name}}</td>
+                            <td>{{$client->email}}</td>
+                            <td>{{$client->mobile}}</td>
+                            <td>{{$client->users->name}}</td>
+                            <td>{{$client->city}}</td>
+                            <td>{{$client->state}}</td>
+                            <td>{{$client->country}}</td>
                             <td>
 
                                     <form action="" method="POST">
                             
                                 
-                                    <a class="btn btn-primary" href="{{route('clients.show',$clients->id)}}" >Show</a> 
+                                    <a class="btn btn-primary" href="{{route('clients.show',$client->id)}}" >Show</a> 
                 
-                                                <a class="btn btn-primary" href="{{route('clients.edit',$clients->id)}}" >Edit</a> 
+                                                <a class="btn btn-primary" href="{{route('clients.edit',$client->id)}}" >Edit</a> 
                 
                                         </form>
                             </td>
@@ -50,7 +50,7 @@
                         @endforeach
                         </tr>
                     </tbody>
-                </thead>
+                </table>
         </div>
     </div>
 </div>
