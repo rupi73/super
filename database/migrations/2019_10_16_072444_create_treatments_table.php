@@ -52,8 +52,8 @@ class CreateTreatmentsTable extends Migration
     public function down()
     {
         Schema::table('treatment_prices', function (Blueprint $table) {
-            $table->dropForeign('category_id');
-            $table->dropForeign('treatment_id');
+            $table->dropForeign(['category_id']);
+            $table->dropForeign(['treatment_id']);
           });
           Schema::dropIfExists('treatment_prices');
         Schema::dropIfExists('treatments');

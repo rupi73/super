@@ -68,8 +68,8 @@ $catJsons = json_encode($catJsons);
 'estimate'=>'required'
         ]);
         $data['estimate'] = json_encode($request->estimate);
-        Quote::create($data);
-    return redirect()->route('quotes.index');
+        Quote::create($data);        
+        print json_encode(['success'=>true]);
         
     }
 

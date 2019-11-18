@@ -575,7 +575,7 @@
             <!--close--col-->
 
             <div class="col ">
-              <button type="button" class="btn btn-primary">Add To Order</button>
+              <button type="button" class="btn btn-primary" :disabled="validateSaveOrder">Add To Order</button>
             </div>
             <!--close--col-->
           </div>
@@ -739,6 +739,7 @@ data(){
     client:'',
     franchises:{!! $franchises?$franchises:'[]' !!},
     franchise_id:'{!! $franchise_id?$franchise_id:'' !!}',
+    placeOrder:false,
   resetCategorySelected:function(){
 //vm.products = [];
 //vm.resetProductSelected();
@@ -931,6 +932,7 @@ arrayToString:function(arr){
 addProduct:function(){
   vm.data.prices=vm.prices;
   vm.quotes.push(vm.data);
+  vm.canPlaceOrder();
   vm.resetProductSelected();
 },
 onFranchiseSelected:function(e){
@@ -958,12 +960,41 @@ const apiServer = "{{route('quotes.store')}}";
       console.log(apiServer);
       axios.post(`${apiServer}`, data).then((res)=>{
         if(res.data.success){
+         vm.resetProductSelected();
+         window.location.href='{{route("quotes.index")}}';
+        }
+        
+      });
+
+},
+saveOrder:function(){
+  let data = {
+    client_id:vm.client,
+    franchise_id:vm.franchise_id,
+    estimate:vm.quotes
+  
+  }
+console.log('save order');
+console.log(data);
+const apiServer = "{{route('orders.store')}}";
+      console.log(apiServer);
+      axios.post(`${apiServer}`, data).then((res)=>{
+        if(res.data.success){
          resetProductSelected();
         }
         console.log(res);
       });
-
-}
+},
+canPlaceOrder:function(){
+  let placeOrder=true;
+  for(quote of vm.quotes){
+    if(quote.quantities.length>1){
+    placeOrder=false; 
+break;
+    }   
+  }
+  vm.placeOrder = placeOrder;
+}//function
 }//return
 },//data
 computed:{
@@ -973,6 +1004,10 @@ validateProduct:function(){
 },
 validateSaveQuote:function(){
   return !(this.quotes.length && this.client!=='');
+
+},
+validateSaveOrder:function(){
+  return !(this.placeOrder && this.client!=='');
 
 }
 },
