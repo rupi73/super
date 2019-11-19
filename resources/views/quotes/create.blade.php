@@ -575,7 +575,7 @@
             <!--close--col-->
 
             <div class="col ">
-              <button type="button" class="btn btn-primary" :disabled="validateSaveOrder">Add To Order</button>
+              <button type="button" class="btn btn-primary" :disabled="validateSaveOrder" @click="saveOrder">Add To Order</button>
             </div>
             <!--close--col-->
           </div>
@@ -976,7 +976,7 @@ saveOrder:function(){
   }
 console.log('save order');
 console.log(data);
-const apiServer = "{{route('orders.store')}}";
+const apiServer = "{{route('orders.qstore')}}";
       console.log(apiServer);
       axios.post(`${apiServer}`, data).then((res)=>{
         if(res.data.success){

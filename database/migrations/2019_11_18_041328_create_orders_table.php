@@ -19,9 +19,10 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('client_id');
             $table->float('amount',8,2);
             $table->float('tax',8,2);
-            $table->float('discount',8,2);
+            $table->float('discount',8,2)->default(0);
+            $table->float('discountp',8,2)->default(0);
             $table->float('grossTotal',8,2);
-            $table->bigInteger('wp_order_id');
+            $table->bigInteger('wp_order_id')->default(0);
             $table->timestamps();
             $table->foreign('franchise_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade')->onUpdate('cascade');
@@ -33,10 +34,17 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->text('description');
             $table->text('treatments');
+            $table->text('designs');
             $table->unsignedTinyInteger('quantity_id');
             $table->unsignedTinyInteger('paper_id');
             $table->unsignedTinyInteger('size_id');
-              $table->timestamps();
+            $table->float('price',8,2);
+            $table->float('tax',8,2);
+            $table->float('taxp',8,2);
+            $table->float('discount',8,2)->default(0);
+            $table->float('discountp',8,2)->default(0);
+            $table->float('totalPrice',8,2);
+            $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');
@@ -48,7 +56,8 @@ class CreateOrdersTable extends Migration
         Schema::create('order_product_treatments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('order_product_id');
-            $table->unsignedTinyInteger('treatment_id');            
+            $table->unsignedTinyInteger('treatment_id');
+            $table->string('description')->nullable();            
             $table->timestamps();
             $table->foreign('order_product_id')->references('id')->on('order_products')->onDelete('cascade');
             $table->foreign('treatment_id')->references('id')->on('treatments')->onDelete('cascade');
