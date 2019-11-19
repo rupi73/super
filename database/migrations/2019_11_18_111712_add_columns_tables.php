@@ -19,7 +19,7 @@ class AddColumnsTables extends Migration
             $table->string('hsn');
         });
 
-        Schema::table('orders', function (Blueprint $table) {
+       /* Schema::table('orders', function (Blueprint $table) {
             //
             $table->float('discountp',8,2)->default(0);
             
@@ -40,6 +40,7 @@ class AddColumnsTables extends Migration
             $table->string('description')->nullable();
             
         });
+        */
     }
 
     /**
@@ -54,7 +55,7 @@ class AddColumnsTables extends Migration
             $table->dropColumn(['gst','hsn']);
         });
 
-        Schema::table('orders', function (Blueprint $table) {
+       /* Schema::table('orders', function (Blueprint $table) {
             //
             $table->dropColumn(['discountp']);
         });
@@ -67,6 +68,6 @@ class AddColumnsTables extends Migration
             //
             $table->dropColumn(['description'])->nullable();
         });
-
+*/
     }
 }
