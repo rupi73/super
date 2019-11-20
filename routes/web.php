@@ -31,6 +31,7 @@ Route::resource('users','UsersController');
 Route::resource('quotes','QuotesController');
 Route::resource('orders','OrdersController');
 Route::post('/orders/quotestore', 'OrdersController@quoteStore')->name('orders.qstore');
+Route::get('/orders/create/{order?}', 'QuotesController@create')->name('orders.qcreate');
 /*Route::get('/home', 'HomeController@index')->name('home');*/
 
 /*API Calls*/

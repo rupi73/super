@@ -24,7 +24,7 @@
                         </div>
                     </a>
                     <ul class="sub-menu">
-                    <li><a href="{{route('orders.create')}}"><span class="title">Add</span></a></li>
+                    <li><a href="{{route('orders.qcreate',true)}}"><span class="title">Add</span></a></li>
                         <li><a href="{{route('orders.index')}}"><span class="title">List</span></a></li>
                         
                     </ul>

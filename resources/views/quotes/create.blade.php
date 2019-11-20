@@ -567,10 +567,10 @@
             </div>
             <!--close--col-->
             <div class="col">
-
+          <template v-if="!orderPage">
               <button type="button" class="btn btn-primary" :disabled="validateSaveQuote" @click="saveQuote">Save To
                 Quote</button>
-
+          </template>
             </div>
             <!--close--col-->
 
@@ -624,8 +624,15 @@
                 <tr v-for="(qty, key, index) in quantities">
                   <td>
                     <div class="form-check">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" :value="key" v-model="data.quantities">@{{qty}}
+                      <label v-bind:class="{'form-check-label':!orderPage,'form-radio-label':orderPage}">
+                        <template v-if="orderPage">
+                        <input type="radio" class="form-radio-input" :value="key" v-model="data.quantities">
+                        </template>
+                        <template v-else>
+                            <input type="checkbox" class="form-check-input" :value="key" v-model="data.quantities">
+                        </template>
+                        
+                        @{{qty}}
                       </label>
                     </div>
                   </td>
@@ -740,6 +747,7 @@ data(){
     franchises:{!! $franchises?$franchises:'[]' !!},
     franchise_id:'{!! $franchise_id?$franchise_id:'' !!}',
     placeOrder:false,
+    orderPage:{{$boolOrder}},
   resetCategorySelected:function(){
 //vm.products = [];
 //vm.resetProductSelected();

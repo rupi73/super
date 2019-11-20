@@ -27,8 +27,8 @@ class QuotesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create($boolOrder=0)
+{
         //
 $categories = Category::with('products')->orderBy('name')->get();
 if(\Gate::allows('super',Category::class)){
@@ -50,7 +50,7 @@ else
 $catJsons[$category->id]=[];
 }
 $catJsons = json_encode($catJsons);
- return view('quotes.create',compact('categories','catJsons','clients','franchises','franchise_id'));
+return view('quotes.create',compact('categories','catJsons','clients','franchises','franchise_id','boolOrder'));
     }
 
     /**
