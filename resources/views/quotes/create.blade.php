@@ -506,6 +506,7 @@
                 <th>Size</th>
                 <th>Paper</th>
                 <th>Treatments</th>
+                <th>AddOnProducts</th>
 
               </tr>
             </thead>
@@ -521,6 +522,9 @@
                 <td>@{{quote.paper}}</td>
                 <td>
                   <p v-for="(treat,key,index) of quote.treatments"><b>@{{key}}</b></p>
+                </td>
+                <td>
+                  <p v-for="add of quote.addOns"><b>@{{add.name + ':' + add.price}}</b></p>
                 </td>
 
               </tr>
@@ -646,7 +650,18 @@
 
                 </tr>
 
+<tr>
+    <b-form-select v-model="addOns" :options="addOnProducts" class="mb-3" value-field="id"
+          text-field="name" @input="onAddOnProductSelected" multiple v-if="!disableProduct">
+            <!-- This slot appears above the options from 'options' prop -->
+            <template v-slot:first>
+              <option :value="null" disabled>-- add on products --</option>
+            </template>
+      
 
+        </b-form-select>
+        @{{addOns}}
+</tr>
               </tbody>
 
 
@@ -692,7 +707,7 @@
                   </tr>
 
                   <tr>
-                    <td colspan="2"><button type="button" class="btn btn-primary btn-lg" :disabled="validateProduct"
+                    <td colspan="2"><button type="button" class="btn btn-primary btn-lg" :disabled="disableProduct"
                         @click="addProduct()">ADD</button> </td>
                   </tr>
 
@@ -738,7 +753,7 @@ data(){
     printing:{},  //product printing  
     prices:{},//product quantities prices
     perCardPrices:{},//product quantities percard prices
-    data:{paper:{},treatments:{},prices:{},size:{},printing:'',category:{id:'',name:''},product:{id:'',name:''},quantities:[]},
+    data:{paper:{},treatments:{},prices:{},size:{},printing:'',category:{id:'',name:''},product:{id:'',name:''},quantities:[],addOns:[],addOnPrice:0},
     settings:{price:{printing:0,size:0}},
     quotes:[],
     myTreatments:{foiling:{front:[],back:[]},electroplating:{front:[],back:[]},letterpress:{front:[],back:[]},embossing:{side:''},spotgloss:{side:''},raised_spot_gloss:{side:''},round_corners:{side:''},edgepaint:{color:''},laser_cut:{side:''},laser_engrave:{side:''},silk_screen:{side:''}},
@@ -748,7 +763,12 @@ data(){
     franchise_id:'{!! $franchise_id?$franchise_id:'' !!}',
     placeOrder:false,
     orderPage:{{$boolOrder}},
-  resetCategorySelected:function(){
+    addOnProducts:[
+      {id:1,name:'test1',price:200},
+      {id:2,name:'test2',price:300}
+    ],
+    addOns:[],
+resetCategorySelected:function(){
 //vm.products = [];
 //vm.resetProductSelected();
   },
@@ -774,6 +794,8 @@ vm.perCardPrices={};
 vm.papers=[];
 vm.quantities = [];
 vm.sizes = [];
+vm.addOns=[];
+vm.addOnprice=0;
   },
 onProductSelected:function(e){
   console.log(vm.catJson); 
@@ -955,6 +977,17 @@ for(franchise of vm.franchises){
   }
 }
 },
+onAddOnProductSelected:function(e){
+  let price=0;
+  vm.data.addOns=[];
+for(addOnProduct of vm.addOnProducts){
+  if(e.indexOf(addOnProduct.id)!==-1){
+    vm.data.addOns.push(addOnProduct);
+  price += addOnProduct.price;
+  }
+}
+vm.data.addOnPrice = price;
+},
 saveQuote:function(){
   let data = {
     client_id:vm.client,
@@ -1006,7 +1039,7 @@ break;
 }//return
 },//data
 computed:{
-validateProduct:function(){
+disableProduct:function(){
   return this.data.quantities.length === 0;
 
 },

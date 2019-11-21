@@ -50,6 +50,7 @@ class OrdersController extends Controller
     public function quoteStore(Request $request)
     {
         //
+        dd($request->all());
         $data = $this->validate($request,[
             'franchise_id'=>'required|numeric',
             'client_id'=>'required|numeric',
@@ -82,6 +83,16 @@ $products[]=new OrderProduct(['category_id'=>$estimate['category']['id'],'produc
                    
                 }
                 $product->treatments()->attach($treatments);
+            }
+            if($product->addOns){
+                $addOns=[];
+                $product->addOns=json_decode($product->addOns,true);
+                foreach($product->addOns as $addOn){
+                  $addOns[$addOn->id] =['order_id'=>$order->id,'price'=>$addOn->price];
+                  
+                   
+                }
+                $product->addOns()->attach($addOns);  
             }
 
         }

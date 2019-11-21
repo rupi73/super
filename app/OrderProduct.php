@@ -15,4 +15,7 @@ return $this->belongsTo('App\Order');
     public function treatments(){
         return $this->belongsToMany('App\OrderProductTreatment','order_product_treatments','order_product_id','treatment_id');  
     }//function
+    public function addOns(){
+        return $this->belongsToMany('App\OrderProductAddon','order_product_addons','order_product_id','addon_product_id');  
+    }//function
 }

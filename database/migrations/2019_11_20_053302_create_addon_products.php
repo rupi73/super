@@ -19,7 +19,7 @@ class CreateAddonProducts extends Migration
             $table->string('name');
             $table->float('price',8,2);
             $table->float('gst',8,2);
-            $table->boolean('active');
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }
