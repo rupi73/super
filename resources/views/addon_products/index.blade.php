@@ -14,7 +14,7 @@
                     <tr>
 
          
-                        <th>Franchise_Id</th>
+                        <th>Franchise</th>
                         <th>Name</th>
                         <th>Price</th>
                         <th>GST</th>
@@ -26,7 +26,7 @@
                         @foreach($data as $addon_products)
                         <tr>
                             <ul>
-                            <td>{{$addon_products->franchise_id}}</td>
+                            <td>{{$addon_products->franchise->name}}</td>
                            <td>{{$addon_products->name}}</td>
                            <td>{{$addon_products->price}}</td>
                            <td>{{$addon_products->gst}}</td>
@@ -37,8 +37,8 @@
                                     <form action="" method="POST">
                             
                                 
-                                    <a class="btn btn-primary" href="{{route('addon_products.edit',$addon_products->id)}}">edit</a> 
-                                            <a class="btn btn-primary" href="{{route('addon_products.show',$addon_products->id)}}">show</a> 
+                                    <a class="btn btn-primary" href="{{route('addonproducts.edit',$addon_products->id)}}">edit</a> 
+                                            <a class="btn btn-primary" href="{{route('addonproducts.show',$addon_products->id)}}">show</a> 
                                         </form>
 
                                     </ul>

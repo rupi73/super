@@ -50,7 +50,6 @@ class OrdersController extends Controller
     public function quoteStore(Request $request)
     {
         //
-        dd($request->all());
         $data = $this->validate($request,[
             'franchise_id'=>'required|numeric',
             'client_id'=>'required|numeric',
@@ -66,6 +65,7 @@ $orderAmount += $estimate['prices'][$quantity];
 $gst=get_field_value('App\Category','gst',['id'=>$estimate['category']['id']]);
 $tax = calculate_tax($price,$gst);
 $orderTax +=$tax;
+$addOns=$estimate['addOns'];
 $products[]=new OrderProduct(['category_id'=>$estimate['category']['id'],'product_id'=>$estimate['product']['id'],'paper_id'=>get_field_value('App\Paper','id',['name'=>$estimate['paper']]),'size_id'=>get_field_value('App\Size','id',['value'=>$estimate['size']]),'quantity_id'=>get_field_value('App\Quantity','id',['value'=>$estimate['quantities'][0]]),'price'=>$price,'description'=>json_encode($estimate),'treatments'=>json_encode($estimate['treatments']),'tax'=>$tax,'taxp'=>$gst,'totalPrice'=>$price+$tax]);
 
             }
@@ -84,15 +84,14 @@ $products[]=new OrderProduct(['category_id'=>$estimate['category']['id'],'produc
                 }
                 $product->treatments()->attach($treatments);
             }
-            if($product->addOns){
-                $addOns=[];
-                $product->addOns=json_decode($product->addOns,true);
-                foreach($product->addOns as $addOn){
-                  $addOns[$addOn->id] =['order_id'=>$order->id,'price'=>$addOn->price];
-                  
-                   
+            
+            if($addOns){
+                $addOnes=[];
+                foreach($addOns as $addOn){
+                  $addOnes[$addOn['id']] =['order_id'=>$order->id,'price'=>$addOn['price']];         
                 }
-                $product->addOns()->attach($addOns);  
+                
+               $product->addOns()->attach($addOnes);  
             }
 
         }

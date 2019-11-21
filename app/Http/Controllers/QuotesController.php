@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use App\Category;
 use App\Client;
 use App\Role;
+use App\AddOnProduct;
 class QuotesController extends Controller
 {
     /**
@@ -31,6 +32,7 @@ class QuotesController extends Controller
 {
         //
 $categories = Category::with('products')->orderBy('name')->get();
+$addOnProducts = AddOnProduct::where('franchise_id',3)->orderBy('name','ASC')->get();
 if(\Gate::allows('super',Category::class)){
 $clients = '';
 $franchises = Role::with('users.clients')->whereIn('id',[3,4,5])->get();
@@ -50,7 +52,7 @@ else
 $catJsons[$category->id]=[];
 }
 $catJsons = json_encode($catJsons);
-return view('quotes.create',compact('categories','catJsons','clients','franchises','franchise_id','boolOrder'));
+return view('quotes.create',compact('categories','catJsons','clients','franchises','franchise_id','boolOrder','addOnProducts'));
     }
 
     /**

@@ -5,7 +5,7 @@
     <div class="row">
         
         <div class="col-md-8 mt-5">
-        <form action="{{route('addon_products.update',$addon_products->id)}}" method="POST">
+        <form action="{{route('addonproducts.update',$addon_products->id)}}" method="POST">
                 @method('patch')
             @csrf
           

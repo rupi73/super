@@ -7,15 +7,17 @@
     <div class="row">
         
         <div class="col-md-8 mt-5">
-        <form action="{{route('addon_products.store')}}" method="POST">
+        <form action="{{route('addonproducts.store')}}" method="POST">
                 @csrf
                 <div class="form-group">
-                    <label for="franchise_id">Franchise_id</label>
+                    <label for="franchise_id">Franchisee</label>
                     <select class="form-control" name="franchise_id">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
+                        <option value="">Select Franchisee</option>
+                        @foreach($franchises as $franchise)
+                        @foreach($franchise->users as $user)
+                    <option value="{{$user->id}}">{{$user->name}}</option>
+                        @endforeach
+@endforeach
                         
                     </select>
 

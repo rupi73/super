@@ -763,10 +763,7 @@ data(){
     franchise_id:'{!! $franchise_id?$franchise_id:'' !!}',
     placeOrder:false,
     orderPage:{{$boolOrder}},
-    addOnProducts:[
-      {id:1,name:'test1',price:200},
-      {id:2,name:'test2',price:300}
-    ],
+    addOnProducts:{!!$addOnProducts!!},
     addOns:[],
 resetCategorySelected:function(){
 //vm.products = [];

@@ -11,4 +11,8 @@ class AddonProduct extends Model
         'franchise_id','name','price','gst'
 
     ];
+
+    public function franchise(){
+        return $this->belongsTo('App\User','franchise_id');
+    }
 }

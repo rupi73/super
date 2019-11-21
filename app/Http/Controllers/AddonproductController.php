@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\AddonProduct;
+use App\Role;
 class AddonproductController extends Controller
 {
     /**
@@ -14,9 +15,9 @@ class AddonproductController extends Controller
     public function index()
     {
         //
-     $data=AddonProduct::latest()->paginate(5);
+     $data=AddonProduct::with('franchise')->latest()->paginate(10);
         return view('addon_products.index',compact('data'))
-        ->with('i',(request()->input('page',1) -1) *5);
+        ->with('i',(request()->input('page',1) -1) *10);
     }
 
     /**
@@ -27,8 +28,8 @@ class AddonproductController extends Controller
     public function create()
     {
         //
-
-        return view('addon_products.create');
+        $franchises = Role::with('users')->whereIn('id',[3,4,5])->get();
+        return view('addon_products.create',compact('franchises'));
     }
 
     /**
@@ -50,7 +51,7 @@ class AddonproductController extends Controller
             
             ]);
         AddonProduct::create($data);
-        return redirect()->route('addon_products.index');
+        return redirect()->route('addonproducts.index');
 
 
        
@@ -68,7 +69,7 @@ class AddonproductController extends Controller
     {
         //
         $addon_products=AddonProduct::findorfail($id);
-        return view('addon_products.show',compact('addon_products'));
+        return view('addonproducts.show',compact('addon_products'));
     }
 
     /**
@@ -82,7 +83,7 @@ class AddonproductController extends Controller
         //
 
         $addon_products=AddonProduct::findorfail($id);
-        return view('addon_products.edit',compact('addon_products'));
+        return view('addonproducts.edit',compact('addon_products'));
     }
 
     /**
@@ -105,7 +106,7 @@ class AddonproductController extends Controller
 
         $addon_products->save();
 
-        return redirect()->route('addon_products.index');
+        return redirect()->route('addonproducts.index');
         
     }
 

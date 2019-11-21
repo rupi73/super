@@ -34,7 +34,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->text('description');
             $table->text('treatments');
-            $table->text('designs');
+            $table->text('designs')->nullable();
             $table->unsignedTinyInteger('quantity_id');
             $table->unsignedTinyInteger('paper_id');
             $table->unsignedTinyInteger('size_id');
