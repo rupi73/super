@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="title">
                     
-                    <h2 class="display-5">SHOW OREDER DEATILS</h2>
+                    <h2 class="display-5">SHOW ADDON PRODUCT DEATILS</h2>
                 </div>
                     <div class="content">
                         <table class="table">
