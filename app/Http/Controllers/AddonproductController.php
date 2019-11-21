@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Client;
-use App\Role;
-
-class ClientsController extends Controller
+use App\AddonProduct;
+class AddonproductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +14,8 @@ class ClientsController extends Controller
     public function index()
     {
         //
-       $clients=Client::latest()->paginate(10);
-
-        return view('clients.index',compact('clients'))
+     $data=AddonProduct::latest()->paginate(5);
+        return view('addon_products.index',compact('data'))
         ->with('i',(request()->input('page',1) -1) *5);
     }
 
@@ -30,10 +27,8 @@ class ClientsController extends Controller
     public function create()
     {
         //
-$franchises = Role::with('users')->whereIn('id',[3,4,5])->get();
 
-
-       return view('clients.create',compact('franchises'));
+        return view('addon_products.create');
     }
 
     /**
@@ -44,18 +39,23 @@ $franchises = Role::with('users')->whereIn('id',[3,4,5])->get();
      */
     public function store(Request $request)
     {
-      $data =  $this->validate($request,[
-        'franchise_id' =>'required|numeric',
-        'name'=>'required|min:3',
-        'email'=>'required|unique:clients,email',
-        'mobile'=>'required|numeric|min:10',
-        'city'=>'required|min:3',
-        'state'=>'required|min:3',
-        'country'=>'required|min:3'
-        ]);
-    Client::create($data);
-    return redirect()->route('clients.index');
+        //
 
+
+        $data =  $this->validate($request,[
+            'franchise_id' =>'required',
+            'name'=>'required|min:3',
+            'price'=>'required',
+            'gst'=>'required',
+            
+            ]);
+        AddonProduct::create($data);
+        return redirect()->route('addon_products.index');
+
+
+       
+
+       
     }
 
     /**
@@ -67,8 +67,8 @@ $franchises = Role::with('users')->whereIn('id',[3,4,5])->get();
     public function show($id)
     {
         //
-        $clients=client::findorfail($id);
-        return view('clients.show',compact('clients'));
+        $addon_products=AddonProduct::findorfail($id);
+        return view('addon_products.show',compact('addon_products'));
     }
 
     /**
@@ -80,8 +80,9 @@ $franchises = Role::with('users')->whereIn('id',[3,4,5])->get();
     public function edit($id)
     {
         //
-        $clients=Client::findorfail($id);
-        return view('clients.edit',compact('clients'));
+
+        $addon_products=AddonProduct::findorfail($id);
+        return view('addon_products.edit',compact('addon_products'));
     }
 
     /**
@@ -94,20 +95,18 @@ $franchises = Role::with('users')->whereIn('id',[3,4,5])->get();
     public function update(Request $request, $id)
     {
         //
+        $addon_products=AddonProduct::find($id);
+        $addon_products->franchise_id = request('franchise_id');
+        $addon_products->name = request('name');
 
-        $clients=Client::find($id);
-        $clients->name = request('name');
-        $clients->email = request('email');
+        $addon_products->price = request('price');
+        $addon_products->gst = request('gst');
+       
 
-        $clients->mobile = request('mobile');
-        $clients->franchise_id = request('franchise_id');
-        $clients->city = request('city');
-        $clients->state = request('state');
-        $clients->country = request('country');
+        $addon_products->save();
 
-        $clients->save();
-
-        return redirect()->route('clients.index');
+        return redirect()->route('addon_products.index');
+        
     }
 
     /**

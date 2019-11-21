@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'DashboardController@index')->name('dashboard');
+Route::resource('addon_products','AddonproductController');
 Route::resource('papers','PapersController');
 Route::resource('clients','ClientsController');
 Route::resource('treatments','TreatmentsController');
