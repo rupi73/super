@@ -43,6 +43,8 @@ class CreateOrdersTable extends Migration
             $table->float('taxp',8,2);
             $table->float('discount',8,2)->default(0);
             $table->float('discountp',8,2)->default(0);
+            $table->float('margin',8,2)->default(0);
+            $table->float('marginp',8,2)->default(0);
             $table->float('totalPrice',8,2);
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
@@ -59,8 +61,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedTinyInteger('treatment_id');
             $table->string('description')->nullable();            
             $table->timestamps();
-            $table->foreign('order_product_id')->references('id')->on('order_products')->onDelete('cascade');
-            $table->foreign('treatment_id')->references('id')->on('treatments')->onDelete('cascade');
+            $table->foreign('order_product_id')->references('id')->on('order_products')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('treatment_id')->references('id')->on('treatments')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
