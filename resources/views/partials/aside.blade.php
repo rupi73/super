@@ -145,6 +145,10 @@
                                 <li><a href="{{route('category.create')}}"><span class="title">Add</span></a></li>
                                 @endcan
                                     <li><a href="{{route('category.index')}}"><span class="title">List</span></a></li>
+                                    @can('super',\App\Category::class)
+                                    <li><a href="{{route('catmargins.create')}}"><span class="title">Add Margin</span></a></li>
+                                    <li><a href="{{route('catmargins.index')}}"><span class="title">List Margins</span></a></li>
+                                    @endcan
                                 </ul>
                     </li>
 

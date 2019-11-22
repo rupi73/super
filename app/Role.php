@@ -12,4 +12,9 @@ class Role extends Model
     public function users(){
      return   $this->belongsToMany('App\User')->withTimeStamps();
     }
+
+    public function margins(){
+        return $this->hasOne('App\CategoryMargin');
+    }
+
 }

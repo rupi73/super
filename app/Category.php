@@ -36,4 +36,9 @@ class Category extends Model
     {
       return $this->hasMany('App\TreatmentPrice');
     }
+
+    //margins
+    public function roleMargins(){
+      return $this->hasMany('App\CategoryMargin');
+    }
 }

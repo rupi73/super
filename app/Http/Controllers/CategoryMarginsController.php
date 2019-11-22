@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Role;
+use App\CategoryMargin;
 
-class CategoryMarginController extends Controller
+class CategoryMarginsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,9 +28,9 @@ class CategoryMarginController extends Controller
     public function create()
     {
         //
-        $categories = Category::with('products')->orderBy('name')->get();
-        $franchises = Role::with('users')->whereIn('id',[3,4,5])->get();
-        return view('categorymargin.create',compact('franchises,categories'));
+        $categories = Category::orderBy('name')->get();
+        $roles = Role::with('users')->whereIn('id',[3,4,5])->get();
+        return view('categorymargin.create',compact('roles','categories'));
     }
 
     /**
@@ -41,6 +42,15 @@ class CategoryMarginController extends Controller
     public function store(Request $request)
     {
         //
+ $validate =      $this->validate($request,[
+'category_id'=>'required|numeric',
+'role_id'=>'required_without:franchise_id|numeric',
+'franchise_id'=>'required_without:role_id|numeric',
+'marginp'=>'required|numeric'
+
+        ]);
+        CategoryMargin::create($validate);
+        return redirect()->route('catmargins.index');
     }
 
     /**

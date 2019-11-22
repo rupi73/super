@@ -16,10 +16,13 @@ class CreateCategoryMargins extends Migration
         Schema::create('category_margins', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->tinyInteger('category_id')->unsigned();
-            $table->unsignedTinyInteger('role_id');
-            $table->unsignedInteger('franchise_id');
-            $table->float('float',8,2);
+            $table->unsignedTinyInteger('role_id')->nullable();
+            $table->unsignedInteger('franchise_id')->nullable();
+            $table->float('marginp',8,2);
             $table->timestamps();
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cacscade');
+            $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cacscade');
+            $table->foreign('franchise_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cacscade');
 
         });
     }
@@ -31,6 +34,11 @@ class CreateCategoryMargins extends Migration
      */
     public function down()
     {
+        Schema::table('category_margins', function (Blueprint $table) {
+            $table->dropForeign(['role_id']);
+            $table->dropForeign(['franchise_id']);
+            $table->dropForeign(['client_id']);
+        });
         Schema::dropIfExists('category_margins');
     }
 }

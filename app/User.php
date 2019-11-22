@@ -34,4 +34,6 @@ class User extends Authenticatable
     public function clients(){
         return $this->hasMany('App\Client','franchise_id','id');
     }
+
+    
 }

@@ -13,7 +13,7 @@ class CreateBillingOrder extends Migration
      */
     public function up()
     {
-        Schema::create('billing_order', function (Blueprint $table) {
+        Schema::create('billing_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('order_id');
             $table->float('grossAmount',8,2);
@@ -34,6 +34,10 @@ class CreateBillingOrder extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('billing_order');
+        Schema::table('billing_orders', function (Blueprint $table) {
+            $table->dropForeign(['order_id']);
+           
+        });
+        Schema::dropIfExists('billing_orders');
     }
 }
