@@ -16,16 +16,16 @@
                             <tbody>
                                 <tr>
                                     <td>Category</td>
-                                    <td></td>    
+                                <td>{{$catmargin->category_id}}</td>    
                                 </tr>
                                 <tr>
                                         <td>Role</td>
-                                        <td>td>
+                                        <td>{{$catmargin->role_id}}<td>
                                 </tr>
 
                                         <tr>
                                                 <td>Margin </td>
-                                                <td><td>    
+                                                <td>{{$catmargin->marginp}}<td>    
                                             </tr>
 
                                                 

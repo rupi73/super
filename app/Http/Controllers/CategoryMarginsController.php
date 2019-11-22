@@ -65,6 +65,9 @@ class CategoryMarginsController extends Controller
     public function show($id)
     {
         //
+
+        $catmargin=CategoryMargin::findorfail($id);
+        return view('categorymargin.show',compact('catmargin'));
     }
 
     /**
@@ -76,6 +79,10 @@ class CategoryMarginsController extends Controller
     public function edit($id)
     {
         //
+
+       
+        $catmargin=CategoryMargin::findorfail($id);
+        return view('categorymargin.edit',compact('catmargin'));
     }
 
     /**
@@ -88,6 +95,8 @@ class CategoryMarginsController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+
     }
 
     /**
