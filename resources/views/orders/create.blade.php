@@ -2,25 +2,32 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <h2 class="display-4">ORDER CREATE</h2>
+        <h2 class="display-4">ORDER </h2>
         <div class="col-md-8 mt-5">
             <form action="">
 
                 <div class="form-group">
-                    <label for="franchise_id">Franchise_id</label>
+                    <label for="franchise_id">Date</label>
                     <input type="text" class="form-control" name="franchise_id">
 
                 </div>
 
                 <div class="form-group">
                         <label for="client_id">Client_id</label>
-                        <input type="text" class="form-control" name="client_id">
+                        <select class="form-control">
+                            <option>1</option>
+                            <option>1</option>
+                        </select>
     
                 </div>
 
                 <div class="form-group">
                         <label for="amount">Amount</label>
-                        <input type="text" class="form-control" name="amount">
+                        <label for="client_id">Client_id</label>
+                        <select class="form-control">
+                            <option>1</option>
+                            <option>1</option>
+                        </select>
     
                 </div>
 

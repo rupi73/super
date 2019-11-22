@@ -14,11 +14,11 @@
                     <tr>
 
          
-                        <th>Franchise_Id</th>
-                        <th>Client_ID</th>
-                        <th>Amount</th>
-                        <th>Tax</th>
-                        <th>GrossTotal</th>
+                        <th>Date</th>
+                        <th>Franchise</th>
+                        <th>Order Amount</th>
+                        <th>Margin</th>
+                        <th>Products</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -30,6 +30,7 @@
                      <td></td>
                      <td></td>
                      <td></td>
+                     
                        
                             <td>
 
@@ -38,7 +39,7 @@
                                 
                                     <a class="btn btn-primary" href="" >Show</a> 
                 
-                                                <a class="btn btn-primary" href="" >Edit</a> 
+                                    <a class="btn btn-primary" href="" >Edit</a> 
                 
                                         </form>
                             </td>

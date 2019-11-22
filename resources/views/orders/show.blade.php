@@ -15,32 +15,32 @@
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td>Franchise_ID</td>
+                                    <td>Date</td>
                                     <td></td>    
                                 </tr>
                                 <tr>
-                                        <td>Client_ID:</td>
+                                        <td>Franchise</td>
                                         <td></td>
                                 </tr>
 
                                         <tr>
-                                                <td>Amount </td>
+                                                <td>Order Amount </td>
                                                 <td></td>    
                                             </tr>
 
                                                  <tr>
-                                                    <td>Tax </td>
+                                                    <td>Margin </td>
                                                     <td></td>    
                                                 </tr>
 
                                                 <tr>
-                                                        <td>GrossTable</td>
+                                                        <td>Products</td>
                                                         <td></td>    
                                                     </tr>
 
                                                    
 
-                            </thead>
+                                                </tbody>
                         </table> 
                                    
                                
