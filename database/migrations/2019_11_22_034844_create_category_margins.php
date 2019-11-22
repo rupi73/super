@@ -20,9 +20,9 @@ class CreateCategoryMargins extends Migration
             $table->unsignedInteger('franchise_id')->nullable();
             $table->float('marginp',8,2);
             $table->timestamps();
-            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cacscade');
-            $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cacscade');
-            $table->foreign('franchise_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cacscade');
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('franchise_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
 
         });
     }
