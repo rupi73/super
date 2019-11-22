@@ -17,7 +17,10 @@ class CategoryMarginsController extends Controller
     public function index()
     {
         //
-        return view('categorymargin.index');
+        $catmargins=CategoryMargin::latest()->paginate(10);
+
+        return view('categorymargin.index',compact('catmargins'))
+        ->with('i',(request()->input('page',1) -1) *10);
     }
 
     /**
