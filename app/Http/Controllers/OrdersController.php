@@ -112,6 +112,7 @@ $products[]=new OrderProduct(['category_id'=>$estimate['category']['id'],'produc
     public function show($id)
     {
         //
+        return view('orders.show');
     }
 
     /**
