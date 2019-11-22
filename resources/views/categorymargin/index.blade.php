@@ -37,8 +37,8 @@
                                     <form action="" method="POST">
                             
                                 
-                                    <a class="btn btn-primary" href="{{route('categorymargin.edit',$catmargins->id)}}">edit</a> 
-                                            <a class="btn btn-primary" href="{{route('categorymargin.show',$catmargins->id)}}">show</a> 
+                                    <a class="btn btn-primary" href="{{route('catmargins.edit',$catmargin->id)}}">edit</a> 
+                                            <a class="btn btn-primary" href="{{route('catmargins.show',$catmargin->id)}}">show</a> 
                                         </form>
 
                                     </ul>

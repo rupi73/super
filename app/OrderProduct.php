@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class OrderProduct extends Model
 {
     //
-    protected $fillable = ['category_id','product_id','order_id','description','price','tax','taxp','treatments','quantity_id','paper_id','size_id','totalPrice'];
+    protected $fillable = ['category_id','product_id','order_id','description','price','tax','taxp','treatments','quantity_id','paper_id','size_id','totalPrice','marginp','margin'];
     //Order
     public function order(){
 return $this->belongsTo('App\Order');

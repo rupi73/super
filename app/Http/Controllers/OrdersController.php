@@ -58,19 +58,23 @@ class OrdersController extends Controller
             $products=[];
             $orderAmount = 0;
             $orderTax = 0;
+            $franchise_id = $request->franchise_id;
             foreach($request->estimate as $estimate){
             $quantity = $estimate['quantities'][0];
             $price = $estimate['prices'][$quantity];
 $orderAmount += $estimate['prices'][$quantity];
-$gst=get_field_value('App\Category','gst',['id'=>$estimate['category']['id']]);
+$category_id = $estimate['category']['id'];
+$gst=get_field_value('App\Category','gst',['id'=>$category_id]);
 $tax = calculate_tax($price,$gst);
 $orderTax +=$tax;
 $addOns=$estimate['addOns'];
-$products[]=new OrderProduct(['category_id'=>$estimate['category']['id'],'product_id'=>$estimate['product']['id'],'paper_id'=>get_field_value('App\Paper','id',['name'=>$estimate['paper']]),'size_id'=>get_field_value('App\Size','id',['value'=>$estimate['size']]),'quantity_id'=>get_field_value('App\Quantity','id',['value'=>$estimate['quantities'][0]]),'price'=>$price,'description'=>json_encode($estimate),'treatments'=>json_encode($estimate['treatments']),'tax'=>$tax,'taxp'=>$gst,'totalPrice'=>$price+$tax]);
+$marginp = get_franchise_margin_category($category_id,$franchise_id);
+$margin = calculate_tax($price,$marginp);
+$products[]=new OrderProduct(['category_id'=>$estimate['category']['id'],'product_id'=>$estimate['product']['id'],'paper_id'=>get_field_value('App\Paper','id',['name'=>$estimate['paper']]),'size_id'=>get_field_value('App\Size','id',['value'=>$estimate['size']]),'quantity_id'=>get_field_value('App\Quantity','id',['value'=>$estimate['quantities'][0]]),'price'=>$price,'description'=>json_encode($estimate),'treatments'=>json_encode($estimate['treatments']),'tax'=>$tax,'taxp'=>$gst,'totalPrice'=>$price+$tax,'marginp'=>$marginp,'margin'=>$margin]);
 
             }
             
-         $order =   Order::create(['franchise_id'=>$request->franchise_id,'client_id'=>$request->client_id,'amount'=>$orderAmount,'tax'=>$orderTax,'grossTotal'=>$orderAmount + $orderTax]);
+         $order =   Order::create(['franchise_id'=>$franchise_id,'client_id'=>$request->client_id,'amount'=>$orderAmount,'tax'=>$orderTax,'grossTotal'=>$orderAmount + $orderTax]);
         foreach($products as $product){
             $order->products()->save($product);
             if($product->treatments){

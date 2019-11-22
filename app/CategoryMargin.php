@@ -15,12 +15,12 @@ class CategoryMargin extends Model
 
     //category
     public function category(){
-        return $this->belongsTo('App\Category','name');
+        return $this->belongsTo('App\Category');
     }
 
     //role
     public function role(){
-        return $this->belongsTo('App\Role','name');
+        return $this->belongsTo('App\Role');
     }
 
     //franchise
