@@ -9,6 +9,7 @@ use App\Category;
 use App\Client;
 use App\Role;
 use App\AddOnProduct;
+use App\Order;
 class QuotesController extends Controller
 {
     /**
@@ -28,15 +29,34 @@ class QuotesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($boolOrder=0)
+    public function create($boolOrder=0,$recordId=0)
 {
-        //
+        //check if record is editable
+        $record=[];
+if($recordId){
+    if($boolOrder){
+    $row=Order::findOrFail($recordId);
+    $quotes = [];
+    $records=['franchise_id'=>$row->franchise_id,'client_id'=>$row->client_id];
+    foreach($row->products as $product){
+        $quotes[]=$product->description;
+    }
+    $records['quotes']=$quotes;
+    //print_r($records['quotes']);die();
+    }
+    else{
+    $row=Quote::findOrFail($recordId);
+    $records=['franchise_id'=>$row->franchise_id,'client_id'=>$row->client_id,'quotes'=>$row->estimate];
+    }
+
+    
+}
 $categories = Category::with('products')->orderBy('name')->get();
 $addOnProducts = AddOnProduct::where('franchise_id',3)->orderBy('name','ASC')->get();
 if(\Gate::allows('super',Category::class)){
 $clients = '';
 $franchises = Role::with('users.clients')->whereIn('id',[3,4,5])->get();
-$franchise_id='';
+$franchise_id=isset($row['franchise_id'])?$row['franchise_id']:'';
 }
 else{
 $clients=Client::orderBy('name')->get();
@@ -52,7 +72,7 @@ else
 $catJsons[$category->id]=[];
 }
 $catJsons = json_encode($catJsons);
-return view('quotes.create',compact('categories','catJsons','clients','franchises','franchise_id','boolOrder','addOnProducts'));
+return view('quotes.create',compact('categories','catJsons','clients','franchises','franchise_id','boolOrder','addOnProducts','records'));
     }
 
     /**

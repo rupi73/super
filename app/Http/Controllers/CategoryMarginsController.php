@@ -76,13 +76,12 @@ class CategoryMarginsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(CategoryMargin $catmargin)
     {
         //
-
-       
-        $catmargin=CategoryMargin::findorfail($id);
-        return view('categorymargin.edit',compact('catmargin'));
+        $categories = Category::orderBy('name')->get();
+        $roles = Role::with('users')->whereIn('id',[3,4,5])->get();
+        return view('categorymargin.edit',compact('roles','categories','catmargin'));
     }
 
     /**
@@ -92,11 +91,20 @@ class CategoryMarginsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryMargin $catmargin)
     {
         //
+$request = request();
 
-
+$validate =      $this->validate($request,[
+    'category_id'=>'required|numeric',
+    'role_id'=>'required_without:franchise_id|numeric',
+    'franchise_id'=>'required_without:role_id|numeric',
+    'marginp'=>'required|numeric'
+    
+            ]);
+            $catmargin->update($validate);
+            return redirect()->route('catmargins.index');
     }
 
     /**

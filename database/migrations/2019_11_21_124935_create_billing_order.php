@@ -21,6 +21,7 @@ class CreateBillingOrder extends Migration
             $table->float('paidAmount',8,2);
             $table->text('transaction_details');
             $table->string('payment_method');
+            $table->bigInteger('wp_order_id')->default(0);
             $table->enum('order_status',['pending','processing','hold','completed']);
             $table->timestamps();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');

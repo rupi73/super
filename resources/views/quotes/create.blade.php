@@ -516,7 +516,12 @@
                 <td>@{{quote.category.name}}</td>
                 <td>@{{quote.product.name}}</td>
                 <td>
+                  <template v-if="!orderPage"> 
                   <p v-for="(qty,k,index) of quote.quantities"><b>@{{qty}}:-</b>@{{quote.prices[qty]}}</p>
+                </template>
+                <template v-else> 
+                    <p><b>@{{quote.quantities}}:-</b>@{{quote.prices[quote.quantities]}}</p>
+                  </template>
                 </td>
                 <td>@{{quote.size}}</td>
                 <td>@{{quote.paper}}</td>
@@ -651,6 +656,7 @@
                 </tr>
 
 <tr>
+ 
     <b-form-select v-model="addOns" :options="addOnProducts" class="mb-3" value-field="id"
           text-field="name" @input="onAddOnProductSelected" multiple v-if="!disableProduct">
             <!-- This slot appears above the options from 'options' prop -->
@@ -736,6 +742,7 @@
 
 @section('scripts')
 <script>
+ 
   var vm = new Vue({
 el:'#vestimate',
 data(){
@@ -758,7 +765,7 @@ data(){
     quotes:[],
     myTreatments:{foiling:{front:[],back:[]},electroplating:{front:[],back:[]},letterpress:{front:[],back:[]},embossing:{side:''},spotgloss:{side:''},raised_spot_gloss:{side:''},round_corners:{side:''},edgepaint:{color:''},laser_cut:{side:''},laser_engrave:{side:''},silk_screen:{side:''}},
     clients:{!! $clients?$clients:'{}' !!},//used in quote saving input,
-    client:'',
+    client:'{!! isset($records['client_id'])?$records['client_id']:'' !!}',
     franchises:{!! $franchises?$franchises:'[]' !!},
     franchise_id:'{!! $franchise_id?$franchise_id:'' !!}',
     placeOrder:false,
@@ -804,7 +811,10 @@ vm.quantities = vm.catJson.products[e].quantities.opts;
 vm.data.size = vm.catJson.products[e].sizes.selected;
 vm.papers = vm.catJson.products[e].papers.opts;
 vm.data.paper = vm.catJson.products[e].papers.selected;
+if(!vm.orderPage)
 vm.data.quantities.push(vm.catJson.products[e].quantities.selected);
+else
+vm.data.quantities=vm.catJson.products[e].quantities.selected;
 vm.printing = vm.catJson.products[e].printing;
 vm.treatments = vm.catJson.paper[vm.data.paper].treatments;
 if(vm.printing=='None'){
@@ -959,6 +969,8 @@ arrayToString:function(arr){
 addProduct:function(){
   vm.data.prices=vm.prices;
   vm.quotes.push(vm.data);
+  console.log('add data');
+  console.log(vm.data);
   vm.canPlaceOrder();
   vm.resetProductSelected();
 },
@@ -1019,6 +1031,7 @@ const apiServer = "{{route('orders.qstore')}}";
       axios.post(`${apiServer}`, data).then((res)=>{
         if(res.data.success){
          resetProductSelected();
+         window.location.href='{{route("orders.index")}}';
         }
         console.log(res);
       });
@@ -1026,7 +1039,7 @@ const apiServer = "{{route('orders.qstore')}}";
 canPlaceOrder:function(){
   let placeOrder=true;
   for(quote of vm.quotes){
-    if(quote.quantities.length>1){
+    if(Array.isArray(quote.quantities) && quote.quantities.length>1){
     placeOrder=false; 
 break;
     }   
@@ -1051,8 +1064,20 @@ validateSaveOrder:function(){
 },
 mounted: function () {
   this.$nextTick(function () {
-    
+    console.log('mounted');
+   let quotes =[];
+   @php
+if(isset($records['quotes'])){
+foreach($records['quotes'] as $quote)
+print 'quotes.push('.$quote.');';
+}
+   @endphp
+   console.log(quotes);
+    if(quotes.length)
+    vm.quotes =quotes;
+    vm.onFranchiseSelected(vm.franchise_id);
     vm.resetCategorySelected();
+    
 
 
   })

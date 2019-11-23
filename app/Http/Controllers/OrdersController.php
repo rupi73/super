@@ -17,7 +17,8 @@ class OrdersController extends Controller
     public function index()
     {
         //
-        
+        $orders=Order::with(['products'])->latest()->paginate(10);
+        return view('orders.index',compact('orders'));
     }
 
     /**
@@ -58,9 +59,10 @@ class OrdersController extends Controller
             $products=[];
             $orderAmount = 0;
             $orderTax = 0;
+            $orderMargin = 0;
             $franchise_id = $request->franchise_id;
             foreach($request->estimate as $estimate){
-            $quantity = $estimate['quantities'][0];
+            $quantity = is_array($estimate['quantities'])?$estimate['quantities'][0]:$estimate['quantities'];
             $price = $estimate['prices'][$quantity];
 $orderAmount += $estimate['prices'][$quantity];
 $category_id = $estimate['category']['id'];
@@ -70,11 +72,14 @@ $orderTax +=$tax;
 $addOns=$estimate['addOns'];
 $marginp = get_franchise_margin_category($category_id,$franchise_id);
 $margin = calculate_tax($price,$marginp);
-$products[]=new OrderProduct(['category_id'=>$estimate['category']['id'],'product_id'=>$estimate['product']['id'],'paper_id'=>get_field_value('App\Paper','id',['name'=>$estimate['paper']]),'size_id'=>get_field_value('App\Size','id',['value'=>$estimate['size']]),'quantity_id'=>get_field_value('App\Quantity','id',['value'=>$estimate['quantities'][0]]),'price'=>$price,'description'=>json_encode($estimate),'treatments'=>json_encode($estimate['treatments']),'tax'=>$tax,'taxp'=>$gst,'totalPrice'=>$price+$tax,'marginp'=>$marginp,'margin'=>$margin]);
+$orderMargin +=$margin;
+$products[]=new OrderProduct(['category_id'=>$estimate['category']['id'],'product_id'=>$estimate['product']['id'],'paper_id'=>get_field_value('App\Paper','id',['name'=>$estimate['paper']]),'size_id'=>get_field_value('App\Size','id',['value'=>$estimate['size']]),'quantity_id'=>get_field_value('App\Quantity','id',['value'=>$quantity]),'price'=>$price,'description'=>json_encode($estimate),'treatments'=>json_encode($estimate['treatments']),'tax'=>$tax,'taxp'=>$gst,'totalPrice'=>$price+$tax,'marginp'=>$marginp,'margin'=>$margin]);
 
             }
             
-         $order =   Order::create(['franchise_id'=>$franchise_id,'client_id'=>$request->client_id,'amount'=>$orderAmount,'tax'=>$orderTax,'grossTotal'=>$orderAmount + $orderTax]);
+         $order =   Order::create(['franchise_id'=>$franchise_id,'client_id'=>$request->client_id,'amount'=>$orderAmount,'tax'=>$orderTax,
+         'margin'=>$orderMargin,
+         'grossTotal'=>$orderAmount + $orderTax]);
         foreach($products as $product){
             $order->products()->save($product);
             if($product->treatments){
@@ -120,9 +125,10 @@ $products[]=new OrderProduct(['category_id'=>$estimate['category']['id'],'produc
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Order $order)
     {
         //
+        
     }
 
     /**

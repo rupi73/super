@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('franchise_id');
             $table->unsignedInteger('client_id');
             $table->float('amount',8,2);
+            $table->float('margin',8,2);
             $table->float('tax',8,2);
             $table->float('discount',8,2)->default(0);
             $table->float('discountp',8,2)->default(0);
