@@ -83,7 +83,7 @@
                         <tr>
                         <td>{{$op->product->name}}</td>
                             <td>{{$op->quantity->label}}</td>
-                            <td>{{$op->description}}</td>
+                            <td>{{get_html_description_order($op->description)}}</td>
                             <td>{{$op->price}}</td>
                             <td>{{$op->margin}}</td>
                             <td>{{$op->taxp}}</td>

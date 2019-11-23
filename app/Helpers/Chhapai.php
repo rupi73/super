@@ -40,3 +40,39 @@ if (! function_exists('get_franchise_margin_category')) {
 return $record->{$field}; */
     }
 }
+
+if (! function_exists('get_html_description_order')) {
+    function get_html_description_order($description)
+    {
+        $description=json_decode($description,true);
+        $show=['paper','treatments','size','printing','addOns'];
+       print '<table>';
+      foreach($description as $k=>$v){
+          if(!in_array($k,$show))
+          continue;
+      print '<tr>';
+print '<td>'.ucwords($k).'</td>'.
+        '<td>'.(is_array($v)?json_encode($v):$v).'</td>';
+      print '</tr>';  
+      }
+      print '</table>';  
+    }
+}
+
+if (! function_exists('get_html_description_quotes')) {
+    function get_html_description_quotes($description)
+    {
+        $description=json_decode($description,true);
+        $show=['paper','treatments','size','printing','addOns'];
+       print '<table>';
+      foreach($description as $k=>$v){
+          if(!in_array($k,$show))
+          continue;
+      print '<tr>';
+print '<td>'.ucwords($k).'</td>'.
+        '<td>'.(is_array($v)?json_encode($v):$v).'</td>';
+      print '</tr>';  
+      }
+      print '</table>';  
+    }
+}
