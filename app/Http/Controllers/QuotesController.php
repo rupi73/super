@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use App\Category;
 use App\Client;
 use App\Role;
-use App\AddOnProduct;
+use App\AddonProduct;
 use App\Order;
 class QuotesController extends Controller
 {
@@ -52,7 +52,7 @@ if($recordId){
     
 }
 $categories = Category::with('products')->orderBy('name')->get();
-$addOnProducts = AddOnProduct::where('franchise_id',3)->orderBy('name','ASC')->get();
+$addOnProducts = AddonProduct::where('franchise_id',3)->orderBy('name','ASC')->get();
 if(\Gate::allows('super',Category::class)){
 $clients = '';
 $franchises = Role::with('users.clients')->whereIn('id',[3,4,5])->get();
