@@ -21,4 +21,7 @@ return $this->belongsTo('App\Order');
     public function product(){
         return $this->belongsTo('App\Product');
     }
+    public function quantity(){
+        return $this->belongsTo('App\Quantity');
+    }
 }

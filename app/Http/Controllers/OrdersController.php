@@ -114,10 +114,11 @@ $products[]=new OrderProduct(['category_id'=>$estimate['category']['id'],'produc
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Order $order)
     {
         //
-        return view('orders.show');
+        //dd($order->client->name);
+        return view('orders.show',compact('order'));
     }
 
     /**

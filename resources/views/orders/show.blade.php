@@ -10,22 +10,22 @@
     <div class="card-body">
         <div class="row">
             <div class="col-md-3">
-                <h5>Order :</h5>
+            <h5>Order :{{$order->id}}</h5>
                
             </div>
 
             <div class="col-md-3">
-                    <h5>Client :</h5>
+                    <h5>Client :{{$order->client['name']}}</h5>
                    
                 </div>
 
                 <div class="col-md-3">
-                        <h5>Franchise :</h5>
+                        <h5>Franchise :{{$order->franchise['name']}}</h5>
                        
                     </div>
 
                     <div class="col-md-3">
-                            <h5>Date :</h5>
+                            <h5>Date :{{$order->updated_at}}</h5>
                            
                         </div>
             
@@ -34,22 +34,22 @@
 
         <div class="row my-5">
                 <div class="col-md-3">
-                    <h5>Total Amount :</h5>
+                    <h5>Total Amount :{{$order->amount}}</h5>
                    
                 </div>
     
                 <div class="col-md-3">
-                        <h5>Margin :</h5>
+                        <h5>Margin :{{$order->margin}}</h5>
                        
                     </div>
     
                     <div class="col-md-3">
-                            <h5>Tax  :</h5>
+                            <h5>Tax  :{{$order->tax}}</h5>
                            
                         </div>
     
                         <div class="col-md-3">
-                                <h5>Payable Amount  :</h5>
+                                <h5>Payable Amount  :{{$order->amount - $order->margin}}</h5>
                                
                             </div>
                 
@@ -70,17 +70,26 @@
                                 <th>Name</th>
                                 <th>Quantity</th>
                                 <th>Description</th>
+                                <th>Cost</th>
+                                <th>Margin</th>
+                                <th>Tax%</th>
+                                
                                          
                                       
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($order->products as $op)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        <td>{{$op->product->name}}</td>
+                            <td>{{$op->quantity->label}}</td>
+                            <td>{{$op->description}}</td>
+                            <td>{{$op->price}}</td>
+                            <td>{{$op->margin}}</td>
+                            <td>{{$op->taxp}}</td>
                            
                         </tr>
+                        @endforeach
                     </tbody>
                 </table><!--table close-->
 

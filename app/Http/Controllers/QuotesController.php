@@ -104,6 +104,7 @@ return view('quotes.create',compact('categories','catJsons','clients','franchise
     public function show(Quote $quote)
     {
         //
+        return view('quotes.show',compact('quote'));
     }
 
     /**

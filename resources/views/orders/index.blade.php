@@ -44,7 +44,7 @@
                                 
                                     <a class="btn btn-primary" href="{{route('orders.show',$order->id)}}" >Show</a> 
                 
-                                    <a class="btn btn-primary" href="{{route('orders.qcreate',[1,$order->id])}}" >Edit</a> 
+                                    <a class="btn btn-primary" href="{{route('orders.qedit',[1,$order->id])}}" >Edit</a> 
                 
                                         </form>
                             </td>

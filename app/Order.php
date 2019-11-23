@@ -11,5 +11,12 @@ class Order extends Model
         //Order Products
         public function products(){
             return $this->hasMany('App\OrderProduct');
-                }//function
+        }//function
+        public function client(){
+            return $this->belongsTo('App\Client');
+        }//function
+        public function franchise(){
+            return $this->belongsTo('App\User');
+        }//function
+
 }

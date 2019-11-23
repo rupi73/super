@@ -42,7 +42,7 @@
                                 
                                     <a class="btn btn-primary" href="{{route('quotes.show',$quote->id)}}" >Show</a> 
                 
-                                                <a class="btn btn-primary" href="{{route('quotes.edit',$quote->id)}}" >Edit</a> 
+                                                <a class="btn btn-primary" href="{{route('quotes.qedit',[0,$quote->id])}}" >Edit</a> 
                 
                                         </form>
                             </td>
