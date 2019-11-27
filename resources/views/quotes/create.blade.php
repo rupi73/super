@@ -809,7 +809,7 @@ resetCategorySelected:function(){
    vm.catJson = vm.catJsons[e];
   },//function
 resetProductSelected:function(){
-vm.data = {paper:{},treatments:{},prices:{},size:{},printing:'',category:{id:vm.data.category.id,name:vm.data.category.name},product:{id:'',name:''},quantities:[]};
+vm.data = {paper:{},treatments:{},prices:{},size:{},printing:'',category:{id:vm.data.category.id,name:vm.data.category.name},product:{id:'',name:''},quantities:[],addOns:[],addOnPrice:0};
 vm.myTreatments={foiling:{front:[],back:[]},electroplating:{front:[],back:[]},letterpress:{front:[],back:[]},embossing:{side:''},spotgloss:{side:''},raised_spot_gloss:{side:''},round_corners:{side:''},edgepaint:{color:''},laser_cut:{side:''},laser_engrave:{side:''},silk_screen:{side:''}};
 vm.treatments=[];
 vm.settings= {price:{printing:0,size:0}};
@@ -992,6 +992,7 @@ arrayToString:function(arr){
 },
 addProduct:function(){
   vm.data.prices=vm.prices;
+  vm.data.mprices=vm.mprices;
   vm.quotes.push(vm.data);
   console.log('add data');
   console.log(vm.data);
@@ -1011,6 +1012,7 @@ for(franchise of vm.franchises){
    }
   }
 }
+vm.calcQntiesCardPrice();
 },
 onAddOnProductSelected:function(e){
   let price=0;
@@ -1058,7 +1060,7 @@ const apiServer = "{{route('orders.qstore')}}";
       console.log(apiServer);
       axios.post(`${apiServer}`, data).then((res)=>{
         if(res.data.success){
-         resetProductSelected();
+         vm.resetProductSelected();
          window.location.href='{{route("orders.index")}}';
         }
         console.log(res);
@@ -1129,13 +1131,23 @@ mounted: function () {
    let quotes =[];
    @php
 if(isset($records['quotes'])){
-foreach($records['quotes'] as $quote)
+ 
+foreach($records['quotes'] as $k=>$quote){
+  if(is_object($quote))
+  $quote=json_encode($quote);
 print 'quotes.push('.$quote.');';
 }
+print "console.log('edit order');";
+print 'console.log(quotes);';
+print 'vm.quotes =quotes;';
+
+print "console.log($k);";
+print 'vm.editQuote('.$k.');';
+}
+
    @endphp
-   console.log(quotes);
-    if(quotes.length)
-    vm.quotes =quotes;
+   
+
     vm.onFranchiseSelected(vm.franchise_id);
     vm.resetCategorySelected();
     

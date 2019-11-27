@@ -49,7 +49,7 @@ if($recordId){
     $records=['franchise_id'=>$row->franchise_id,'client_id'=>$row->client_id,'quotes'=>$row->estimate,'quote_id'=>$recordId];
     }
 
-    
+    //print_r($records['quotes']);die();
 }
 $categories = Category::with(['products','roleMargins'])->orderBy('name')->get();
 $addOnProducts = AddonProduct::where('franchise_id',3)->orderBy('name','ASC')->get();
