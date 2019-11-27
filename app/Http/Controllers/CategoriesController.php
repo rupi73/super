@@ -161,7 +161,7 @@ class CategoriesController extends Controller
    
        }
        elseif($settings['sides']=='single')
-       $json['treatments'][$tp->treatment->name]['opts']['single']='Single Side';
+       $json['treatments'][$tp->treatment->name]['opts']['single']='Yes';
        elseif($settings['sides']=='both'){
            $json['treatments'][$tp->treatment->name]['opts']['single']='Single Side';
            $json['treatments'][$tp->treatment->name]['opts']['both']='Both Sides';

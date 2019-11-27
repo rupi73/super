@@ -37,7 +37,7 @@ if($recordId){
     if($boolOrder){
     $row=Order::findOrFail($recordId);
     $quotes = [];
-    $records=['franchise_id'=>$row->franchise_id,'client_id'=>$row->client_id];
+    $records=['franchise_id'=>$row->franchise_id,'client_id'=>$row->client_id,'order_id'=>$recordId];
     foreach($row->products as $product){
         $quotes[]=$product->description;
     }
@@ -46,7 +46,7 @@ if($recordId){
     }
     else{
     $row=Quote::findOrFail($recordId);
-    $records=['franchise_id'=>$row->franchise_id,'client_id'=>$row->client_id,'quotes'=>$row->estimate];
+    $records=['franchise_id'=>$row->franchise_id,'client_id'=>$row->client_id,'quotes'=>$row->estimate,'quote_id'=>$recordId];
     }
 
     
@@ -90,7 +90,12 @@ return view('quotes.create',compact('categories','catJsons','clients','franchise
 'estimate'=>'required'
         ]);
         $data['estimate'] = json_encode($request->estimate);
-        Quote::create($data);        
+        if(!$request->id)
+        Quote::create($data);
+        else{
+            $quote = Quote::findOrFail($request->id);
+            $quote->update($data);   
+        }        
         print json_encode(['success'=>true]);
         
     }

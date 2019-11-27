@@ -51,7 +51,7 @@ class OrdersController extends Controller
     public function quoteStore(Request $request)
     {
         //
-        $data = $this->validate($request,[
+           $data = $this->validate($request,[
             'franchise_id'=>'required|numeric',
             'client_id'=>'required|numeric',
             'estimate'=>'required'
@@ -76,10 +76,20 @@ $orderMargin +=$margin;
 $products[]=new OrderProduct(['category_id'=>$estimate['category']['id'],'product_id'=>$estimate['product']['id'],'paper_id'=>get_field_value('App\Paper','id',['name'=>$estimate['paper']]),'size_id'=>get_field_value('App\Size','id',['value'=>$estimate['size']]),'quantity_id'=>get_field_value('App\Quantity','id',['value'=>$quantity]),'price'=>$price,'description'=>json_encode($estimate),'treatments'=>json_encode($estimate['treatments']),'tax'=>$tax,'taxp'=>$gst,'totalPrice'=>$price+$tax,'marginp'=>$marginp,'margin'=>$margin]);
 
             }
-            
-         $order =   Order::create(['franchise_id'=>$franchise_id,'client_id'=>$request->client_id,'amount'=>$orderAmount,'tax'=>$orderTax,
-         'margin'=>$orderMargin,
-         'grossTotal'=>$orderAmount + $orderTax]);
+            $orderData = ['franchise_id'=>$franchise_id,'client_id'=>$request->client_id,'amount'=>$orderAmount,'tax'=>$orderTax,
+            'margin'=>$orderMargin,
+            'grossTotal'=>$orderAmount + $orderTax];
+        if(!$request->id)
+         $order =   Order::create($orderData);
+        else{
+            $order = Order::findOrFail($request->id);
+            $order->update($orderData);
+            foreach($order->products as $upop){
+            $upop->treatments()->detach();
+            $upop->addOns()->detach();
+            }
+            $order->products()->delete(); 
+        }
         foreach($products as $product){
             $order->products()->save($product);
             if($product->treatments){
@@ -104,7 +114,7 @@ $products[]=new OrderProduct(['category_id'=>$estimate['category']['id'],'produc
             }
 
         }
-         
+        print json_encode(['success'=>true]);
   
     }
 

@@ -324,7 +324,7 @@
                     <b-form-radio-group id="radio-group-round_corners-front" v-model="myTreatments.round_corners.side"
                       :options="catJson.treatments['round_corners'].opts" @input="myTreatmentSelected">
                       <template v-slot:first>
-                        <b-form-radio value="">None</b-form-radio>
+                        <b-form-radio value="">No</b-form-radio>
                       </template>
                     </b-form-radio-group>
                   </b-form-group>
@@ -347,7 +347,7 @@
                     <b-form-radio-group id="radio-group-edgepaint-front" v-model="myTreatments.edgepaint.color"
                       :options="catJson.treatments.edgepaint.opts" @input="myTreatmentSelected">
                       <template v-slot:first>
-                        <b-form-radio value="">None</b-form-radio>
+                        <b-form-radio value="">No</b-form-radio>
                       </template>
                     </b-form-radio-group>
                   </b-form-group>
@@ -383,7 +383,7 @@
                     <b-form-radio-group id="radio-group-laser_cut-front" v-model="myTreatments.laser_cut.side"
                       :options="catJson.treatments['laser_cut'].opts" @input="myTreatmentSelected">
                       <template v-slot:first>
-                        <b-form-radio value="">None</b-form-radio>
+                        <b-form-radio value="">No</b-form-radio>
                       </template>
                     </b-form-radio-group>
                   </b-form-group>
@@ -441,7 +441,7 @@
                     <b-form-radio-group id="radio-group-embossing-front" v-model="myTreatments.embossing.side"
                       :options="catJson.treatments.embossing.opts" @input="myTreatmentSelected">
                       <template v-slot:first>
-                        <b-form-radio value="">None</b-form-radio>
+                        <b-form-radio value="">No</b-form-radio>
                       </template>
                     </b-form-radio-group>
                   </b-form-group>
@@ -507,17 +507,18 @@
                 <th>Paper</th>
                 <th>Treatments</th>
                 <th>AddOnProducts</th>
+                <th></th>
 
               </tr>
             </thead>
             <tbody>
 
-              <tr v-for="(quote,key,index) of quotes">
+              <tr v-for="(quote,keyq,indexq) in quotes">
                 <td>@{{quote.category.name}}</td>
                 <td>@{{quote.product.name}}</td>
                 <td>
                   <template v-if="!orderPage"> 
-                  <p v-for="(qty,k,index) of quote.quantities"><b>@{{qty}}:-</b>@{{quote.prices[qty]}}</p>
+                  <p v-for="(qty,k,index) in quote.quantities"><b>@{{qty}}:-</b>@{{quote.prices[qty]}}</p>
                 </template>
                 <template v-else> 
                     <p><b>@{{quote.quantities}}:-</b>@{{quote.prices[quote.quantities]}}</p>
@@ -526,10 +527,18 @@
                 <td>@{{quote.size}}</td>
                 <td>@{{quote.paper}}</td>
                 <td>
-                  <p v-for="(treat,key,index) of quote.treatments"><b>@{{key}}</b></p>
+                  <p v-for="(treat,keyt,indext) of quote.treatments"><b>@{{keyt}}</b></p>
                 </td>
                 <td>
                   <p v-for="add of quote.addOns"><b>@{{add.name + ':' + add.price}}</b></p>
+                </td>
+                <td>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><button type="button" class="btn btn-sm btn-success" @click="editQuote(keyq)">
+                    <i class="fa fa-edit"></i>
+                  </button></li>
+                  <li class="list-inline-item"><button type="button" class="btn btn-sm btn-danger" @click="removeQuote(keyq)"><i class="fa fa-remove"></i></button></li>
+                </ul>
                 </td>
 
               </tr>
@@ -772,6 +781,10 @@ data(){
     orderPage:{{$boolOrder}},
     addOnProducts:{!!$addOnProducts!!},
     addOns:[],
+    boolEditQuote:false,
+    order_id:{!! isset($records['order_id'])?$records['order_id']:0 !!},
+    quote_id:{!! isset($records['quote_id'])?$records['quote_id']:0 !!},
+    categoryMargin:0,
 resetCategorySelected:function(){
 //vm.products = [];
 //vm.resetProductSelected();
@@ -811,9 +824,9 @@ vm.quantities = vm.catJson.products[e].quantities.opts;
 vm.data.size = vm.catJson.products[e].sizes.selected;
 vm.papers = vm.catJson.products[e].papers.opts;
 vm.data.paper = vm.catJson.products[e].papers.selected;
-if(!vm.orderPage)
+if(!vm.orderPage && !vm.boolEditQuote)
 vm.data.quantities.push(vm.catJson.products[e].quantities.selected);
-else
+else if(!vm.boolEditQuote)
 vm.data.quantities=vm.catJson.products[e].quantities.selected;
 vm.printing = vm.catJson.products[e].printing;
 vm.treatments = vm.catJson.paper[vm.data.paper].treatments;
@@ -839,6 +852,7 @@ vm.calcQntiesCardPrice();
 onPaperSelected:function(e){
 console.log(vm.catJson.products[vm.data.product.id].papers);
 vm.paper = vm.catJson.products[vm.data.product.id].papers.opts[e];
+vm.calcQntiesCardPrice();
   }, 
 calcPerCardPrice:function(qty){
 vm.perCardPrices[qty] = (vm.calcQtyCardPrice(qty)/qty).toFixed(2);
@@ -888,7 +902,7 @@ myTreatmentSelected:function(e){
   let price=0;
 for(treat of vm.treatments){
   treat = treat.toLowerCase().replace(' ','');
-  if(vm.data.treatments[treat]!=='undefined')
+  if(typeof vm.data.treatments[treat]!=='undefined')
   delete vm.data.treatments[treat];
   vm.prices['treatments']={};
   switch(treat){
@@ -1001,6 +1015,7 @@ saveQuote:function(){
   let data = {
     client_id:vm.client,
     franchise_id:vm.franchise_id,
+    id:vm.quote_id,
     estimate:vm.quotes
   
   }
@@ -1021,6 +1036,7 @@ saveOrder:function(){
   let data = {
     client_id:vm.client,
     franchise_id:vm.franchise_id,
+    id:vm.order_id,
     estimate:vm.quotes
   
   }
@@ -1045,7 +1061,32 @@ break;
     }   
   }
   vm.placeOrder = placeOrder;
-}//function
+},//function
+editQuote:function(index){
+  vm.boolEditQuote=true;
+  vm.data = Object.assign({},vm.quotes[index]);
+  console.log(vm.myTreatments);
+  console.log(vm.data.treatments);
+ for(treat in vm.myTreatments){
+    if(typeof vm.data.treatments[treat]!=='undefined')
+    vm.myTreatments[treat] =vm.data.treatments[treat];
+  } 
+  vm.quotes=vm.quotes.filter(function(value,indexq,arr){
+return indexq!=index;
+  });
+
+},
+removeQuote:function(index){
+  console.log('remove quote');
+console.log(index);
+if(confirm('Are you sure to remove quote y/n')){
+  vm.quotes=vm.quotes.filter(function(value,indexq,arr){
+return indexq!=index;
+  });
+}
+  
+
+}
 }//return
 },//data
 computed:{

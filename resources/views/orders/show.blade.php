@@ -84,8 +84,8 @@
                         <td>{{$op->product->name}}</td>
                             <td>{{$op->quantity->label}}</td>
                             <td>{{get_html_description_order($op->description)}}</td>
-                            <td>{{$op->price}}</td>
-                            <td>{{$op->margin}}</td>
+                            <td>{{currency_calc($op->price)}}</td>
+                            <td>{{currency_calc($op->margin)}}</td>
                             <td>{{$op->taxp}}</td>
                            
                         </tr>

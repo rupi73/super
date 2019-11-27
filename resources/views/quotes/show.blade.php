@@ -62,8 +62,8 @@
                     @foreach($quote->estimate as $estimate)
                     <tr>
                         <td>{{$estimate->product->name}}</td>
-                        <td>{{json_encode($estimate)}}</td>
-                        <td>{{json_encode($estimate->quantities)}}</td>
+                        <td>{{get_html_description_quotes($estimate)}}</td>
+                        <td>{!!get_quantities_price_quotes($estimate)!!}</td>
 
 
                     </tr>

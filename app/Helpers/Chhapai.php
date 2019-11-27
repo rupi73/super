@@ -1,5 +1,11 @@
 <?php
 use Illuminate\Support\Facades\DB;
+if (! function_exists('currency_calc')) {
+    function currency_calc($amount)
+    {
+        return '₹'.$amount;        
+    }
+}
 if (! function_exists('calculate_tax')) {
     function calculate_tax($rate, $tax)
     {
@@ -50,9 +56,9 @@ if (! function_exists('get_html_description_order')) {
       foreach($description as $k=>$v){
           if(!in_array($k,$show))
           continue;
-      print '<tr>';
+          print '<tr>';
 print '<td>'.ucwords($k).'</td>'.
-        '<td>'.(is_array($v)?json_encode($v):$v).'</td>';
+        '<td>'.(is_array($v)?array_inline_list($v):$v).'</td>';
       print '</tr>';  
       }
       print '</table>';  
@@ -62,17 +68,54 @@ print '<td>'.ucwords($k).'</td>'.
 if (! function_exists('get_html_description_quotes')) {
     function get_html_description_quotes($description)
     {
-        $description=json_decode($description,true);
+        $description=(Array) $description;
+        
         $show=['paper','treatments','size','printing','addOns'];
        print '<table>';
       foreach($description as $k=>$v){
           if(!in_array($k,$show))
           continue;
+          if(is_object($v))
+          $v=(Array) $v;
       print '<tr>';
 print '<td>'.ucwords($k).'</td>'.
-        '<td>'.(is_array($v)?json_encode($v):$v).'</td>';
+        '<td>'.(is_array($v)?array_inline_list($v):$v).'</td>';
       print '</tr>';  
       }
       print '</table>';  
+    }
+}
+
+if (! function_exists('get_quantities_price_quotes')) {
+    function get_quantities_price_quotes($description)
+    {
+        $ret ='';
+        foreach($description->quantities as $quantity){
+            $price = $description->prices->{$quantity};
+            $ppc = number_format($price/$quantity,2);
+$ret.= "<b>$quantity x $ppc =</b>".currency_calc($price).'<br/>';
+        }
+        
+  return $ret;
+    }
+}
+
+if (! function_exists('array_inline_list')) {
+    function array_inline_list($array)
+    {
+        if(empty($array))
+        return '';
+$ret ='<div  class="container">
+<ul class="list-inline">';
+foreach($array as $k=>$v){
+    if(is_object($v))
+    $v = (Array)$v;
+$ret.='<li class="list-inline-item">'.ucwords(str_replace('_',' ',$k)).':'.(is_array($v)?json_encode($v):$v).'</li>';
+
+}
+
+$ret .='</ul>
+</div>';
+return $ret;
     }
 }
