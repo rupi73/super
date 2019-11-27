@@ -655,11 +655,11 @@
                     </div>
                   </td>
                   <td v-if="perCardPrices[qty]">
-                    ₹ @{{perCardPrices[qty]}}
+                    ₹ @{{mperCardPrices[qty]}}/@{{perCardPrices[qty]}}
                   </td>
 
                   <td v-if="prices[qty]">
-                    ₹ @{{prices[qty] }}
+                    ₹@{{mprices[qty] }}/@{{prices[qty] }}
                   </td>
 
                 </tr>
@@ -757,6 +757,7 @@ el:'#vestimate',
 data(){
   return{
     categories:{!!$categories!!},//used in select input
+    category:{},//selected category data
     products:[],//used in categories products select input
     papers:[],//used in selected product papers
     quantities:[],//used in products quantities
@@ -769,14 +770,17 @@ data(){
     printing:{},  //product printing  
     prices:{},//product quantities prices
     perCardPrices:{},//product quantities percard prices
-    data:{paper:{},treatments:{},prices:{},size:{},printing:'',category:{id:'',name:''},product:{id:'',name:''},quantities:[],addOns:[],addOnPrice:0},
+    mprices:{},//product quantities prices
+    mperCardPrices:{},//product quantities percard prices
+    data:{paper:{},treatments:{},prices:{},size:{},printing:'',category:{id:'',name:'',margin:0},product:{id:'',name:''},quantities:[],addOns:[],addOnPrice:0},
     settings:{price:{printing:0,size:0}},
     quotes:[],
     myTreatments:{foiling:{front:[],back:[]},electroplating:{front:[],back:[]},letterpress:{front:[],back:[]},embossing:{side:''},spotgloss:{side:''},raised_spot_gloss:{side:''},round_corners:{side:''},edgepaint:{color:''},laser_cut:{side:''},laser_engrave:{side:''},silk_screen:{side:''}},
     clients:{!! $clients?$clients:'{}' !!},//used in quote saving input,
     client:'{!! isset($records['client_id'])?$records['client_id']:'' !!}',
     franchises:{!! $franchises?$franchises:'[]' !!},
-    franchise_id:'{!! $franchise_id?$franchise_id:'' !!}',
+    franchise_id:'{!! $franchise_id?$franchise_id:0 !!}',
+    role_id:'{!! $role_id?$role_id:0 !!}',
     placeOrder:false,
     orderPage:{{$boolOrder}},
     addOnProducts:{!!$addOnProducts!!},
@@ -784,7 +788,7 @@ data(){
     boolEditQuote:false,
     order_id:{!! isset($records['order_id'])?$records['order_id']:0 !!},
     quote_id:{!! isset($records['quote_id'])?$records['quote_id']:0 !!},
-    categoryMargin:0,
+    
 resetCategorySelected:function(){
 //vm.products = [];
 //vm.resetProductSelected();
@@ -794,6 +798,9 @@ resetCategorySelected:function(){
    if(cat.id==vm.data.category.id){
      vm.data.category.name = cat.name;
      vm.products = cat.products;
+     vm.category = cat;
+     if(vm.role_id)
+     vm.setCategoryMargin();     
      break;
    }
 
@@ -855,7 +862,9 @@ vm.paper = vm.catJson.products[vm.data.product.id].papers.opts[e];
 vm.calcQntiesCardPrice();
   }, 
 calcPerCardPrice:function(qty){
-vm.perCardPrices[qty] = (vm.calcQtyCardPrice(qty)/qty).toFixed(2);
+  let ppc = (vm.calcQtyCardPrice(qty)/qty).toFixed(2);
+vm.perCardPrices[qty] = ppc;
+vm.mperCardPrices[qty] = (ppc - ((vm.data.category.margin*ppc)/100)).toFixed(2);
   },
 calcQtyCardPrice:function(qty){
 let price = 0;
@@ -888,7 +897,8 @@ case 'edgepaint':
 break;
   }//switch
 }
-vm.prices[qty]=price;
+vm.prices[qty]=price.toFixed(2);
+vm.mprices[qty]=price - ((vm.data.category.margin*price)/100).toFixed(2);
 return price;
   },
 calcQntiesCardPrice:function(){
@@ -995,6 +1005,8 @@ for(franchise of vm.franchises){
   for(user of franchise.users){
    if(user.id==vm.franchise_id){
      vm.clients = user.clients;
+     vm.role_id = user.pivot.role_id;
+     vm.setCategoryMargin();
      break;
    }
   }
@@ -1086,7 +1098,15 @@ return indexq!=index;
 }
   
 
-}
+},
+setCategoryMargin:function(){
+  for(role of vm.category.role_margins){
+    if(role.role_id==vm.role_id){
+vm.data.category.margin = role.marginp;
+    }
+  }
+
+}//function
 }//return
 },//data
 computed:{

@@ -32,7 +32,7 @@ class QuotesController extends Controller
     public function create($boolOrder=0,$recordId=0)
 {
         //check if record is editable
-        $record=[];
+        $records=[];
 if($recordId){
     if($boolOrder){
     $row=Order::findOrFail($recordId);
@@ -51,17 +51,19 @@ if($recordId){
 
     
 }
-$categories = Category::with('products')->orderBy('name')->get();
+$categories = Category::with(['products','roleMargins'])->orderBy('name')->get();
 $addOnProducts = AddonProduct::where('franchise_id',3)->orderBy('name','ASC')->get();
 if(\Gate::allows('super',Category::class)){
 $clients = '';
 $franchises = Role::with('users.clients')->whereIn('id',[3,4,5])->get();
-$franchise_id=isset($row['franchise_id'])?$row['franchise_id']:'';
+$franchise_id=isset($records['franchise_id'])?$records['franchise_id']:0;
+$role_id=0;
 }
 else{
 $clients=Client::orderBy('name')->get();
 $franchises=[];
 $franchise_id=3;
+$role_id=3;
 }
 $catJsons = [];
 foreach($categories as $category){
@@ -72,7 +74,7 @@ else
 $catJsons[$category->id]=[];
 }
 $catJsons = json_encode($catJsons);
-return view('quotes.create',compact('categories','catJsons','clients','franchises','franchise_id','boolOrder','addOnProducts','records'));
+return view('quotes.create',compact('categories','catJsons','clients','franchises','franchise_id','boolOrder','addOnProducts','records','role_id'));
     }
 
     /**
