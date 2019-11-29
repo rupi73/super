@@ -60,10 +60,14 @@ $franchise_id=isset($records['franchise_id'])?$records['franchise_id']:0;
 $role_id=0;
 }
 else{
-$clients=Client::orderBy('name')->get();
+$user =request()->user();
+foreach($user->roles as $role){
+        $role_id = $role->id;
+    }
+$franchise_id=$user->id;
+$role_id=$role_id;
+$clients=Client::orderBy('name')->where('franchise_id',$franchise_id)->get();
 $franchises=[];
-$franchise_id=3;
-$role_id=3;
 }
 $catJsons = [];
 foreach($categories as $category){
