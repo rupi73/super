@@ -32,10 +32,12 @@ Route::resource('roles','RolesController');
 Route::resource('users','UsersController');
 Route::resource('quotes','QuotesController');
 Route::resource('orders','OrdersController');
+Route::resource('wallets','WalletsController');
 Route::post('/orders/quotestore', 'OrdersController@quoteStore')->name('orders.qstore');
 Route::get('/orders/create/{order?}', 'QuotesController@create')->name('orders.qcreate');
 Route::get('/orders/edit/{order}/{record}', 'QuotesController@create')->name('orders.qedit');
 Route::get('/quotes/edit/{order}/{record}', 'QuotesController@create')->name('quotes.qedit');
+Route::post('/wallets/add', 'WalletsController@addPaymentRazor')->name('wallets.addRazor');
 /*Route::get('/home', 'HomeController@index')->name('home');*/
 
 /*API Calls*/

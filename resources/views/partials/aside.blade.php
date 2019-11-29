@@ -48,6 +48,19 @@
                         <a href="javascript:void(0)">
                             <div class="item-content">
                                 <div class="item-media"><i class="ti-settings"></i></div>
+                                <div class="item-inner"><span class="title">Wallet </span><i class="icon-arrow"></i></div>
+                            </div>
+                        </a>
+                        <ul class="sub-menu">
+                        <li><a href="{{route('wallets.create')}}"><span class="title">Add Money</span></a></li>
+                            <li><a href="{{route ('wallets.index')}}"><span class="title">List</span></a></li>
+                            </ul>
+                    </li>
+                                
+                    <li>
+                        <a href="javascript:void(0)">
+                            <div class="item-content">
+                                <div class="item-media"><i class="ti-settings"></i></div>
                                 <div class="item-inner"><span class="title">Clients </span><i class="icon-arrow"></i></div>
                             </div>
                         </a>
@@ -56,8 +69,6 @@
                             <li><a href="{{route('clients.index')}}"><span class="title">List</span></a></li>
                             </ul>
                     </li>
-                                
-              
              
              
              
