@@ -88,7 +88,7 @@ data(){
     },
     doPayment:function(){
  let rzrOptions ={
-      key: "{{ env('RAZORPAY_TEST_KEY') }}",
+      key: "{{ config('myconfig.RAZORPAY_TEST_KEY') }}",
         amount: vm.getAmount,
         name: 'chhapai.com',
         description: 'add money to wallet',
