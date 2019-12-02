@@ -102,9 +102,11 @@ data(){
        const apiServer = "{{route('wallets.addRazor')}}";
        let data = {
       amount:vm.amount,
-      razorpay_id:transaction.razorpay_payment_id,
+      gateway_transaction_id:transaction.razorpay_payment_id,
       note:vm.note,
-      user_id:vm.user_id
+      user_id:vm.user_id,
+      gateway:'razorpay',
+      type:'deposit'
 
        };
       axios.post(`${apiServer}`, data).then((res)=>{
