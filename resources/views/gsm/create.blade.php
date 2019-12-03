@@ -691,6 +691,138 @@
 
     </div><!--accordian close-->
   </div><!--col-md-5  close-->
+
+  <div class="col-md-7">
+
+    <div class="card mt-4">
+        <div class="card-header">
+            <h2 class="text-center">ADD PRODUCTS</h2>
+        </div>
+        <div class="card-body">
+<table class="table">
+    <thead>
+        <tr>
+            <th><h6><b>QUANTITY</b></h6></th>
+            <th><h6><b>PPC</b></h6></th>
+             <th><h6><b>TOTAL</b></h6></th>
+            <th><h6><b>Margin</b></h6></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <h6>
+                        <div class="custom-control custom-checkbox mb-3">
+                                <input type="checkbox" class="custom-control-input " id="customCheck"  name="example1">
+                                <label class="custom-control-label" for="customCheck"><h5 class="ml-4">1000</h5></label>
+                              </div> 
+                </h6>
+            </td>
+            <td>
+                    <h5>₹ 10</h5>
+            </td>
+            <td>
+                   <h5>₹ 1000</h5>
+            </td>
+
+            <td>
+                    <h5>₹ 1000</h5>
+             </td>
+        </tr>
+
+
+        <tr>
+                <td>
+                    <h6>
+                            <div class="custom-control custom-checkbox mb-3">
+                                    <input type="checkbox" class="custom-control-input " id="customCheck"  name="example1">
+                                    <label class="custom-control-label" for="customCheck"><h5 class="ml-4">1000</h5></label>
+                                  </div> 
+                    </h6>
+                </td>
+                <td>
+                        <h5>₹ 10</h5>
+                </td>
+                <td>
+                       <h5>₹ 1000</h5>
+                </td>
+
+                <td>
+                        <h5>₹ 1000</h5>
+                 </td>
+            </tr>
+
+
+            <tr>
+                    <td>
+                        <h6>
+
+                                <div class="custom-control custom-checkbox mb-3">
+                                        <input type="checkbox" class="custom-control-input " id="customCheck"  name="example1">
+                                        <label class="custom-control-label" for="customCheck"><h5 class="ml-4">1000</h5></label>
+                                      </div> 
+                        </h6>
+                    </td>
+                    <td>
+                            <h5>₹ 10</h5>
+                    </td>
+                    <td>
+                           <h5>₹ 1000</h5>
+                    </td>
+
+                    <td>
+                            <h5>₹ 1000</h5>
+                     </td>
+                </tr>
+    </tbody>
+</table>
+
+
+
+<table class="table">
+    <tbody>
+        <tr>
+            <td><h6><b>Category	</b></h6></td>
+            <td>Business Card</td>
+           
+        </tr>
+
+        <tr>
+                <td><h6><b>Product	</b></h6></td>
+                <td>Matt finish</td>
+               
+            </tr>
+
+            <tr>
+                    <td><h6><b>Size	</b></h6></td>
+                    <td>	3.5" x 2"</td>
+                   
+                </tr>
+
+                <tr>
+                        <td><h6><b>Printing	</b></h6></td>
+                        <td>	single</td>
+                       
+                    </tr>
+
+                    <tr>
+                            <td><h6><b>Paper	</b></h6></td>
+                            <td>	SOFT SUEDE 500gsm</td>
+                           
+                        </tr>
+
+                        <tr>
+                                <td><h6><b>Treatments	</b></h6></td>
+                                <td>Null</td>
+                               
+                            </tr>
+    </tbody>
+    
+</table>
+        </div>
+    </div>
+
+  </div>
     </div><!--first row close-->
 </div><!--first container close-->
 
