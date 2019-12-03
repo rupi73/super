@@ -19,7 +19,7 @@
                 <li>
                     <a href="javascript:void(0)">
                         <div class="item-content">
-                            <div class="item-media"><i class="ti-settings"></i></div>
+                            <div class="item-media"><i class="ti-lock"></i></div>
                             <div class="item-inner"><span class="title">Orders </span><i class="icon-arrow"></i></div>
                         </div>
                     </a>
@@ -33,7 +33,7 @@
                 <li>
                         <a href="javascript:void(0)">
                             <div class="item-content">
-                                <div class="item-media"><i class="ti-settings"></i></div>
+                                <div class="item-media"><i class="ti-unlock"></i></div>
                                 <div class="item-inner"><span class="title">Quotes </span><i class="icon-arrow"></i></div>
                             </div>
                         </a>
@@ -47,7 +47,7 @@
                 <li>
                         <a href="javascript:void(0)">
                             <div class="item-content">
-                                <div class="item-media"><i class="ti-settings"></i></div>
+                                <div class="item-media"><i class="ti-money"></i></div>
                                 <div class="item-inner"><span class="title">Wallet </span><i class="icon-arrow"></i></div>
                             </div>
                         </a>
@@ -60,7 +60,7 @@
                     <li>
                         <a href="javascript:void(0)">
                             <div class="item-content">
-                                <div class="item-media"><i class="ti-settings"></i></div>
+                                <div class="item-media"><i class="ti-user"></i></div>
                                 <div class="item-inner"><span class="title">Clients </span><i class="icon-arrow"></i></div>
                             </div>
                         </a>
@@ -74,12 +74,12 @@
              
           
             </ul>
-            <div class="navbar-title"><span>Settings</span></div>
+            <div class="navbar-title"><div class="item-media"><i class="ti-settings"></i><span>Settings</span></div></div>
             <ul class="folders">
                     <li>
                             <a href="javascript:void(0)">
                                 <div class="item-content">
-                                    <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i></span></div>
+                                    <div class="item-media"><i class="ti-package"></i></div>
                                     <div class="item-inner"><span class="title">Products </span><i class="icon-arrow"></i></div>
                                 </div>
                             </a>
@@ -94,7 +94,7 @@
                         <li>
                                 <a href="javascript:void(0)">
                                     <div class="item-content">
-                                        <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i></span></div>
+                                        <div class="item-media"><i class="ti-key"></i></div>
                                         <div class="item-inner"><span class="title">Users 'N' Roles </span><i class="icon-arrow"></i></div>
                                     </div>
                                 </a>
@@ -113,7 +113,7 @@
                 <li>
                     <a href="javascript:void(0)">
                         <div class="item-content">
-                            <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-terminal fa-stack-1x fa-inverse"></i></span></div>
+                            <div class="item-media"><i class="ti-write"></i></div>
                             <div class="item-inner"><span class="title">Papers</span></div>
                         </div>
                     </a>
@@ -130,7 +130,7 @@
                 <li>
                     <a href="javascript:void(0)">
                         <div class="item-content">
-                            <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i></span></div>
+                            <div class="item-media"><i class="ti-more-alt"></i></div>
                             <div class="item-inner"><span class="title">Treatments</span></div>
                         </div>
                     </a>
@@ -147,7 +147,7 @@
                 <li>
                         <a href="javascript:void(0)">
                             <div class="item-content">
-                                <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i></span></div>
+                                <div class="item-media"><i class="ti-layout-grid3"></i></div>
                                 <div class="item-inner"><span class="title">Categories</span></div>
                             </div>
                         </a>
@@ -166,7 +166,7 @@
                 <li>
                         <a href="javascript:void(0)">
                             <div class="item-content">
-                                <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i></span></div>
+                                <div class="item-media"><i class="ti-list"></i></div>
                                 <div class="item-inner"><span class="title">Quantities</span></div>
                             </div>
                         </a>
@@ -180,7 +180,7 @@
                     <li>
                             <a href="javascript:void(0)">
                                 <div class="item-content">
-                                    <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i></span></div>
+                                    <div class="item-media"><i class="ti-ruler"></i></div>
                                     <div class="item-inner"><span class="title">Sizes</span></div>
                                 </div>
                             </a>
@@ -194,7 +194,7 @@
                         <li>
                                 <a href="javascript:void(0)">
                                     <div class="item-content">
-                                        <div class="item-media"><span class="fa-stack"><i class="fa fa-square fa-stack-2x"></i> <i class="fa fa-folder-open-o fa-stack-1x fa-inverse"></i></span></div>
+                                        <div class="item-media"><i class="ti-ink-pen"></i></div>
                                         <div class="item-inner"><span class="title">GSM</span></div>
                                     </div>
                                 </a>

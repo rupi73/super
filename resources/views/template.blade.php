@@ -32,7 +32,9 @@
     <meta name="msapplication-TileImage" content="{{asset('assets/images/ms-icon-144x144.png')}}">
     <meta name="theme-color" content="#ffffff">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,400italic,600,700|Raleway:100,300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css">
+    
     <link rel="stylesheet" href="{{mix('css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/vendors.bundle.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/theme.bundle.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/themes/theme-1.min.css')}}" id="skin_color">
     
