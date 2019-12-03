@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Payment;
 use App\Role;
 use App\User;
+use App\Transaction;
 class WalletsController extends Controller
 {
     /**
@@ -16,6 +17,13 @@ class WalletsController extends Controller
     public function index()
     {
         //
+        $user = User::findOrFail(3);
+        $balance = $user->balance;
+        $transactions = [];
+        foreach($user->transactions as $transaction){
+            $transactions[] = Transaction::with('payment')->where('id',$transaction->id)->first(); 
+        }
+        return view('wallets.index',compact('transactions','balance'));
     }
 
     /**
@@ -90,14 +98,13 @@ class WalletsController extends Controller
      * Razorpay Options
      */
     public function addPaymentRazor(Request $request){
-      $data =  $this->validate($request,[
+      $this->validate($request,[
             'amount'=>'required|numeric',
             'user_id'=>'required|numeric'
         ]);
-        $data['gateway']='razorpay';
-        $data['type'] = 'deposit';
         
-      $payment =  Payment::create($data);
+        
+      $payment =  Payment::create($request->all());
         $user = User::findOrFail($request->user_id);
  // int(0)
 

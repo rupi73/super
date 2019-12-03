@@ -111,7 +111,7 @@ data(){
        };
       axios.post(`${apiServer}`, data).then((res)=>{
         if(res.data.success){
-         
+          window.location.href='{{route("wallets.index")}}';
         }
         
       }); 
