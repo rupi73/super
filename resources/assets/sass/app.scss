@@ -6,6 +6,10 @@
 @import '~bootstrap/scss/bootstrap';
 // Bootstrap-vue
 @import '~bootstrap-vue/src/index.scss';
+// VueMultiSelect
+//@import '~vue-multi-select/dist/lib/vue-multi-select.css';
+@import '~@riophae/vue-treeselect/dist/vue-treeselect.css';
+//@import '~badger-accordion/dist/badger-accordion.css';
 .navbar-laravel {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

@@ -1,757 +1,298 @@
 @extends('template')
 @section('content')
-<div class="container" id="vestimate">
-  <div class="row">
-
-
-
-    <div class="col-lg-8 col-md-12">
-      <div class="panel panel-white">
-        <div class="panel-heading">
-          <h2>ESTIMATE</h2>
-        </div>
-        <!--panel heading-->
-        <div class="panel-body">
-
-
-          <div class="row">
-
-            <div class="col-md-6">
-              <template>
-                <div>
-                  <b-form-select v-model="data.category.id" :options="categories" class="mb-3" value-field="id"
-                    text-field="name" value="" @input="onCategorySelected">
-                    <!-- This slot appears above the options from 'options' prop -->
-                    <template v-slot:first>
-                      <option :value="null" disabled>-- Please select Categories --</option>
-                    </template>
-
-
-                  </b-form-select>
-
-                  <div class="mt-3" v-if="debug">Selected: <strong>@{{ data.category.name }}</strong></div>
-                </div>
-              </template>
-            </div>
-            <!--col-md-6-->
-            <div class="col-md-6">
-              <template>
-                <div>
-                  <b-form-select v-model="data.product.id" :options="products" class="mb-3" value-field="id"
-                    text-field="name" value="" @input="onProductSelected">
-                    <!-- This slot appears above the options from 'options' prop -->
-                    <template v-slot:first>
-                      <option :value="null" disabled>-- Please select Product --</option>
-                    </template>
-
-
-                  </b-form-select>
-
-                  <div class="mt-3" v-if="debug">Selected: <strong>@{{ data.product.name }}</strong></div>
-                </div>
-              </template>
-            </div>
-            <!--col-md-6-->
-
-          </div>
-          <!--row-->
-
-
-
-          <h2 class="mt-5">Calculator</h2>
-
-          <div class="row">
-            <div class="col">
-              <template>
-                <div>
-                  <b-form-select v-model="data.size" :options="sizes" class="mb-3" value="" @input="onSizeSelected">
-                    <!-- This slot appears above the options from 'options' prop -->
-                    <template v-slot:first>
-                      <option :value="null" disabled>-- Please select Size --</option>
-                    </template>
-
-
-                  </b-form-select>
-
-                  <div class="mt-3" v-if="debug">Selected: <strong>@{{ size }}</strong></div>
-                </div>
-              </template>
-            </div>
-            <!--col-->
-
-            <div class="col">
-              <template>
-                <div>
-                  <b-form-select v-model="data.printing" :options="printingOptions" class="mb-3" value=""
-                    @input="onPrintingSelected">
-                    <!-- This slot appears above the options from 'options' prop -->
-                    <template v-slot:first>
-                      <option :value="null" disabled>-- Please select Printing --</option>
-                    </template>
-
-
-                  </b-form-select>
-
-                  <div class="mt-3" v-if="debug">Selected: <strong>@{{ size }}</strong></div>
-                </div>
-              </template>
-            </div>
-            <!--col-->
-
-            <div class="col">
-              <template>
-                <div>
-                  <b-form-select v-model="data.paper" :options="papers" class="mb-3" value-field="id" text-field="name"
-                    value="" @input="onPaperSelected">
-                    <!-- This slot appears above the options from 'options' prop -->
-                    <template v-slot:first>
-                      <option :value="null" disabled>-- Please select Paper --</option>
-                    </template>
-
-
-                  </b-form-select>
-
-                  <div class="mt-3" v-if="debug">Selected: <strong>@{{ paperId }}</strong></div>
-                </div>
-              </template>
-            </div>
-            <!--col-->
-
-
-          </div>
-          <!--row-->
-
-          <!--treatments-->
-          <h2 class="mt-5">Treatments</h2>
-          @{{treatments}}
-          <div class="row my-3">
-
-            <div class="col col-sm-12" v-if="treatments.indexOf('foiling')!=-1">
-
-              <h3>Foiling</h3>
-
-
-              <div class="row">
-                <div class="col">
-                  <template>
-                    <div>
-                      <b-form-group label="Front Side:">
-                        <b-form-checkbox-group id="checkbox-group-foiling-front" v-model="myTreatments.foiling.front"
-                          :options="catJson.treatments.foiling.opts.colors" @input="myTreatmentSelected">
-                        </b-form-checkbox-group>
-                      </b-form-group>
-
-
-
-                      <div>Selected: <strong>@{{ myTreatments.foiling.front }}</strong></div>
-                    </div>
+<b-container class="bv-example-row" id="vestimate">
+  <b-row>
+    <h1 class="display-5 my-3 "><b>Estimate</b></h1>
+  </b-row>
+  <b-row>
+    <b-col cols="3">
+      <b-card border-variant="dark" header="Product Attributes" align="center" class="h-100 d-inline-block">
+        <h6 class="my-3 ">choose paper size and printing</h6>
+        <b-row>
+          <b-col cols="12" align-self="center">
+            <template>
+              <div>
+                <b-form-select v-model="data.category.id" :options="categories" class="mb-3" value-field="id"
+                  text-field="name" value="" @input="onCategorySelected">
+                  <!-- This slot appears above the options from 'options' prop -->
+                  <template v-slot:first>
+                    <option :value="null" disabled>-- Please select Categories --</option>
                   </template>
-                </div>
-
-                <div class="col">
-
-                  <template>
-                    <div>
-                      <b-form-group label="Back Side:">
-                        <b-form-checkbox-group id="checkbox-group-foiling-back" v-model="myTreatments.foiling.back"
-                          :options="catJson.treatments.foiling.opts.colors" @input="myTreatmentSelected">
-                        </b-form-checkbox-group>
-                      </b-form-group>
 
 
+                </b-form-select>
 
-                      <div>Selected: <strong>@{{ myTreatments.foiling.back }}</strong></div>
-                    </div>
-                  </template>
-                </div>
+                <div class="mt-3" v-if="debug">Selected: <strong>@{{ data.category.name }}</strong></div>
               </div>
-              <!--close foiling row-->
-
-            </div>
-            <!--close--col-md-4-->
-            <div class="col col-sm-12" v-if="treatments.indexOf('electroplating')!=-1">
-
-              <h3>Electroplating</h3>
-
-
-              <div class="row">
-                <div class="col">
-                  <template>
-                    <div>
-                      <b-form-group label="Front Side:">
-                        <b-form-checkbox-group id="checkbox-group-electroplating-front"
-                          v-model="myTreatments.electroplating.front"
-                          :options="catJson.treatments.electroplating.opts.colors" @input="myTreatmentSelected">
-                        </b-form-checkbox-group>
-                      </b-form-group>
-
-
-
-                      <div>Selected: <strong>@{{ myTreatments.electroplating.front }}</strong></div>
-                    </div>
-                  </template>
-                </div>
-
-                <div class="col">
-
-                  <template>
-                    <div>
-                      <b-form-group label="Back Side:">
-                        <b-form-checkbox-group id="checkbox-group-electroplating-back"
-                          v-model="myTreatments.electroplating.back"
-                          :options="catJson.treatments.electroplating.opts.colors" @input="myTreatmentSelected">
-                        </b-form-checkbox-group>
-                      </b-form-group>
-
-
-
-                      <div>Selected: <strong>@{{ myTreatments.electroplating.back }}</strong></div>
-                    </div>
-                  </template>
-                </div>
-              </div>
-              <!--close electroplating row-->
-
-            </div>
-            <!--close--electroplating col-md-3-->
-
-            <div class="col col-sm-12" v-if="treatments.indexOf('letterpress')!=-1">
-              <h3>Letterpress</h3>
-              <div class="row">
-                <div class="col">
-                  <template>
-                    <div>
-                      <b-form-group label="Front Side:">
-                        <b-form-checkbox-group id="checkbox-group-letterpress-front"
-                          v-model="myTreatments.letterpress.front" :options="catJson.treatments.letterpress.opts.colors"
-                          @input="myTreatmentSelected"></b-form-checkbox-group>
-                      </b-form-group>
-
-
-                      <div>Selected: <strong>@{{ myTreatments.letterpress.front }}</strong></div>
-                    </div>
-                  </template>
-                </div>
-
-                <div class="col">
-
-                  <template>
-                    <div>
-                      <b-form-group label="Back Side:">
-                        <b-form-checkbox-group id="checkbox-group-letterpress-back"
-                          v-model="myTreatments.letterpress.back" :options="catJson.treatments.letterpress.opts.colors"
-                          @input="myTreatmentSelected"></b-form-checkbox-group>
-                      </b-form-group>
-
-
-
-                      <div>Selected: <strong>@{{ myTreatments.letterpress.back }}</strong></div>
-                    </div>
-                  </template>
-                </div>
-              </div>
-              <!--close letterpress row-->
-
-            </div>
-            <!--close letterpress col-md-3-->
-
-
-
-
-
-          </div>
-          <!--first row close-->
-
-
-
-
-
-
-
-          <div class="row my-3">
-
-            <div class="col col-sm-12" v-if="treatments.indexOf('raised_spot_gloss')!=-1">
-              <h3>Raisespot</h3>
-
-
-              <template>
-                <div>
-                  <b-form-group>
-                    <b-form-radio-group id="radio-group-raised_spot_gloss-front"
-                      v-model="myTreatments.raised_spot_gloss.side"
-                      :options="catJson.treatments['raised_spot_gloss'].opts" @input="myTreatmentSelected">
-                      <template v-slot:first>
-                        <b-form-radio value="">None</b-form-radio>
-                      </template>
-                    </b-form-radio-group>
-                  </b-form-group>
-
-
-
-                  <div>Selected: <strong>@{{ myTreatments.raised_spot_gloss }}</strong></div>
-                </div>
-              </template>
-
-            </div>
-            <!--close raisespot column-->
-            <div class="col col-sm-12" v-if="treatments.indexOf('spotgloss')!=-1">
-              <h3>Spotgloss</h3>
-
-
-              <template>
-                <div>
-                  <b-form-group>
-                    <b-form-radio-group id="radio-group-spotgloss-front" v-model="myTreatments.spotgloss.side"
-                      :options="catJson.treatments.spotgloss.opts" @input="myTreatmentSelected">
-                      <template v-slot:first>
-                        <b-form-radio value="">None</b-form-radio>
-                      </template>
-                    </b-form-radio-group>
-                  </b-form-group>
-
-
-
-                  <div>Selected: <strong>@{{ myTreatments.spotgloss }}</strong></div>
-                </div>
-              </template>
-
-            </div><!-- Spot Gloss Column-->
-            <div class="col col-sm-12" v-if="treatments.indexOf('round_corners')!=-1">
-              <h3>Roundcorner</h3>
-              <template>
-                <div>
-                  <b-form-group>
-                    <b-form-radio-group id="radio-group-round_corners-front" v-model="myTreatments.round_corners.side"
-                      :options="catJson.treatments['round_corners'].opts" @input="myTreatmentSelected">
-                      <template v-slot:first>
-                        <b-form-radio value="">No</b-form-radio>
-                      </template>
-                    </b-form-radio-group>
-                  </b-form-group>
-
-
-
-                  <div>Selected: <strong>@{{ myTreatments.round_corners.side }}</strong></div>
-                </div>
-              </template>
-
-
-            </div>
-            <!--close roundcorner-->
-
-            <div class="col col-sm-12" v-if="treatments.indexOf('edgepaint')!=-1">
-              <h3>Edgepaint</h3>
-              <template>
-                <div>
-                  <b-form-group>
-                    <b-form-radio-group id="radio-group-edgepaint-front" v-model="myTreatments.edgepaint.color"
-                      :options="catJson.treatments.edgepaint.opts" @input="myTreatmentSelected">
-                      <template v-slot:first>
-                        <b-form-radio value="">No</b-form-radio>
-                      </template>
-                    </b-form-radio-group>
-                  </b-form-group>
-
-
-
-                  <div>Selected: <strong>@{{ myTreatments.edgepaint }}</strong></div>
-                </div>
-              </template>
-              <!--close edge paint row-->
-
-            </div>
-            <!--close edgepaint col-md-3-->
-          </div>
-          <!--close second row-->
-
-
-
-
-
-
-          <div class="row my-3">
-
-            <div class="col col-md-12" v-if="treatments.indexOf('laser_cut')!=-1">
-
-              <h3>Lasercut</h3>
-
-
-
-              <template>
-                <div>
-                  <b-form-group>
-                    <b-form-radio-group id="radio-group-laser_cut-front" v-model="myTreatments.laser_cut.side"
-                      :options="catJson.treatments['laser_cut'].opts" @input="myTreatmentSelected">
-                      <template v-slot:first>
-                        <b-form-radio value="">No</b-form-radio>
-                      </template>
-                    </b-form-radio-group>
-                  </b-form-group>
-
-
-
-                  <div>Selected: <strong>@{{ myTreatments.laser_cut }}</strong></div>
-                </div>
-              </template>
-
-
-
-            </div>
-            <!--close lasercut--col-md-3-->
-
-
-            <div class="col-md-4" v-if="treatments.indexOf('laser_engrave')!=-1">
-
-              <h3>Laserengrave</h3>
-
-
-
-              <template>
-                <div>
-                  <b-form-group>
-                    <b-form-radio-group id="radio-group-laser_engrave-front" v-model="myTreatments.laser_engrave.side"
-                      :options="catJson.treatments['laser_engrave'].opts" @input="myTreatmentSelected">
-                      <template v-slot:first>
-                        <b-form-radio value="">None</b-form-radio>
-                      </template>
-                    </b-form-radio-group>
-                  </b-form-group>
-
-
-
-                  <div>Selected: <strong>@{{ myTreatments.laser_engrave }}</strong></div>
-                </div>
-              </template>
-
-
-
-            </div>
-            <!--close laserengrave --col-md-3-->
-
-
-            <div class="col-md-4" v-if="treatments.indexOf('embossing')!=-1">
-
-              <h3>Embossing</h3>
-
-
-
-              <template>
-                <div>
-                  <b-form-group>
-                    <b-form-radio-group id="radio-group-embossing-front" v-model="myTreatments.embossing.side"
-                      :options="catJson.treatments.embossing.opts" @input="myTreatmentSelected">
-                      <template v-slot:first>
-                        <b-form-radio value="">No</b-form-radio>
-                      </template>
-                    </b-form-radio-group>
-                  </b-form-group>
-
-
-
-                  <div>Selected: <strong>@{{ myTreatments.embossing }}</strong></div>
-                </div>
-              </template>
-
-
-
-            </div>
-            <!--close embossing--col-md-3-->
-
-
-
-
-          </div>
-          <!--close third row-->
-
-          <div class="row my-3">
-
-            <div class="col col-md-12" v-if="treatments.indexOf('silk_screen')!=-1">
-              <h3>Silk Screen</h3>
-
-
-              <template>
-                <div>
-                  <b-form-group>
-                    <b-form-radio-group id="radio-group-silk_screen-front" v-model="myTreatments.silk_screen.side"
-                      :options="catJson.treatments['silk_screen'].opts" @input="myTreatmentSelected">
-                      <template v-slot:first>
-                        <b-form-radio value="">None</b-form-radio>
-                      </template>
-                    </b-form-radio-group>
-                  </b-form-group>
-
-
-
-                  <div>Selected: <strong>@{{ myTreatments.silk_screen }}</strong></div>
-                </div>
-              </template>
-
-            </div>
-            <!--close silk colom-->
-          </div>
-          <!--close fourth row-->
-
-
-
-
-
-
-          <table class="table  mt-5">
-            <thead>
-              <tr>
-
-                <th>Category</th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Size</th>
-                <th>Paper</th>
-                <th>Treatments</th>
-                <th>AddOnProducts</th>
-                <th></th>
-
-              </tr>
-            </thead>
-            <tbody>
-
-              <tr v-for="(quote,keyq,indexq) in quotes">
-                <td>@{{quote.category.name}}</td>
-                <td>@{{quote.product.name}}</td>
-                <td>
-                  <template v-if="!orderPage"> 
-                  <p v-for="(qty,k,index) in quote.quantities"><b>@{{qty}}:-</b>@{{quote.prices[qty]}}</p>
-                </template>
-                <template v-else> 
-                    <p><b>@{{quote.quantities}}:-</b>@{{quote.prices[quote.quantities]}}</p>
-                  </template>
-                </td>
-                <td>@{{quote.size}}</td>
-                <td>@{{quote.paper}}</td>
-                <td>
-                  <p v-for="(treat,keyt,indext) of quote.treatments"><b>@{{keyt}}</b></p>
-                </td>
-                <td>
-                  <p v-for="add of quote.addOns"><b>@{{add.name + ':' + add.price}}</b></p>
-                </td>
-                <td>
-                    <ul class="list-inline">
-                        <li class="list-inline-item"><button type="button" class="btn btn-sm btn-success" @click="editQuote(keyq)">
-                    <i class="fa fa-edit"></i>
-                  </button></li>
-                  <li class="list-inline-item"><button type="button" class="btn btn-sm btn-danger" @click="removeQuote(keyq)"><i class="fa fa-remove"></i></button></li>
-                </ul>
-                </td>
-
-              </tr>
-
-
-            </tbody>
-          </table>
-          <!--table close-->
-          <div class="row">
-            @can('super',\App\Product::class)
-            <div class="col">
-              <template>
-                <div>
-                  <b-form-select v-model="franchise_id" class="mb-3" id="input-franchise" @input="onFranchiseSelected">
-                    @foreach($franchises as $franchise)
-                    <optgroup label="{{$franchise->name}}">
-                      @foreach($franchise->users as $user)
-                      <option value="{{$user->id}}">{{$user->name}}</option>
-                      @endforeach
-                    </optgroup>
-                    @endforeach
-                  </b-form-select>
-
-                  <div class="mt-3">Selected: <strong>@{{ client }}</strong></div>
-                </div>
-              </template>
-            </div>
-            <!--close--col-->
-            @endcan
-            <div class="col">
-              <template>
-                <div>
-                  <b-form-select v-model="client" :options="clients" size="sm" class="mt-3" value-field="id"
-                    text-field="name">
-                    <template v-slot:first>
-                      <option :value="null" disabled>-- Please Select Client --</option>
-                    </template>
-
-                  </b-form-select>
-
-                  <div class="mt-3">Selected: <strong>@{{ client }}</strong></div>
-                </div>
-              </template>
-            </div>
-            <!--close--col-->
-            <div class="col">
-          <template v-if="!orderPage">
-              <button type="button" class="btn btn-primary" :disabled="validateSaveQuote" @click="saveQuote">Save To
-                Quote</button>
-          </template>
-            </div>
-            <!--close--col-->
-
-            <div class="col ">
-              <button type="button" class="btn btn-primary" :disabled="validateSaveOrder" @click="saveOrder">Add To Order</button>
-            </div>
-            <!--close--col-->
-          </div>
-          <!--row close-->
-
-          <!--text-right-->
-
-
-
-
-
-
-
-        </div>
-        <!--panel body -->
-
-      </div>
-      <!--close close pannel-->
-    </div>
-    <!--close col-md-8-->
-    <!--card-->
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <div class="card-header">
-            <h4 class="text-center"><b>Add Product<b></h4>
-          </div>
-          <div class="card-content my-3">
-
-            <table class="table">
-
-              <thead>
-                <tr>
-                  <td>
-                    QTY
-                  </td>
-                  <td>
-                    PPC
-                  </td>
-                  <td>
-                    Total
-                  </td>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(qty, key, index) in quantities">
-                  <td>
-                    <div class="form-check">
-                      <label v-bind:class="{'form-check-label':!orderPage,'form-radio-label':orderPage}">
-                        <template v-if="orderPage">
-                        <input type="radio" class="form-radio-input" :value="key" v-model="data.quantities">
-                        </template>
-                        <template v-else>
-                            <input type="checkbox" class="form-check-input" :value="key" v-model="data.quantities">
-                        </template>
-                        
-                        @{{qty}}
-                      </label>
-                    </div>
-                  </td>
-                  <td v-if="perCardPrices[qty]">
-                    ₹ @{{mperCardPrices[qty]}}/@{{perCardPrices[qty]}}
-                  </td>
-
-                  <td v-if="prices[qty]">
-                    ₹@{{mprices[qty] }}/@{{prices[qty] }}
-                  </td>
-
-                </tr>
-
-<tr>
- 
-    <b-form-select v-model="addOns" :options="addOnProducts" class="mb-3" value-field="id"
-          text-field="name" @input="onAddOnProductSelected" multiple v-if="!disableProduct">
-            <!-- This slot appears above the options from 'options' prop -->
-            <template v-slot:first>
-              <option :value="null" disabled>-- add on products --</option>
             </template>
-      
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="12" align-self="center">
+            <template>
+              <div>
+                <b-form-select v-model="data.product.id" :options="products" class="mb-3" value-field="id"
+                  text-field="name" value="" @input="onProductSelected">
+                  <!-- This slot appears above the options from 'options' prop -->
+                  <template v-slot:first>
+                    <option :value="null" disabled>-- Please select Product --</option>
+                  </template>
 
-        </b-form-select>
-        @{{addOns}}
-</tr>
-              </tbody>
+
+                </b-form-select>
+
+                <div class="mt-3" v-if="debug">Selected: <strong>@{{ data.product.name }}</strong></div>
+              </div>
+            </template>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="12" align-self="center">
+            <template>
+              <div>
+                <b-form-select v-model="data.paper" :options="papers" class="mb-3" value-field="id" text-field="name"
+                  value="" @input="onPaperSelected">
+                  <!-- This slot appears above the options from 'options' prop -->
+                  <template v-slot:first>
+                    <option :value="null" disabled>-- Please select Paper --</option>
+                  </template>
 
 
-              <table class="table">
+                </b-form-select>
+
+                <div class="mt-3" v-if="debug">Selected: <strong>@{{ paperId }}</strong></div>
+              </div>
+            </template>
+
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="12" align-self="center">
+            <template>
+              <div>
+                <b-form-select v-model="data.size" :options="sizes" class="mb-3" value="" @input="onSizeSelected">
+                  <!-- This slot appears above the options from 'options' prop -->
+                  <template v-slot:first>
+                    <option :value="null" disabled>-- Please select Size --</option>
+                  </template>
+
+
+                </b-form-select>
+
+                <div class="mt-3" v-if="debug">Selected: <strong>@{{ size }}</strong></div>
+              </div>
+            </template>
+          </b-col>
+
+        </b-row>
+        <b-row>
+          <b-col cols="12" align-self="center">
+            <template>
+              <div>
+                <b-form-select v-model="data.printing" :options="printingOptions" class="mb-3" value=""
+                  @input="onPrintingSelected">
+                  <!-- This slot appears above the options from 'options' prop -->
+                  <template v-slot:first>
+                    <option :value="null" disabled>-- Please select Printing --</option>
+                  </template>
+
+
+                </b-form-select>
+
+                <div class="mt-3" v-if="debug">Selected: <strong>@{{ size }}</strong></div>
+              </div>
+            </template>
+
+          </b-col>
+        </b-row>
+        
+      </b-card>
+    </b-col>
+
+    <b-col cols="4">
+      <b-card border-variant="dark" header="Product Description" align="left" class="h-100 d-inline-block">
+          <b-row>
+          <template>
+            <div class="table-responsive" style="max-height:200px;">
+              <table class="table table-sm table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">TPPC</th>
+                    <th scope="col">PPC</th>
+                    <th scope="col">TP</th>
+                    <th scope="col">Total</th>
+
+                  </tr>
+                </thead>
                 <tbody>
-                  <tr>
-                    <td>Category</td>
-                    <td> @{{data.category.name}} </td>
-                  </tr>
-
-                  <tr>
-                    <td>Product</td>
-                    <td> @{{data.product.name}}</td>
-                  </tr>
-
-                  <tr>
-                    <td>Size</td>
-                    <td> @{{data.size}} </td>
-                  </tr>
-
-
-                  <tr>
-                    <td>Printing</td>
-                    <td> @{{data.printing}} </td>
-                  </tr>
-
-                  <tr>
-                    <td>Paper</td>
-                    <td> @{{data.paper}} </td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">Treatments</td>
-                  </tr>
-                  <tr v-for="(treat,key,index) of data.treatments">
-                    <td>@{{key.toUpperCase()}}</td>
-                    <td
-                      v-if="key=='foiling' || key=='electroplating' || key=='letterpress' || key=='laser_engrave' || key=='raised_spot_gloss' || key=='silk_screen' || key=='spotgloss'">
-                      <p v-for="(arr,k,index) of treat">
-                        <b>@{{k.charAt(0).toUpperCase()+ k.slice(1)}}:-</b>@{{arrayToString(arr)}}</p>
+                  <tr v-for="(qty, key, index) in quantities"
+                    :class="{ 'table-active': data.quantities.indexOf(qty)!==-1 }">
+                    <td>
+                      <template v-if="orderPage">
+                        <input type="radio" :value="key" v-model="data.quantities">
+                      </template>
+                      <template v-else>
+                        <input type="checkbox" :value="key" v-model="data.quantities">
+                      </template>
                     </td>
-                    <td v-if="key=='round_corners' || key=='laser_cut' || key=='embossing'">Yes</td>
-                    <td v-if="key=='edgepaint'">@{{treat.color}}</td>
+                    <td>@{{qty}}</td>
+                    <td>₹@{{mperCardPrices[qty]}}</td>
+                    <td>₹@{{perCardPrices[qty]}}</td>
+                    <td>₹@{{mprices[qty] }}</td>
+                    <td>₹@{{prices[qty] }}</td>
                   </tr>
-
-                  <tr>
-                    <td colspan="2"><button type="button" class="btn btn-primary btn-lg" :disabled="disableProduct"
-                        @click="addProduct()">ADD</button> </td>
-                  </tr>
-
-
-
-
-
                 </tbody>
-
               </table>
+            </div>
+          </template>
+        </b-row>
+
+          <h6 class="my-1">choose treatments</h6>
+          <b-row>
+            <b-col cols="12" align-self="center">
+              <template>
+                <treeselect :multiple="true" :options="treeTreatments" :always-open="false" :disable-branch-nodes="true"
+                  :default-expand-level="1" :searchable="false" :flat="true" :open-direction="bottom"
+                  placeholder="Choose Treatments..." max-height=150 allow-clearing-disabled="true"
+                  v-model="treeTreatmentValues" @select="selectTreatment" @deselect="deSelectTreatment">
+
+                  <div slot="value-label" slot-scope="{ node }">@{{ node.id }}</div>
+                </treeselect>
+
+              </template>
+
+            </b-col>
+          </b-row>
+          <b-row class="mt-4">
+            <b-col cols="12" align-self="center">
+              <template>
+                <div>
+                  <b-form-select v-model="addOns" :options="addOnProducts" class="mt-3" value-field="id"
+                    text-field="name" @input="onAddOnProductSelected" multiple v-if="!disableProduct" :select-size="4">
+                    <!-- This slot appears above the options from 'options' prop -->
+                    <template v-slot:first>
+                      <option :value="null">-- add on products --</option>
+                    </template>
+
+
+                  </b-form-select>
+
+                </div>
+              </template>
+            </b-col>
+          </b-row>
+<b-row class="justify-content-center">
+          <b-button :disabled="disableProduct"  @click="addProduct()">Add Product</b-button>
+
+</b-row>
 
 
 
-          </div>
 
-        </div>
-      </div>
-    </div>
-    <!--close col-md-4-->
+        
+      </b-card>
+    </b-col>
+    <b-col cols="5">
+      <b-card border-variant="dark" header="Added Products" align="left" class="h-100 w-100 d-inline-block">
+        <template v-slot:header>
+          <h6 class="mb-0 d-inline">Added Products</h6>
+          <button type="button" class="btn btn-dark btn-sm float-right mx-1 align-self-center" :disabled="validateSaveOrder" @click="saveOrder">Save Order</button>
+          <button type="button" class="btn btn-sm btn-dark float-right" :disabled="validateSaveQuote" @click="saveQuote">Save Quote</button>
+        </template>
+        <b-row>
+          <b-col cols="12">
+            <b-form-select v-model="franchise_id" class="mb-1" size="sm" id="input-franchise"
+              @input="onFranchiseSelected">
+              @foreach($franchises as $franchise)
+              <optgroup label="{{$franchise->name}}">
+                @foreach($franchise->users as $user)
+                <option value="{{$user->id}}">{{$user->name}}</option>
+                @endforeach
+              </optgroup>
+              @endforeach
+            </b-form-select>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col cols="12">
+            <b-form-select v-model="client" :options="clients" size="sm" value-field="id" text-field="name">
+              <template v-slot:first>
+                <option :value="null" disabled>-- Please Select Client --</option>
+              </template>
+
+            </b-form-select>
+          </b-col>
+        </b-row>
+        <b-row class="table-responsive">
+          <template>
+            <div>
+              <b-table :items="quotes" :fields="quoteFields" striped responsive="sm">
+                <template v-slot:cell(show_details)="row">
+                  <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+                 <i :class="{ 'ti-minus': row.detailsShowing, 'ti-plus': !row.detailsShowing }" ></i>
+                  </b-button>
+                  <b-button size="sm" @click="editQuote(row.index)" class="ml-2">
+                      <i class="ti-pencil" ></i>
+                       </b-button>
+                       <b-button size="sm" @click="removeQuote(row.index)" class="ml-2">
+                          <i class="ti-close" ></i>
+                           </b-button>
+                
+
+                  
+                </template>
+
+                <template v-slot:row-details="row">
+                  <b-card>
+                    <b-row class="mb-2">
+                      <b-col sm="6" class="text-sm-left mb-1"><b>Paper:</b></b-col>
+                      <b-col>@{{ row.item.paper }}</b-col>
+                      <b-col sm="6" class="text-sm-left "><b>Size:</b></b-col>
+                      <b-col>@{{ row.item.size }}</b-col>
+                    </b-row>
+                    <b-row class="mb-2">
+                      <b-col sm="6" class="text-sm-left mb-1"><b>Print:</b></b-col>
+                      <b-col>@{{ row.item.printing }}</b-col>
+                      <b-col sm="6" class="text-sm-left mb-1"><b>Quantity:</b></b-col>
+                      <b-col><template v-if="!orderPage"> 
+                          <p v-for="(qty,k,index) in row.item.quantities"><b>@{{qty}}:-</b>@{{row.item.prices[qty]}}</p>
+                        </template>
+                        <template v-else> 
+                            <p><b>@{{row.item.quantities}}:-</b>@{{row.item.prices[row.item.quantities]}}</p>
+                          </template></b-col>
+                        </b-row>
+
+                    <b-row class="mb-2">
+                      <b-col sm="6" class="text-sm-left mb-1"><b>Treatments:</b></b-col>
+                    <b-col><p v-for="(treat,keyt,indext) of row.item.treatments"><b>@{{keyt}}</b>@{{treat}}</p></b-col>
+                    </b-row>
+                    <b-row class="mb-2">
+                        <b-col sm="6" class="text-sm-left"><b>Addons:</b></b-col>
+                        <b-col><p v-for="add of row.item.addOns"><b>@{{add.name + ':' + add.price}}</b></p></b-col>
+                      </b-row>
+
+                    <b-button size="sm" @click="row.toggleDetails">Hide Details</b-button>
+                  </b-card>
+                </template>
+              </b-table>
+            </div>
+          </template>
+
+
+        </b-row>
+      </b-card>
+    </b-col>
     @{{data}}
-  </div>
-  <!--close row-->
-</div>
-<!--close container-->
+  </b-row>
+
+
+</b-container>
 @endsection
 
 @section('scripts')
 <script>
- 
   var vm = new Vue({
 el:'#vestimate',
 data(){
@@ -765,16 +306,22 @@ data(){
     debug:false,
     catJsons:{!!$catJsons!!},//Categories JSONs
     catJson:[],//selected category json
+    treeAllTreatments:[],
     treatments:[],//used in selected paper treatments
     printingOptions:[],//used to show printing options
+    qPricesTableHeads:['Selected','Qty','PPC','MPPC','Total','MTotal'],
+    qPricesTable:[],
+    tableQuantities:[],
     printing:{},  //product printing  
     prices:{},//product quantities prices
     perCardPrices:{},//product quantities percard prices
-    mprices:{},//product quantities prices
-    mperCardPrices:{},//product quantities percard prices
-    data:{paper:{},treatments:{},prices:{},size:{},printing:'',category:{id:'',name:'',margin:0},product:{id:'',name:''},quantities:[],addOns:[],addOnPrice:0},
+    mprices:{},//product quantities margin prices
+    mperCardPrices:{},//product quantities percard margin prices
+    data:{paper:null,treatments:{},prices:{},size:null,printing:null,category:{id:null,name:'',margin:0},product:{id:null,name:''},quantities:[],addOns:[],addOnPrice:0},
     settings:{price:{printing:0,size:0}},
     quotes:[],
+    quoteFields:[{ key: 'product.name', label: 'Products' },'show_details'
+  ],
     myTreatments:{foiling:{front:[],back:[]},electroplating:{front:[],back:[]},letterpress:{front:[],back:[]},embossing:{side:''},spotgloss:{side:''},raised_spot_gloss:{side:''},round_corners:{side:''},edgepaint:{color:''},laser_cut:{side:''},laser_engrave:{side:''},silk_screen:{side:''}},
     clients:{!! $clients?$clients:'{}' !!},//used in quote saving input,
     client:'{!! isset($records['client_id'])?$records['client_id']:'' !!}',
@@ -788,8 +335,30 @@ data(){
     boolEditQuote:false,
     order_id:{!! isset($records['order_id'])?$records['order_id']:0 !!},
     quote_id:{!! isset($records['quote_id'])?$records['quote_id']:0 !!},
+    // define the treeselect value
+    treeTreatmentValues: [],
+    treeTreatments: [ 
     
-resetCategorySelected:function(){
+  ],
+  fieldQuotes: [
+          // A virtual column that doesn't exist in items
+          { key: 'product.name', label: 'Product' },
+          // A column that needs custom formatting
+          { key: 'product.paper', label: 'Prices' },
+          // A regular column
+          '#'
+          
+        ],
+        itemsSmall: [
+          { name: { first: 'John', last: 'Doe' }, sex: 'Male', age: 42 },
+          { name: { first: 'Jane', last: 'Doe' }, sex: 'Female', age: 36 },
+          { name: { first: 'Rubin', last: 'Kincade' }, sex: 'Male', age: 73 },
+          { name: { first: 'Shirley', last: 'Partridge' }, sex: 'Female', age: 62 }
+        ]
+}//return
+},//data
+methods:{
+  resetCategorySelected:function(){
 //vm.products = [];
 //vm.resetProductSelected();
   },
@@ -805,13 +374,15 @@ resetCategorySelected:function(){
    }
 
     }
-   
    vm.catJson = vm.catJsons[e];
+   vm.fillTreatments();
   },//function
 resetProductSelected:function(){
 vm.data = {paper:{},treatments:{},prices:{},size:{},printing:'',category:{id:vm.data.category.id,name:vm.data.category.name},product:{id:'',name:''},quantities:[],addOns:[],addOnPrice:0};
 vm.myTreatments={foiling:{front:[],back:[]},electroplating:{front:[],back:[]},letterpress:{front:[],back:[]},embossing:{side:''},spotgloss:{side:''},raised_spot_gloss:{side:''},round_corners:{side:''},edgepaint:{color:''},laser_cut:{side:''},laser_engrave:{side:''},silk_screen:{side:''}};
 vm.treatments=[];
+vm.treeTreatmentValues=[];
+vm.treeTreatments = [];
 vm.settings= {price:{printing:0,size:0}};
 vm.prices = {};
 vm.perCardPrices={};
@@ -855,10 +426,13 @@ vm.data.printing='single';
 console.log('quantity');
 console.log(vm.quantities);
 vm.calcQntiesCardPrice();
+
+vm.fillSelectTreatments();
   },
 onPaperSelected:function(e){
 console.log(vm.catJson.products[vm.data.product.id].papers);
 vm.paper = vm.catJson.products[vm.data.product.id].papers.opts[e];
+vm.fillSelectTreatments();
 vm.calcQntiesCardPrice();
   }, 
 calcPerCardPrice:function(qty){
@@ -876,7 +450,9 @@ for(treat in vm.data.treatments){
 case 'foiling':
 case 'electroplating':
 case 'letterpress':
-let colors = vm.data.treatments[treat].front.concat(vm.data.treatments[treat].back);
+let f = Array.isArray(vm.data.treatments[treat].front)?vm.data.treatments[treat].front:[];
+let b = Array.isArray(vm.data.treatments[treat].back)?vm.data.treatments[treat].back:[];
+let colors = f.concat(b);
 for(color of colors){
   console.log(vm.catJson.treatments[treat]);
   price += Number(vm.catJson.treatments[treat][color][qty]);
@@ -902,10 +478,15 @@ vm.mprices[qty]=price - ((vm.data.category.margin*price)/100).toFixed(2);
 return price;
   },
 calcQntiesCardPrice:function(){
+  vm.qPricesTable=[];
 for(qty in vm.quantities){
   vm.calcQtyCardPrice(qty);
   vm.calcPerCardPrice(qty);
+  vm.qPricesTable.push({Qty:qty,PPC:vm.perCardPrices[qty],MPPC:vm.mperCardPrices[qty],Total:vm.prices[qty],MTotal:vm.mprices[qty]});
+  
 }
+console.log('select row');
+
   },
 myTreatmentSelected:function(e){
   console.log('wwwww');
@@ -1079,11 +660,50 @@ break;
 editQuote:function(index){
   vm.boolEditQuote=true;
   vm.data = Object.assign({},vm.quotes[index]);
+  if(Array.isArray(vm.data.quantities) && vm.orderPage){
+    console.log('order quantity');
+    console.log(vm.data.quantities);
+    vm.data.quantities=vm.data.quantities[0];
+  }
+  
+  if(vm.data.addOns){
+    for(adon of vm.data.addOns)
+  vm.addOns.push(adon.id);
+  }
   console.log(vm.myTreatments);
   console.log(vm.data.treatments);
  for(treat in vm.myTreatments){
-    if(typeof vm.data.treatments[treat]!=='undefined')
-    vm.myTreatments[treat] =vm.data.treatments[treat];
+    if(typeof vm.data.treatments[treat]!=='undefined'){
+      vm.myTreatments[treat] =vm.data.treatments[treat];
+      switch(treat){
+        case 'electroplating':
+        case 'foiling':
+        case 'letterpress':
+for(side in vm.data.treatments[treat]){
+  for(color of vm.data.treatments[treat][side])
+  vm.treeTreatmentValues.push(treat+'.'+side+'.'+color);
+}
+        break;
+        case  'round_corners':
+        case  'embossing':
+        case 'laser_cut':
+        for(side in vm.data.treatments[treat]){
+    vm.treeTreatmentValues.push(treat+'.'+side);
+}
+        break;
+        case 'laser_engrave': 
+        case 'raised_spot_gloss':  
+        case 'spotgloss': 
+        case 'silk_screen':
+        for(side in vm.data.treatments[treat]){
+    vm.treeTreatmentValues.push(treat+'.'+side);
+}
+        break;
+        case 'edgepaint':
+
+        break;
+      }
+    }
   } 
   vm.quotes=vm.quotes.filter(function(value,indexq,arr){
 return indexq!=index;
@@ -1108,9 +728,163 @@ vm.data.category.margin = role.marginp;
     }
   }
 
-}//function
-}//return
-},//data
+},//function
+  fillTreatments:function(){
+    console.log('fillTreatments');
+    let treat=[];
+   vm.treeAllTreatments =[];
+    for(treatment in vm.catJson.treatments){
+      let labelTreatment = treatment.toUpperCase().replace(/_/g,'');
+  switch(treatment){
+case 'foiling':
+case 'electroplating':
+case 'letterpress':
+let colorsf = [];
+let colorsb = [];
+for(color in vm.catJson.treatments[treatment].opts.colors){
+colorsf.push({id:treatment+'.front.'+color,label:color,type:treatment});
+colorsb.push({id:treatment+'.back.'+color,label:color,type:treatment});
+      }
+      vm.treeAllTreatments.push({id:treatment,label:labelTreatment,children:[{id:'front',label:'Front',type:treatment,children:colorsf},{id:'back',label:'Back',children:colorsb}]});
+break;
+case  'round_corners':
+ case  'embossing':
+ case 'laser_cut':
+ vm.treeAllTreatments.push({id:treatment,label:labelTreatment,children:[{id:treatment+'.single',label:'Yes',type:treatment}]});
+ break;
+ case 'laser_engrave': 
+ case 'raised_spot_gloss':  
+ case 'spotgloss': 
+ case 'silk_screen':
+ vm.treeAllTreatments.push({id:treatment,label:labelTreatment,children:[{id:treatment+'.single',label:'Single Side',type:treatment,isDisabled:false},{id:treatment+'.both',label:'Both Sides',type:treatment,isDisabled:false}]});
+ break;
+ case 'edgepaint':
+
+ break;
+    }//switch
+
+    }
+  },//function
+  fillSelectTreatments:function(){
+    console.log('fillselecttreatments');
+    console.log(vm.treatments);
+    vm.treeTreatments = [];
+    for(treat of vm.treeAllTreatments){
+      if(vm.treatments.indexOf(treat.id)!==-1)
+      vm.treeTreatments.push(treat);
+
+    }
+  },//function
+selectTreatment:function(node,instance){
+console.log('select treatment');
+console.log(node);
+console.log(instance);
+if(typeof vm.data.treatments[node.type] === 'undefined')
+vm.data.treatments[node.type]={};
+let treat = node.id.split('.');
+//console.log(instance);
+//console.log(vm.treePrintValue);
+switch(node.type){
+case 'foiling':
+case 'electroplating':
+case 'letterpress':
+if(!Array.isArray(vm.data.treatments[node.type][treat[1]]))
+vm.data.treatments[node.type][treat[1]] = [];
+vm.data.treatments[node.type][treat[1]].push(treat[2]);
+
+break;
+case  'round_corners':
+case  'embossing':
+case 'laser_cut':
+vm.data.treatments[node.type]['side'] = 'single';
+ /*  for(print of vm.treePrint[1].children){
+  console.log(print);
+  if(print.id != node.id){
+    print.isDisabled=true;
+
+  }
+}  */
+//vm.data.treatments[node.type]
+  break;
+case 'laser_engrave': 
+ case 'raised_spot_gloss':  
+ case 'spotgloss': 
+ case 'silk_screen': 
+ for(x of vm.treeTreatments){
+  console.log(x);
+  if(x.id == node.type){
+    for(y of x.children){
+      if(y.id != node.id){
+    y.isDisabled=true;
+
+  }
+    }
+break;
+  }
+ 
+}
+vm.data.treatments[node.type]['side'] = treat[1];
+  break;
+case 'edgepaint':
+
+break;
+
+}
+vm.calcQntiesCardPrice();
+  },
+deSelectTreatment:function(node,instance){
+console.log('deselect print');
+
+switch(node.type){
+case 'foiling':
+case 'electroplating':
+case 'letterpress': 
+let treat = node.id.split('.');
+let pos = vm.data.treatments[node.type][treat[1]].indexOf(treat[2]);
+vm.data.treatments[node.type][treat[1]].splice(pos,1);
+break;
+case  'round_corners':
+case  'embossing':
+case 'laser_cut':
+delete vm.data.treatments[node.type];
+break;
+ case 'laser_engrave': 
+ case 'raised_spot_gloss':  
+ case 'spotgloss': 
+ case 'silk_screen':
+ for(x of vm.treeTreatments){
+  console.log(x);
+  if(x.id == node.type){
+    for(y of x.children){
+      if(y.id != node.id){
+    y.isDisabled=false;
+
+  }
+    }
+break;
+  }
+ 
+}
+delete vm.data.treatments[node.type];
+  break;
+case 'edgepaint':
+
+break;
+
+}
+vm.calcQntiesCardPrice();
+  }, 
+  onQuantitySelected(items) {
+    vm.data.quantities = [];
+    for(item of items)
+    vm.data.quantities.push(item.Qty);
+      },
+  selectThirdRow() {
+        // Rows are indexed from 0, so the third row is index 2
+        vm.$refs.quantityTable.selectRow(2);
+      }
+  
+},
 computed:{
 disableProduct:function(){
   return this.data.quantities.length === 0;
@@ -1123,6 +897,11 @@ validateSaveQuote:function(){
 validateSaveOrder:function(){
   return !(this.placeOrder && this.client!=='');
 
+},
+isQtySelected:function(key){
+  console.log('qqqqq');
+  console.log(key);
+return true;
 }
 },
 mounted: function () {
@@ -1156,5 +935,6 @@ print 'vm.editQuote('.$k.');';
   })
 }
 });
+  
 </script>
 @endsection
