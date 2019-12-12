@@ -21,7 +21,14 @@ class QuotesController extends Controller
     {
         //
         $quotes = Quote::latest()->paginate(5);
-        return view('quotes.index',compact('quotes'));
+        $_quotes=[];
+        foreach($quotes as $order){
+            $_quotes[]=['date'=>$order->updated_at->format('d-m-Y'),'franchise'=>$quotes->franchise->name,'client'=>$quotes->client->name,
+           
+            'id'=>$quotes->id];
+        }
+        $_quotes=json_encode($_quotes);
+        return view('quotes.index',compact('_quotes','quotes'));
     }
 
     /**

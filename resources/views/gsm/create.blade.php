@@ -5,8 +5,36 @@
 
 .card{
     margin-bottom:20px;
-    box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0.2), 0 4px 4px 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 6px 6px 0 rgba(0, 0, 0, 0), 0 4px 4px 0 rgba(0, 0, 0, 0);
    
+}
+
+.accordion {
+  background-color: #E1E8ED;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  transition: 0.4s;
+  border:green;
+  margin-bottom: 20px; 
+}
+
+.active, .accordion:hover {
+  background-color:  #e0e0d1; 
+  color:white;
+}
+
+.panel {
+  margin: none; 
+  padding: 0 18px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
 }
 
 
@@ -91,18 +119,78 @@
 <hr>
 
 
+
+<button class="accordion"><h6><b>Select Paper</b></h6></button>
+<div class="panel">
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="radio" class="form-check-input" name="optradio"><p>soft suede paper 350gsm</p>
+    </label>
+  </div>
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="radio" class="form-check-input" name="optradio"><p> soft suede paper 500gsm</p>
+    </label>
+  </div>
+</div>
+<br>
+<button class="accordion"><b>Select Category</b></button>
+<div class="panel">
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="radio" class="form-check-input" name="optradio"><p>soft suede paper 350gsm</p>
+    </label>
+  </div>
+  <div class="form-check">
+    <label class="form-check-label">
+      <input type="radio" class="form-check-input" name="optradio"><p> soft suede paper 500gsm</p>
+    </label>
+  </div>
+</div>
+<br>
+<button class="accordion"><b>Select Size</b></button>
+<div class="panel">
+  <table class="table">
+    <tbody>
+        <tr>
+            <td>
+  <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="optradio"><p> 3.5 * 4.5<p>
+          </label>
+        </div>
+            </td>
+        </tr>
+            <tr>
+                <td>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="optradio"><p>3.2 * 5.5</p>
+          </label>
+        </div>
+                </td>
+            </tr>
+          </tbody>
+</table>
+</div>
+
+
+
   
     <div id="accordion" >
 
       <h1 class="display-5 my-4"><b>Calculator</b></h1>
 
+ 
+      
 
 
-      <div class="card " >
+
+      <div class="card  " >
         <div class="card-header bg-white">
           <a class="collapsed card-link" data-toggle="collapse" href="#paper">
                 <h6 class=" d-inline text-dark  "><b>Select Papers</b></h6>
-                <span class="badge badge-primary  d-inline float-right">Matt-finish </span> 
+                <span class="badge badge-success  d-inline float-right">Matt-finish </span> 
                
           </a>
         </div>
@@ -126,7 +214,7 @@
         <div class="card-header bg-white">
           <a class="collapsed card-link" data-toggle="collapse" href="#size">
                 <h6 class="text-dark d-inline"><b>Select size</b></h6>
-                <span class="badge badge-primary  d-inline float-right">3mm-5mm </span>
+                <span class="badge badge-success  d-inline float-right">3mm-5mm </span>
           </a>
         </div>
         <div id="size" class="collapse" data-parent="#accordion">
@@ -163,7 +251,7 @@
             <div class="card-header bg-white">
               <a class="collapsed card-link" data-toggle="collapse" href="#printing">
                     <h6 class="text-dark d-inline"><b>Select Printing</b></h6>
-                    <span class="badge badge-primary  d-inline float-right">single side</span>
+                    <span class="badge badge-success  d-inline float-right">single side</span>
               </a>
             </div>
             <div id="printing" class="collapse" data-parent="#accordion">
@@ -210,7 +298,7 @@
                       <a class="collapsed card-link" data-toggle="collapse" href="#raisespotgloss">
                             <h6 class="text-dark d-inline"><b>Raisespotgloss</b></h6>  
                            
-                            <span class="badge badge-primary  d-inline float-right">single side</span> 
+                            <span class="badge badge-success  d-inline float-right">single side</span> 
                       </a>
                     </div>
                     <div id="raisespotgloss" class="collapse" data-parent="#accordion">
@@ -240,7 +328,7 @@
                         <div class="card-header bg-white">
                           <a class="collapsed card-link" data-toggle="collapse" href="#roundcorners">
                                 <h6 class="text-dark d-inline"><b>Roundcorners</b></h6>
-                                <span class="badge badge-primary  d-inline float-right">single side </span>
+                                <span class="badge badge-success  d-inline float-right">single side </span>
                           </a>
                         </div>
                         <div id="roundcorners" class="collapse" data-parent="#accordion">
@@ -265,8 +353,8 @@
                             <div class="card-header bg-white">
                               <a class="collapsed card-link" data-toggle="collapse" href="#foiling">
                                     <h6 class="text-dark d-inline"><b>Foiling</b></h6>
-                                    <span class="badge badge-primary  d-inline float-right mx-1 ">front - cooper </span>
-                                    <span class="badge badge-primary  d-inline float-right ">Back -cooper </span>
+                                    <span class="badge badge-success  d-inline float-right mx-1 ">front - cooper </span>
+                                    <span class="badge badge-success  d-inline float-right ">Back -cooper </span>
 
                               </a>
                             </div>
@@ -339,8 +427,8 @@
                                 <div class="card-header bg-white">
                                   <a class="collapsed card-link" data-toggle="collapse" href="#electroplating">
                                         <h6 class="text-dark d-inline"><b>Electroplating</b></h6>
-                                        <span class="badge badge-primary  d-inline float-right mx-1 ">front-cooper </span>
-                                        <span class="badge badge-primary  d-inline float-right ">Back-cooper </span>
+                                        <span class="badge badge-success  d-inline float-right mx-1 ">front-cooper </span>
+                                        <span class="badge badge-success  d-inline float-right ">Back-cooper </span>
                                   </a>
                                 </div>
                                 <div id="electroplating" class="collapse" data-parent="#accordion">
@@ -415,8 +503,8 @@
                                     <div class="card-header bg-white">
                                       <a class="collapsed card-link" data-toggle="collapse" href="#letterpress">
                                             <h6 class="text-dark d-inline"><b>Letterpress</b></h6>
-                                            <span class="badge badge-primary  d-inline float-right mx-1">front-cooper </span>
-                                            <span class="badge badge-primary  d-inline float-right ">Back-cooper </span>         
+                                            <span class="badge badge-success  d-inline float-right mx-1">front-cooper </span>
+                                            <span class="badge badge-success  d-inline float-right ">Back-cooper </span>         
                                       </a>
                                     </div>
                                     <div id="letterpress" class="collapse" data-parent="#accordion">
@@ -489,7 +577,7 @@
                                         <div class="card-header bg-white">
                                           <a class="collapsed card-link" data-toggle="collapse" href="#edgepaint">
                                                 <h6 class="text-dark d-inline"><b>Edgepaint</b></h6> 
-                                                <span class="badge badge-primary  d-inline float-right">cooper </span>
+                                                <span class="badge badge-success  d-inline float-right">cooper </span>
                                              
                                           </a>
                                         </div>
@@ -538,7 +626,7 @@
                                         <div class="card-header bg-white">
                                           <a class="collapsed card-link" data-toggle="collapse" href="#lasercut">
                                                 <h6 class="text-dark d-inline"><b>Lasercut</b></h6>  
-                                                <span class="badge badge-primary  d-inline float-right">single side</span>
+                                                <span class="badge badge-success  d-inline float-right">single side</span>
                                           </a>
                                         </div>
                                         <div id="lasercut" class="collapse" data-parent="#accordion">
@@ -559,7 +647,7 @@
                                         <div class="card-header bg-white">
                                           <a class="collapsed card-link" data-toggle="collapse" href="#laserengrave">
                                                 <h6 class="text-dark d-inline"> <b>Laser Engrave</b></h6>
-                                                <span class="badge badge-primary  d-inline float-right">single side </span> 
+                                                <span class="badge badge-success  d-inline float-right">single side </span> 
                                                
                                           </a>
                                         </div>
@@ -591,7 +679,7 @@
                                         <div class="card-header bg-white">
                                           <a class="collapsed card-link" data-toggle="collapse" href="#embossing">
                                                 <h6 class="text-dark d-inline"><b>Embosing</b></h6>
-                                                <span class="badge badge-primary  d-inline float-right">single side </span>
+                                                <span class="badge badge-success  d-inline float-right">single side </span>
                                           </a>
                                         </div>
                                         <div id="embossing" class="collapse" data-parent="#accordion">
@@ -613,7 +701,7 @@
                                         <div class="card-header bg-white">
                                           <a class="collapsed card-link" data-toggle="collapse" href="#SilkScreen">
                                                 <h6 class="text-dark d-inline"><b>Silk Screen </b></h6>
-                                                <span class="badge badge-primary  d-inline float-right">Both side </span>
+                                                <span class="badge badge-success  d-inline float-right">Both side </span>
                                              
                                           </a>
                                         </div>
@@ -649,7 +737,7 @@
                                                                             <div class="card-header bg-white">
                                                                               <a class="collapsed card-link" data-toggle="collapse" href="#spotgloss">
                                                                                   <h6 class="text-dark d-inline"><b> Spot gloss </b></h6>
-                                                                                  <span class="badge badge-primary  d-inline float-right">Both side </span>
+                                                                                  <span class="badge badge-success  d-inline float-right">Both side </span>
                                                                               </a>
                                                                             </div>
                                                                             <div id="spotgloss" class="collapse" data-parent="#accordion">
@@ -694,12 +782,12 @@
 
   <div class="col-md-7">
 
-    <div class="card mt-4">
-        <div class="card-header">
-            <h2 class="text-center">ADD PRODUCTS</h2>
+    <div class="card mt-4 border border-success ml-2">
+        <div class="card-header"  style="background-color: #00b300;">
+            <h2 class="text-center text-white ">ADD PRODUCTS</h2>
         </div>
         <div class="card-body">
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th><h6><b>QUANTITY</b></h6></th>
@@ -777,48 +865,49 @@
     </tbody>
 </table>
 
+<h1 class="display-5 text-center my-3">Product Detail</h4>
 
-
-<table class="table">
+<table class="table table-hover">
     <tbody>
         <tr>
-            <td><h6><b>Category	</b></h6></td>
-            <td>Business Card</td>
+            <td><h5>Category</h5></td>
+            <td><h6>Business Cardh</h6></td>
            
         </tr>
 
         <tr>
-                <td><h6><b>Product	</b></h6></td>
-                <td>Matt finish</td>
+                <td><h5>Product	</h5></td>
+                <td><h6>Matt finish</h6></td>
                
             </tr>
 
             <tr>
-                    <td><h6><b>Size	</b></h6></td>
-                    <td>	3.5" x 2"</td>
+                    <td><h5>Size	</h5></td>
+                    <td><h6>	3.5" x 2"</h6></td>
                    
                 </tr>
 
                 <tr>
-                        <td><h6><b>Printing	</b></h6></td>
-                        <td>	single</td>
+                        <td><h5>Printing</h5></td>
+                        <td>	<h6>single</h6></td>
                        
                     </tr>
 
                     <tr>
-                            <td><h6><b>Paper	</b></h6></td>
-                            <td>	SOFT SUEDE 500gsm</td>
+                            <td><h5>Paper</h5></td>
+                            <td><h6> SUEDE 500gsm</h6></td>
                            
                         </tr>
 
                         <tr>
-                                <td><h6><b>Treatments	</b></h6></td>
-                                <td>Null</td>
+                                <td><h5>Treatments</h5></td>
+                                <td><h6>Null</h6></td>
                                
                             </tr>
     </tbody>
-    
+ 
 </table>
+<button type="submit "class=" btn btn-outline-success w-100 btn-lg">ADD</button>
         </div>
     </div>
 
@@ -828,7 +917,7 @@
 
 <div class="container bg-white">
     <h2 class="display-4 my-5"> Detail</h2>
-<table class="table table-striped">
+<table class="table table-hover">
         <thead >
           <tr>
             <th ><h5>Category</h5></th>
@@ -858,7 +947,7 @@
                 <td>foiling</td>
                 <td>null</td>
                 <td>null</td>
-          <tr >
+          <tr>
                 <td>business card</td>
                 <td>matt finish</td>
                 <td>200</td>
@@ -903,10 +992,10 @@
         </div>
 
         <div class="col-md-3 mt-4">
-            <button type="sybmit" class="btn btn-primary">Add order</button>
+            <button type="sybmit" class="btn btn-success">Add order</button>
         </div>
         <div class="col-md-3 mt-4">
-                <button type="submit" class="btn btn-primary"> Save Order</button>
+                <button type="submit" class="btn btn-success"> Save Order</button>
         </div>
     
 </div><!--row close-->
@@ -914,7 +1003,22 @@
 
 
         
-
+<script>
+  var acc = document.getElementsByClassName("accordion");
+  var i;
+  
+  for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var panel = this.nextElementSibling;
+      if (panel.style.display === "block") {
+        panel.style.display = "none";
+      } else {
+        panel.style.display = "block";
+      }
+    });
+  }
+  </script>
     
 
 
