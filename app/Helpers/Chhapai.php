@@ -119,3 +119,21 @@ $ret .='</ul>
 return $ret;
     }
 }
+
+if (! function_exists('order_product_names')) {
+    function order_product_names($products)
+    {
+        if(empty($products))
+        return '';
+$ret ='';
+foreach($products as $op){
+
+$ret.=ucfirst($op->product->name).',';
+
+}
+
+//$ret .='</ul>
+//</div>';
+return substr($ret,0,-1);
+    }
+}

@@ -18,5 +18,5 @@ class Order extends Model
         public function franchise(){
             return $this->belongsTo('App\User');
         }//function
-
+        
 }

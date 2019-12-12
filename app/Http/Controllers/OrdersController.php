@@ -18,7 +18,14 @@ class OrdersController extends Controller
     {
         //
         $orders=Order::with(['products'])->latest()->paginate(10);
-        return view('orders.index',compact('orders'));
+        $_orders=[];
+        foreach($orders as $order){
+            $_orders[]=['date'=>$order->updated_at->format('d-m-Y'),'franchise'=>$order->franchise->name,'client'=>$order->client->name,'amount'=>$order->amount,'margin'=>$order->products->sum('margin'),'products'=>order_product_names($order->products),
+            'status'=>'payment pending',
+            'id'=>$order->id];
+        }
+        $_orders=json_encode($_orders);
+        return view('orders.index',compact('_orders','orders'));
     }
 
     /**
