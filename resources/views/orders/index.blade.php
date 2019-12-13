@@ -17,10 +17,10 @@
                                           </template>
                             <!-- A virtual composite column -->
       <template v-slot:cell(action)="data">
-      <a  :href="url + 'orders/edit/1/'+ data.item.id" class="btn btn-sm mr-1 btn-dark">
+      <a  :href="url + 'orders/'+ data.item.id" class="btn btn-sm mr-1 btn-dark">
                     <i class="ti-eye"></i>
                      </a>
-                     <a class="btn btn-sm btn-info mr-1" :href="url + 'orders/'+ data.item.id">
+                     <a class="btn btn-sm btn-info mr-1" :href="url + '/edit/1/'+ data.item.id">
                          <i class="ti-pencil" ></i>
                      </a>
                      <a class="btn btn-sm btn-success mr-1" :href="url + 'orders/'+ data.item.id">
@@ -75,8 +75,7 @@ el:'#vorders',
       },
       mounted:function(){
           this.$nextTick(function(){
-              let orders = [];
-              @php
+               @php
               //foreach($_orders as $k=>$order){
             print 'vm.orders=JSON.parse(\''.$_orders.'\');';
             

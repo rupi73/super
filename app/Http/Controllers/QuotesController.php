@@ -22,12 +22,10 @@ class QuotesController extends Controller
         //
         $quotes = Quote::latest()->paginate(5);
         $_quotes=[];
-        foreach($quotes as $order){
-            $_quotes[]=['date'=>$order->updated_at->format('d-m-Y'),'franchise'=>$quotes->franchise->name,'client'=>$quotes->client->name,
-           
-            'id'=>$quotes->id];
+        foreach($quotes as $quote){
+            $_quotes[]=['date'=>$quote->updated_at->format('d-m-Y'),'franchise'=>$quote->franchise->name,'client'=>$quote->client->name,'id'=>$quote->id,'estimate'=>$quote->estimate];
         }
-        $_quotes=json_encode($_quotes);
+        $_quotes=str_replace('\"','',json_encode($_quotes));
         return view('quotes.index',compact('_quotes','quotes'));
     }
 

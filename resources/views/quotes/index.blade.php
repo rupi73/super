@@ -1,6 +1,6 @@
 @extends('template')
 @section('content')
-<b-container class="bv-example-row" id="vorders">
+<b-container class="bv-example-row" id="vquotes">
     <b-row>
         <h1 class="display-5 my-3 "><b>Quotes</b></h1>
       </b-row>
@@ -8,19 +8,21 @@
         <b-col cols="12">
                 <template>
                         <div>
-                          <b-table small :fields="fields" :items="orders" responsive="sm">
-                               
+                          <b-table small :fields="fields" :items="quotes" responsive="sm">
+                         <!-- product names -->
+                         <template v-slot:cell(product)="data">
+                           <span v-for="(p,keyt,indext) of data.item.estimate">@{{p.product.name}},</span>
+                           
+                         </template>
                             <!-- A virtual composite column -->
       <template v-slot:cell(action)="data">
-      <a  :href="url + 'orders/edit/1/'+ data.item.id" class="btn btn-sm mr-1 btn-dark">
+      <a  :href="url + 'quotes/'+ data.item.id" class="btn btn-sm mr-1 btn-dark">
                     <i class="ti-eye"></i>
                      </a>
-                     <a class="btn btn-sm btn-info mr-1" :href="url + 'orders/'+ data.item.id">
+                     <a class="btn btn-sm btn-info mr-1" :href="url + 'quotes/edit/1/'+ data.item.id">
                          <i class="ti-pencil" ></i>
                      </a>
-                     <a class="btn btn-sm btn-success mr-1" :href="url + 'orders/'+ data.item.id">
-                        <i class="ti-money" ></i>
-                    </a>
+                     
                           
           </template>
                           </b-table>
@@ -32,7 +34,6 @@
 
     </b-row>
 
-    
 </b-container>
 
 
@@ -52,7 +53,7 @@
             // A regular column
             { key: 'client', label: 'Client' },
             // A regular column
-           
+            { key: 'product', label: 'Products' },
             // A virtual column made up from two fields
        
           

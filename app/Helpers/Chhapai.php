@@ -137,3 +137,10 @@ $ret.=ucfirst($op->product->name).',';
 return substr($ret,0,-1);
     }
 }
+
+if (! function_exists('json_fix_quotes')) {
+    function json_fix_quotes($json)
+    {
+       return '';
+    }
+}
