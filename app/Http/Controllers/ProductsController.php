@@ -9,6 +9,11 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Cache;
 class ProductsController extends Controller
 {
+    
+    public function __construct(){
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *

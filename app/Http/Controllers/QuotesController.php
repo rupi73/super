@@ -12,6 +12,10 @@ use App\AddonProduct;
 use App\Order;
 class QuotesController extends Controller
 {
+    
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *

@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'DashboardController@index')->name('dashboard');
+Route::get('/', 'DashboardController@index')->middleware('auth')->name('dashboard');
 Route::resource('addonproducts','AddonproductController');
 Route::resource('catmargins','CategoryMarginsController');
 Route::resource('papers','PapersController');
