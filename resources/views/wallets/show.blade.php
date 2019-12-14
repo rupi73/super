@@ -11,7 +11,7 @@ body {
 
 .card {
     margin-bottom: 30px;
-    bclients: none;
+    border: none;
     -webkit-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
     -moz-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
     box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22)
@@ -19,7 +19,7 @@ body {
 
 .card-header {
     background-color: #fff;
-    bclients-bottom: 1px solid #e6e6f2
+    border-bottom: 1px solid #e6e6f2
 }
 
 h3 {
@@ -38,37 +38,37 @@ h5 {
     color: #3d405c !important
 }
 </style>
-<b-container class="bv-example-row" id="vclientsshow">
+<b-container class="bv-example-row" id="vwalletsshow">
 <div class="offset-xl-2 col-xl-8 col-lg-12 col-md-12 col-sm-12 col-12 padding">
         <div class="card">
             <div class="card-header p-4">
                     @if(\Gate::allows('super',\App\Category::class))
-            <a class="pt-2 d-inline-block" href="index.html" data-abc="true">{{$clients->franchise['name']}}</a>
+            <a class="pt-2 d-inline-block" href="index.html" data-abc="true"></a>
             @else
             <img src="{{asset('assets/images/logo.png')}}" alt="chhapai" height="45px" width="110px">
             @endif
                 <div class="float-right">
-                <h3 class="mb-0">Clients #{{$clients->id}}</h3>
-                    Date: {{$clients->updated_at->format('d-m-Y')}}
+                <h3 class="mb-0">Order </h3>
+                    Date: 
                 </div>
             </div>
             <div class="card-body">
                 <div class="row mb-4">
                     <div class="col-sm-6">
                         <h5 class="mb-3">To:</h5>
-                    <h3 class="text-dark mb-1">{{$clients->client['name']}}</h3>
-                        <div>{{$clients->client['city']}}</div>
-                        <div>{{$clients->client['state']}}</div>
-                        <div>Email: {{$clients->client['email']}}</div>
-                        <div>Phone: {{$clients->client['mobile']}}</div>
+                    <h3 class="text-dark mb-1">Mohinder</h3>
+                        <div>City</div>
+                        <div>state</div>
+                        <div>Email: </div>
+                        <div>Phone:</div>
                     </div>
                     <div class="col-sm-6 ">
-                            <h5 class="text-dark mb-1">Payment</h5>
-                       <div>Total Amount:₹{{$clients->amount}}</div>
-                           <div>Margin:₹{{$clients->margin}}</div>
-                           <div>Tax: ₹{{$clients->tax}}</div>
-                           <div>Payable: ₹{{$clients->amount - $clients->margin}}</div>
-                       </div>
+                         <h5 class="text-dark mb-1">Payment</h5>
+                    <div>Total Amount:₹</div>
+                        <div>Margin:₹</div>
+                        <div>Tax: ₹</div>
+                        <div>Payable: ₹</div>
+                    </div>
                 </div>
                 <div class="table-responsive-sm">
                         <template>
@@ -125,14 +125,14 @@ h5 {
 
         </div>
     </div>
-    @{{clients}}
+    @{{products}}
 </b-container>
 
 @endsection
 @section('scripts')
 <script>
 var vm = new Vue({
-    el:'#vclientsshow',
+    el:'#vwalletsshow',
     data() {
       return {
         fields: [
@@ -160,7 +160,7 @@ var vm = new Vue({
         this.$nextTick(function(){
               let products = [];
               @php
-              /*foreach($clients->products as $op){
+              /*foreach($order->products as $op){
             print "vm.products.push({name:'{$op->product->name}',category:'ddfdf',quantity:'{$op->quantity->label}',description:{$op->description},margin:'{$op->margin}',price:'{$op->price}',tax:'{$op->taxp}'});";
            print 'console.log('.$op->description.');';
             

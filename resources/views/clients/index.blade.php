@@ -1,66 +1,90 @@
 @extends('template')
 @section('content')
+<b-container class="bv-example-row" id="vclients">
+    <b-row>
+        <h1 class="display-5 my-3 "><b>Clients</b></h1>
+      </b-row>
+      <b-row>
+        <b-col cols="12">
+                <template>
+                        <div>
+                          <b-table small :fields="fields" :items="clients" responsive="sm">
 
-<div class="container">
+                        
+                               
+                            <!-- A virtual composite column -->
+      <template v-slot:cell(action)="data">
+      <a  :href="url + 'clients/'+ data.item.id" class="btn btn-sm mr-1 btn-dark">
+                    <i class="ti-eye"></i>
+                     </a>
+                     <a class="btn btn-sm btn-info mr-1" :href="url + '/edit/1/'+ data.item.id">
+                         <i class="ti-pencil" ></i>
+                     </a>
+                     <a class="btn btn-sm btn-success mr-1" :href="url + 'clients/'+ data.item.id">
+                        <i class="ti-money" ></i>
+                    </a>
+                          
+          </template>
+                          </b-table>
+                          {{$clients->onEachSide(1)->links()}}
+                        </div>
+                      </template>
 
-    <div class="row">
+        </b-col>
 
-        <div class="col-md-12">
+    </b-row>
 
-            <h2 class="display-4">Clients Details</h2>
-            <table class="table">
-
-                <thead>
-                    <tr>
-
-         
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Mobile</th>
-                        <th>Franchise Name</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Country</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                    <tbody>
-                            @foreach($clients as $client)
-                        <tr>
-                     <ul>
-                        <td>{{$client->name}}</td>
-                            <td>{{$client->email}}</td>
-                            <td>{{$client->mobile}}</td>
-                            <td>{{$client->users->name}}</td>
-                            <td>{{$client->city}}</td>
-                            <td>{{$client->state}}</td>
-                            <td>{{$client->country}}</td>
-                            <td>
-
-                                    <form action="" method="POST">
-                            
-                                
-                                    <a class="btn btn-primary" href="{{route('clients.show',$client->id)}}" >Show</a> 
-                
-                                                <a class="btn btn-primary" href="{{route('clients.edit',$client->id)}}" >Edit</a> 
-                
-                                        </form>
-                            </td>
-                        </ul>
-                        @endforeach
-                        </tr>
-                    </tbody>
-                </table>
-        </div>
-    </div>
-</div>
+    
+</b-container>
 
 
+@endsection
+@section('scripts')
 
+<script>
+  var vm = new Vue({
+el:'#vclients',
+    data() {
+      return {
+        fields: [
+          // A virtual column that doesn't exist in items
+          { key: 'name', label: 'Name' },
+          // A column that needs custom formatting
+          { key: 'franchise', label: 'Franchise' },
+          // A regular column
+          { key: 'email', label: 'Email' },
+          // A regular column
+          { key: 'mobile', label: 'Mobile' },
+          // A virtual column made up from two fields
+          { key: 'city', label: 'City' },
+          { key: 'state', label: 'State' },
+          { key: 'country', label: 'Country' },
+          { key: 'action', label: 'Action' }
+        ],
+        client: [],
+        url:'{{config("app.url")}}'
+      }
+    },
+     /* methods:{
+          fillOrderItems:function(){
 
+          }
+      },
+      mounted:function(){
+          this.$nextTick(function(){
+               @php
+              //foreach($_orders as $k=>$order){
+            print 'vm.clients=JSON.parse(\''.$clients.'\');';
+            
+//}
+              @endphp
+          })
 
+      }
 
+      }*/
+      });
 
-
+</script>
 
 @endsection

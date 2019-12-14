@@ -64,6 +64,7 @@ class WalletsController extends Controller
     public function show($id)
     {
         //
+        return view('wallets.show',compact('wallet'));
     }
 
     /**
