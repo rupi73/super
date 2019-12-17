@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     //
-    public function payment(){
+     public function payment(){
         return $this->hasOne('App\Payment');
     }
-    public function user(){
+  /*  public function user(){
         return $this->belongsTo('App\User');
-    }
+    } */
 }

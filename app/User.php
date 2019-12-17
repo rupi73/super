@@ -36,6 +36,8 @@ class User extends Authenticatable implements Wallet
     public function clients(){
         return $this->hasMany('App\Client','franchise_id','id');
     }
+    public function wallet(){
+        return $this->hasOne('Bavix\Wallet\Models\Wallet','holder_id','id');
+}
 
-    
 }

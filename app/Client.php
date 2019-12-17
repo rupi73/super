@@ -11,7 +11,7 @@ class Client extends Model
         'name','email','mobile','city','state','country','franchise_id'
     ];
 
-    public function users(){
+    public function franchise(){
         return $this->belongsTo('App\User','franchise_id');
     }
 }

@@ -124,6 +124,8 @@ return view('quotes.create',compact('categories','catJsons','clients','franchise
     public function show(Quote $quote)
     {
         //
+        $quote->estimateJson=str_replace('\"','',json_encode($quote->estimate));
+        //print_r($quote->estimateJson);die();
         return view('quotes.show',compact('quote'));
     }
 

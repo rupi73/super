@@ -14,15 +14,13 @@
                                
                             <!-- A virtual composite column -->
       <template v-slot:cell(action)="data">
-      <a  :href="url + 'clients/'+ data.item.id" class="btn btn-sm mr-1 btn-dark">
+        <a  :href="url + 'clients/'+ data.item.id" class="btn btn-sm mr-1 btn-dark">
                     <i class="ti-eye"></i>
                      </a>
                      <a class="btn btn-sm btn-info mr-1" :href="url + '/edit/1/'+ data.item.id">
                          <i class="ti-pencil" ></i>
                      </a>
-                     <a class="btn btn-sm btn-success mr-1" :href="url + 'clients/'+ data.item.id">
-                        <i class="ti-money" ></i>
-                    </a>
+                    
                           
           </template>
                           </b-table>
@@ -34,7 +32,7 @@
 
     </b-row>
 
-    
+  {{$clients}}  
 </b-container>
 
 
@@ -61,11 +59,11 @@ el:'#vclients',
           { key: 'country', label: 'Country' },
           { key: 'action', label: 'Action' }
         ],
-        client: [],
+        clients: [],
         url:'{{config("app.url")}}'
       }
     },
-     /* methods:{
+      methods:{
           fillOrderItems:function(){
 
           }
@@ -74,7 +72,7 @@ el:'#vclients',
           this.$nextTick(function(){
                @php
               //foreach($_orders as $k=>$order){
-            print 'vm.clients=JSON.parse(\''.$clients.'\');';
+            print 'vm.clients=JSON.parse(\''.$_clients.'\');';
             
 //}
               @endphp
@@ -82,7 +80,6 @@ el:'#vclients',
 
       }
 
-      }*/
       });
 
 </script>

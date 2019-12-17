@@ -81,7 +81,7 @@ data(){
   return{
     amount:0,
     note:'',
-    user_id:0,
+    user_id:{{$franchise_id}},
     initRzr:false,
    capturePayment:function(){
       

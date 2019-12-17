@@ -21,10 +21,16 @@ class ClientsController extends Controller
     public function index()
     {
         //
-       $clients=Client::latest()->paginate(10);
-
-        return view('clients.index',compact('clients'))
-        ->with('i',(request()->input('page',1) -1) *5);
+       $clients=Client::with('franchise')->latest()->paginate(10);
+       
+       $_clients=[];
+       if($clients->count()){
+       foreach($clients as $client){
+           $_clients[]=['name'=>$client->name,'email'=>$client->email,'franchise'=>$client->franchise->name,'mobile'=>$client->mobile,'city'=>$client->city,'state'=>$client->state,'country'=>$client->country,'id'=>$client->id];
+       }
+    }
+    $_clients=json_encode($_clients);
+        return view('clients.index',compact('clients','_clients'));
     }
 
     /**
@@ -69,11 +75,11 @@ $franchises = Role::with('users')->whereIn('id',[3,4,5])->get();
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show( Client $client)
     {
         //
-        $clients=client::findorfail($id);
-        return view('clients.show',compact('clients'));
+        //$clients=client::findorfail($clients);
+        return view('clients.show',compact('client'));
     }
 
     /**

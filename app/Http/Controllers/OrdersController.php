@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\OrderProduct;
 use App\OrderProductTreatment;
+use App\BillingOrder;
 class OrdersController extends Controller
 {
     
@@ -175,5 +176,17 @@ $products[]=new OrderProduct(['category_id'=>$estimate['category']['id'],'produc
     public function destroy($id)
     {
         //
+    }
+
+    public function payOrder(){
+        $order = Order::findOrFail(request('order_id'));
+        if($order->franchise->balance >= $order->amount){
+            $t = $order->franchise->withdraw($order->amount);
+            $billing = ['order_id'=>$order->id,'paidAmount'=>$order->amount,'payment_method'=>'wallet','transaction_details'=>$t->id];
+            $bo=BillingOrder::create($billing);
+            }
+       
+       
+        
     }
 }

@@ -53,6 +53,14 @@ h5 {
                 </div>
             </div>
             <div class="card-body">
+                <div class="row mb-1">
+                    <div class="offset-10 col-2 float-right">
+                        <form role="form" action="{{route('order.pay')}}" method="POST">
+                            @csrf
+                        <input type="hidden" name="order_id" value="{{$order->id}}">
+<button type="submit" class="btn btn-md btn-danger">Make Payment</button>
+                    </div>
+                </div>
                 <div class="row mb-4">
                     <div class="col-sm-6">
                         <h5 class="mb-3">To:</h5>

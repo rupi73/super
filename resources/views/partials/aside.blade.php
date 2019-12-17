@@ -53,7 +53,10 @@
                         </a>
                         <ul class="sub-menu">
                         <li><a href="{{route('wallets.create')}}"><span class="title">Add Money</span></a></li>
-                            <li><a href="{{route ('wallets.index')}}"><span class="title">List</span></a></li>
+                            <li><a href="{{route ('wallets.index')}}"><span class="title">Wallets</span></a></li>
+                            @can('super',\App\Product::class)
+                            <li><a href="{{route ('wallets.franchise')}}"><span class="title">My Wallet</span></a></li>
+                            @endcan
                             </ul>
                     </li>
                                 
