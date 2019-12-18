@@ -21,8 +21,10 @@ class ClientsController extends Controller
     public function index()
     {
         //
+        if(\Gate::allows('super',\App\Category::class))
        $clients=Client::with('franchise')->latest()->paginate(10);
-       
+       else
+       $clients=Client::with('franchise')->where('franchise_id',auth()->id())->latest()->paginate(10);
        $_clients=[];
        if($clients->count()){
        foreach($clients as $client){
@@ -77,8 +79,7 @@ $franchises = Role::with('users')->whereIn('id',[3,4,5])->get();
      */
     public function show( Client $client)
     {
-        //
-        //$clients=client::findorfail($clients);
+        abort_if(!is_owner_of($client,'franchise_id') && \Gate::denies('admin',\App\Category::class),403);
         return view('clients.show',compact('client'));
     }
 
@@ -91,8 +92,9 @@ $franchises = Role::with('users')->whereIn('id',[3,4,5])->get();
     public function edit($id)
     {
         //
-        $clients=Client::findorfail($id);
-        return view('clients.edit',compact('clients'));
+        $client=Client::findorfail($id);
+        abort_if(!is_owner_of($client,'franchise_id') && \Gate::denies('admin',\App\Category::class),403);
+        return view('clients.edit',compact('client'));
     }
 
     /**
@@ -106,17 +108,18 @@ $franchises = Role::with('users')->whereIn('id',[3,4,5])->get();
     {
         //
 
-        $clients=Client::find($id);
-        $clients->name = request('name');
-        $clients->email = request('email');
+        $client=Client::find($id);
+        abort_if(!is_owner_of($client,'franchise_id') && \Gate::denies('admin',\App\Category::class),403);
+        $client->name = request('name');
+        $client->email = request('email');
 
-        $clients->mobile = request('mobile');
-        $clients->franchise_id = request('franchise_id');
-        $clients->city = request('city');
-        $clients->state = request('state');
-        $clients->country = request('country');
+        $client->mobile = request('mobile');
+        $client->franchise_id = request('franchise_id');
+        $client->city = request('city');
+        $client->state = request('state');
+        $client->country = request('country');
 
-        $clients->save();
+        $client->save();
 
         return redirect()->route('clients.index');
     }

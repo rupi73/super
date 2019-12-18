@@ -53,10 +53,10 @@
                         </a>
                         <ul class="sub-menu">
                         <li><a href="{{route('wallets.create')}}"><span class="title">Add Money</span></a></li>
+                        @can('super',\App\Product::class)
                             <li><a href="{{route ('wallets.index')}}"><span class="title">Wallets</span></a></li>
-                            @can('super',\App\Product::class)
-                            <li><a href="{{route ('wallets.franchise')}}"><span class="title">My Wallet</span></a></li>
                             @endcan
+                            <li><a href="{{route ('wallets.franchise',auth()->id())}}"><span class="title">My Wallet</span></a></li>
                             </ul>
                     </li>
                                 
@@ -77,6 +77,7 @@
              
           
             </ul>
+            @can('admin',\App\Product::class)
             <div class="navbar-title"><div class="item-media"><i class="ti-settings"></i><span>Settings</span></div></div>
             <ul class="folders">
                     <li>
@@ -209,6 +210,7 @@
                                         </ul>
                             </li>
             </ul>
+            @endcan
         </nav>
     </div>
 </div>

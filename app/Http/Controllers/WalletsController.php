@@ -22,6 +22,7 @@ class WalletsController extends Controller
      */
     public function index()
     {
+        abort_if(\Gate::denies('super',\App\Category::class),403);
         $franchises = Role::with('users.clients')->whereIn('id',[3,4,5])->get();
         $balance = Transaction::sum('amount');
         foreach($franchises as $franchise){
@@ -136,9 +137,10 @@ $payment->update(['transaction_id'=>$transaction->id]);
         print json_encode(['success'=>true]);
     }//function
 
-    public function franchise($id){
+    public function franchise($id=0){
         $id = $id?$id:auth()->id();
         $user = User::findOrFail($id);
+        abort_if(!($user->id==auth()->id()) && \Gate::denies('admin',\App\Category::class),403);
         $balance = $user->balance;
         $transactions = [];
         foreach($user->transactions as $transaction){

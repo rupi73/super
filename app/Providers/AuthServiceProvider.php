@@ -22,6 +22,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Paper' => 'App\Policies\SuperAdminPolicy',
         'App\Treatment' => 'App\Policies\SuperAdminPolicy',
         'App\Product' => 'App\Policies\SuperAdminPolicy',
+        'App\Order' => 'App\Policies\SuperAdminPolicy',
 
     ];
 

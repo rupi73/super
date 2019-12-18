@@ -138,9 +138,10 @@ return substr($ret,0,-1);
     }
 }
 
-if (! function_exists('json_fix_quotes')) {
-    function json_fix_quotes($json)
+if (! function_exists('is_owner_of')) {
+    function is_owner_of($model,$field_id='user_id')
     {
-       return '';
+       
+       return $model->{$field_id}==auth()->id();
     }
 }

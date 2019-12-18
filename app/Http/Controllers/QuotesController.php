@@ -24,7 +24,10 @@ class QuotesController extends Controller
     public function index()
     {
         //
-        $quotes = Quote::latest()->paginate(5);
+        if(\Gate::allows('super',\App\Category::class))
+          $quotes = Quote::latest()->paginate(10);
+        else
+        $quotes = Quote::where('franchise_id',auth()->id())->latest()->paginate(10);
         $_quotes=[];
         foreach($quotes as $quote){
             $_quotes[]=['date'=>$quote->updated_at->format('d-m-Y'),'franchise'=>$quote->franchise->name,'client'=>$quote->client->name,'id'=>$quote->id,'estimate'=>$quote->estimate];
@@ -58,10 +61,10 @@ if($recordId){
     $records=['franchise_id'=>$row->franchise_id,'client_id'=>$row->client_id,'quotes'=>$row->estimate,'quote_id'=>$recordId];
     }
 
-    //print_r($records['quotes']);die();
+    abort_if(!is_owner_of($row,'franchise_id') && \Gate::denies('admin',\App\Category::class),403);
 }
 $categories = Category::with(['products','roleMargins'])->orderBy('name')->get();
-$addOnProducts = AddonProduct::where('franchise_id',3)->orderBy('name','ASC')->get();
+$addOnProducts = AddonProduct::where('franchise_id',auth()->id())->orderBy('name','ASC')->get();
 if(\Gate::allows('super',Category::class)){
 $clients = '';
 $franchises = Role::with('users.clients')->whereIn('id',[3,4,5])->get();

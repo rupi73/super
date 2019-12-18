@@ -20,10 +20,11 @@
       <a  :href="url + 'orders/'+ data.item.id" class="btn btn-sm mr-1 btn-dark">
                     <i class="ti-eye"></i>
                      </a>
-                     <a class="btn btn-sm btn-info mr-1" :href="url + '/edit/1/'+ data.item.id">
+                     <a class="btn btn-sm btn-info mr-1" :href="url + 'orders/edit/1/'+ data.item.id">
                          <i class="ti-pencil" ></i>
                      </a>
-                     <a class="btn btn-sm btn-success mr-1" :href="url + 'orders/'+ data.item.id">
+                     
+                     <a class="btn btn-sm btn-success mr-1" href="javascript:void(0);" v-if="!data.item.paid" @click="payForOrder(data.item.id)">
                         <i class="ti-money" ></i>
                     </a>
                           
@@ -36,8 +37,12 @@
         </b-col>
 
     </b-row>
-
-    
+    <form role="form" action="{{route('order.pay')}}"
+      id="form-pay" method="POST">
+      @csrf
+      <input type="hidden" name="order_id"  id="pay-order-id"/>
+    </form>
+    @{{pay_order_id}}
 </b-container>
 
 
@@ -66,11 +71,15 @@ el:'#vorders',
         ],
         orders: [],
         url:'{{config("app.url")}}'
+        
       }
     },
       methods:{
-          fillOrderItems:function(){
-
+          payForOrder:function(orderId){            
+            let eleOrder = document.getElementById('pay-order-id');
+            eleOrder.value=orderId;
+            let form = document.getElementById('form-pay');    
+            form.submit();
           }
       },
       mounted:function(){

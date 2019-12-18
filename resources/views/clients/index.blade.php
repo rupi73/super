@@ -17,7 +17,7 @@
         <a  :href="url + 'clients/'+ data.item.id" class="btn btn-sm mr-1 btn-dark">
                     <i class="ti-eye"></i>
                      </a>
-                     <a class="btn btn-sm btn-info mr-1" :href="url + '/edit/1/'+ data.item.id">
+                     <a class="btn btn-sm btn-info mr-1" :href="url + 'clients/'+ data.item.id +'/edit'">
                          <i class="ti-pencil" ></i>
                      </a>
                     
