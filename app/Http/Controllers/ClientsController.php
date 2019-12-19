@@ -44,9 +44,9 @@ class ClientsController extends Controller
     {
         //
 $franchises = Role::with('users')->whereIn('id',[3,4,5])->get();
+$franchise_id = auth()->id();
 
-
-       return view('clients.create',compact('franchises'));
+       return view('clients.create',compact('franchises','franchise_id'));
     }
 
     /**

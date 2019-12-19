@@ -201,6 +201,7 @@
           <button type="button" class="btn btn-dark btn-sm float-right mx-1 align-self-center" :disabled="validateSaveOrder" @click="saveOrder">Save Order</button>
           <button type="button" class="btn btn-sm btn-dark float-right" :disabled="validateSaveQuote" @click="saveQuote">Save Quote</button>
         </template>
+        @can('admin',\App\Product::class)
         <b-row>
           <b-col cols="12">
             <b-form-select v-model="franchise_id" class="mb-1" size="sm" id="input-franchise"
@@ -215,6 +216,7 @@
             </b-form-select>
           </b-col>
         </b-row>
+        @endcan
         <b-row>
           <b-col cols="12">
             <b-form-select v-model="client" :options="clients" size="sm" value-field="id" text-field="name">

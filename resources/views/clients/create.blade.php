@@ -136,7 +136,7 @@ el:'#vapp',
         form: {
           email: '',
           name: '',
-          franchise_id:'',
+          franchise_id:'{{$franchise_id}}',
           mobile:'',
           city: '',
           state: '',
@@ -148,7 +148,7 @@ el:'#vapp',
     methods: {
       onSubmit(evt) {
         evt.preventDefault();
-        alert(JSON.stringify(this.form));
+        //alert(JSON.stringify(this.form));
         document.getElementById('client-franchise-id').value = vm.form.franchise_id;
         document.getElementById('client-name').value = vm.form.name;
         document.getElementById('client-email').value = vm.form.email;

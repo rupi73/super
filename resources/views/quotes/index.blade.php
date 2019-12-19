@@ -19,7 +19,7 @@
       <a  :href="url + 'quotes/'+ data.item.id" class="btn btn-sm mr-1 btn-dark">
                     <i class="ti-eye"></i>
                      </a>
-                     <a class="btn btn-sm btn-info mr-1" :href="url + 'quotes/edit/1/'+ data.item.id">
+                     <a class="btn btn-sm btn-info mr-1" :href="url + 'quotes/edit/0/'+ data.item.id">
                          <i class="ti-pencil" ></i>
                      </a>
                      
