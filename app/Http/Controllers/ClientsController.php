@@ -92,9 +92,10 @@ $franchise_id = auth()->id();
     public function edit($id)
     {
         //
+        $franchises = Role::with('users')->whereIn('id',[3,4,5])->get();
         $client=Client::findorfail($id);
         abort_if(!is_owner_of($client,'franchise_id') && \Gate::denies('admin',\App\Category::class),403);
-        return view('clients.edit',compact('client'));
+        return view('clients.edit',compact('client','franchises'));
     }
 
     /**

@@ -15,15 +15,22 @@
                         <form action="{{route('clients.update',$client->id)}}" method="POST">
                             @csrf
                             @method('patch')
+                            @if(\Gate::allows('super',\App\Category::class))
                             <div class="form-group">
                                 <label for="franchise">Franchise</label>
                                 <select class="custom-select " name="franchise_id">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
+                                    @foreach($franchises as $franchise)
+                                    <optgroup label="{{$franchise->name}}">
+                                            @foreach($franchise->users as $user)
+                                            <option value="{{$user->id}}" {{$user->id==$client->franchise_id?"selected":""}}>{{$user->name}}</option>
+                                            @endforeach
+                                            </optgroup>
+                                            @endforeach
                                 </select>
                             </div>
+                            @else
+                        <input type="hidden" name="franchise_id" value="{{$client->franchise_id}}"/>
+                            @endif
                             <div class="row">
                                 <div class="col">
                             <div class="form-group">
@@ -61,7 +68,7 @@
                                         <div class="col">
                                                 <div class="form-group">                                        
                                             <label for="state">State</label>
-                                            <input type="text" class="form-control" id="state" name="state" value="{{$client->State}}">
+                                            <input type="text" class="form-control" id="state" name="state" value="{{$client->state}}">
                                            
                                         </div>
                                     </div>
@@ -69,7 +76,7 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="country">Country</label>
-                                            <input type="text" class="form-control" id="country" name="country" value="{{$client->Country}}" >
+                                            <input type="text" class="form-control" id="country" name="country" value="{{$client->country}}" >
                                            
                                         </div>
                                     </div>
